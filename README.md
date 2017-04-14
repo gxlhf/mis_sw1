@@ -1,5 +1,7 @@
 ### 实体规范
+
 * 检查（Exam）
+
 exam_no 主键
 patient_id 患者ID
 visit_id 住院编号
@@ -13,6 +15,7 @@ description 描述
 impression 结论
 
 * 检验（Test）
+
 test_no 主键
 patient_id 患者ID
 visit_id 住院编号
@@ -24,6 +27,7 @@ item_name 检验项目名 （String数组）
 test_result 检验结果 （TestResult对象数组）
 
 * 检验结果（TestResult）
+
 print_order 打印顺序
 report_item_name 指标名称
 result 结果
@@ -32,12 +36,14 @@ abnormal_indicator 正常情况
 normal_value 参考值
 
 * 患者（patient）
+
 patient_id 患者ID
 patient_name 姓名
 sex 性别
 date_of_birth 出生日期
 
 * 用户（user）
+
 user 用户名
 password 密码
 email 邮箱
