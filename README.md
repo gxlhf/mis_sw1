@@ -1,1 +1,3 @@
 #mis_sw1
+
+master分支仅用于发布正式版本，开发时请切换到develop分支或由develop分支fork一个新分支后在新分支上开发。
