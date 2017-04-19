@@ -27,6 +27,6 @@ public class DBPoolTest {
         }
 
         pool.closePool();
-        System.out.println("¾­¹ı100´ÎµÄÑ­»·µ÷ÓÃ£¬Ê¹ÓÃÁ¬½Ó³Ø»¨·ÑµÄÊ±¼ä:" + (System.currentTimeMillis() - start) + "ms\n");
+        System.out.println("ç»è¿‡100æ¬¡çš„å¾ªç¯è°ƒç”¨ï¼Œä½¿ç”¨è¿æ¥æ± èŠ±è´¹çš„æ—¶é—´:" + (System.currentTimeMillis() - start) + "ms\n");
     }
 }
