@@ -24,7 +24,7 @@ public class UserDao {
         try{   
         	String sql = "select password from user where user.user = ? ";
         	PreparedStatement ps= con.prepareStatement(sql);
-        	ps.setString(1, user.getUserName());
+        	ps.setString(1, user.getUser());
         	ResultSet rs = ps.executeQuery();
         	while(rs.next())
         	{

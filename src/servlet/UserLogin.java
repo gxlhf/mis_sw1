@@ -67,9 +67,9 @@ public class UserLogin extends HttpServlet {
         String password = request.getParameter("inputPassword");    
         String message=null;
         HttpSession session = request.getSession();     
-        User user = new User(null,userName,password,null);
+        User user = new User(userName,password,null);
         System.out.println("input: "+userName+" "+password);
-        System.out.println("check: "+user.getUserName()+" "+user.getPassword());
+        System.out.println("check: "+user.getUser()+" "+user.getPassword());
         if(new UserDao().verifyUser(user))
             {
             message="Successful";
