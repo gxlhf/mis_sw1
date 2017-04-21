@@ -4,7 +4,7 @@
  * patient_name:患者姓名
  * sex:性别
  */
-package com.entity;
+package entity;
 
 public class Patient {
 	String patient_id;

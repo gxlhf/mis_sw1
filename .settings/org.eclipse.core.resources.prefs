@@ -1,4 +1,12 @@
 eclipse.preferences.version=1
 encoding//WebRoot/index.jsp=UTF-8
+<<<<<<< HEAD
 encoding//src/database/DBConnection.java=UTF-8
 encoding/<project>=UTF-8
+=======
+encoding//src/dao/UserDao.java=UTF-8
+encoding//src/database/ConnectionPool.java=UTF-8
+encoding//src/database/DBPoolTest.java=UTF-8
+encoding//src/entity/User.java=UTF-8
+encoding//src/servlet/UserLogin.java=UTF-8
+>>>>>>> ae748a5db60ae65873bd34d6859f2a8e1414f9c1

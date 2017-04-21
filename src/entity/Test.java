@@ -10,7 +10,7 @@
  * item_name:检验项目名
  * test_result:检验结果
  */
-package com.entity;
+package entity;
 
 public class Test {
 	String test_no;

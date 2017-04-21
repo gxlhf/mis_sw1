@@ -1,7 +1,7 @@
 /**
  * 历史查询项类
  */
-package com.entity;
+package entity;
 
 public class HistoryQueryItem {
 

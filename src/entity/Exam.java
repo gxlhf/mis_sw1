@@ -11,7 +11,7 @@
  * description:描述
  * impression:结论
  */
-package com.entity;
+package entity;
 
 public class Exam {
 	String exam_no;

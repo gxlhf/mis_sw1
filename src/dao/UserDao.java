@@ -16,7 +16,7 @@ public class UserDao {
             pool = ConnectionPool.getInstance();
             con = pool.getConnection();
         }catch(Exception se ){   
-            System.out.println("Êı¾İ¿âÁ¬½ÓÊ§°Ü£¡");   
+            System.out.println("æ•°æ®åº“è¿æ¥å¤±è´¥ï¼");   
             se.printStackTrace() ;   
              }   
 	}
@@ -37,7 +37,7 @@ public class UserDao {
         			return false;}
         	}
         }catch(SQLException se ){   
-            System.out.println("ÓÃ»§Ê¶±ğÊ§°Ü£¡");   
+            System.out.println("ç”¨æˆ·è¯†åˆ«å¤±è´¥ï¼");   
             se.printStackTrace() ;   
              }   
 		return false;

@@ -7,7 +7,7 @@
  * abnormal_indicator:正常情况
  * normal_value:参考值
  */
-package com.entity;
+package entity;
 
 public class TestResult {
 	int print_order;
