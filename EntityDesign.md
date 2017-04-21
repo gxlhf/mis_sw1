@@ -1,78 +1,78 @@
-### ÊµÌå¹æ·¶
+### å®ä½“è§„èŒƒ
 
-* ¼ì²é£¨Exam£©
+* æ£€æŸ¥ï¼ˆExamï¼‰
 
-exam_no Ö÷¼ü
+exam_no ä¸»é”®
 
-patient_id »¼ÕßID
+patient_id æ‚£è€…ID
 
-visit_id ×¡Ôº±àºÅ
+visit_id ä½é™¢ç¼–å·
 
-req_date_time ¼ì²éÊ±¼ä
+req_date_time æ£€æŸ¥æ—¶é—´
 
-exam_sub_class ¼ì²é¸¸Àà
+exam_sub_class æ£€æŸ¥çˆ¶ç±»
 
-exam_class ¼ì²é×ÓÀà
+exam_class æ£€æŸ¥å­ç±»
 
-clin_symp ÁÙ´²Ö¢×´
+clin_symp ä¸´åºŠç—‡çŠ¶
 
-phys_sign ÎïÀíÖ¢×´
+phys_sign ç‰©ç†ç—‡çŠ¶
 
-clin_diag ÁÙ´²Õï¶Ï
+clin_diag ä¸´åºŠè¯Šæ–­
 
-description ÃèÊö
+description æè¿°
 
-impression ½áÂÛ
+impression ç»“è®º
 
-* ¼ìÑé£¨Test£©
+* æ£€éªŒï¼ˆTestï¼‰
 
-test_no Ö÷¼ü
+test_no ä¸»é”®
 
-patient_id »¼ÕßID
+patient_id æ‚£è€…ID
 
-visit_id ×¡Ôº±àºÅ
+visit_id ä½é™¢ç¼–å·
 
-execute_date ¼ìÑéÊ±¼ä
+execute_date æ£€éªŒæ—¶é—´
 
-age ÄêÁä
+age å¹´é¾„
 
-relevant_clinic_diag Ïà¹ØÁÙ´²Õï¶Ï½á¹û
+relevant_clinic_diag ç›¸å…³ä¸´åºŠè¯Šæ–­ç»“æœ
 
-specimen ¼ìÑéÑù±¾
+specimen æ£€éªŒæ ·æœ¬
 
-item_name ¼ìÑéÏîÄ¿Ãû £¨StringÊı×é£©
+item_name æ£€éªŒé¡¹ç›®å ï¼ˆStringæ•°ç»„ï¼‰
 
-test_result ¼ìÑé½á¹û £¨TestResult¶ÔÏóÊı×é£©
+test_result æ£€éªŒç»“æœ ï¼ˆTestResultå¯¹è±¡æ•°ç»„ï¼‰
 
 
-* ¼ìÑé½á¹û£¨TestResult£©
+* æ£€éªŒç»“æœï¼ˆTestResultï¼‰
 
-print_order ´òÓ¡Ë³Ğò
+print_order æ‰“å°é¡ºåº
 
-report_item_name Ö¸±êÃû³Æ
+report_item_name æŒ‡æ ‡åç§°
 
-result ½á¹û
+result ç»“æœ
 
-units µ¥Î»
+units å•ä½
 
-abnormal_indicator Õı³£Çé¿ö
+abnormal_indicator æ­£å¸¸æƒ…å†µ
 
-normal_value ²Î¿¼Öµ
+normal_value å‚è€ƒå€¼
 
-* »¼Õß£¨patient£©
+* æ‚£è€…ï¼ˆpatientï¼‰
 
-patient_id »¼ÕßID
+patient_id æ‚£è€…ID
 
-patient_name ĞÕÃû
+patient_name å§“å
 
-sex ĞÔ±ğ
+sex æ€§åˆ«
 
-date_of_birth ³öÉúÈÕÆÚ
+date_of_birth å‡ºç”Ÿæ—¥æœŸ
 
-* ÓÃ»§£¨user£©
+* ç”¨æˆ·ï¼ˆuserï¼‰
 
-user ÓÃ»§Ãû
+user ç”¨æˆ·å
 
-password ÃÜÂë
+password å¯†ç 
 
-email ÓÊÏä
+email é‚®ç®±
