@@ -8,6 +8,8 @@ package entity;
 
 import java.util.List;
 
+import dao.ExamDao;
+
 public class User {
 	String user;
 	String password;
@@ -44,8 +46,9 @@ public class User {
 	 * 查询 检查指标，返回字符串数组
 	 * 检查指标包括黑白超，内镜，介入，心电图等
 	 */
-	public String[] queryExamClass(){
+	public String[] queryExamClass() {
 		String[] queryExamClassResult = null;
+		queryExamClassResult = new ExamDao().queryExamClass();
 		return queryExamClassResult;
 	}
 
@@ -96,8 +99,8 @@ public class User {
 	/**
 	 * 查询数据库中检查项的数量
 	 */
-	public int getExamCount(){
-		int getExamCountResult = 0;
+	public int getExamCount() {
+		int getExamCountResult = new ExamDao().getExamCount();
 		return getExamCountResult;
 	}
 
@@ -109,15 +112,5 @@ public class User {
 		int getTestCountResult = 0;
 		return getTestCountResult;
 	}
-
-
-	/**
-	 * 查询数据库中检验项的数量
-	 */
-	public int getTestCount(){
-		int getTestCountResult = 0;
-		return getTestCountResult;
-	}
-	
 	
 }
