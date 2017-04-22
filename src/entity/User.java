@@ -89,7 +89,7 @@ public class User {
 	 * 查询数据库中患者的数量
 	 */
 	public int getPatientCount(){
-		int getPatientCountResult = (new UserDao()).getPatientCount();
+		int getPatientCountResult = 0;
 		return getPatientCountResult;
 	}
 
@@ -97,7 +97,7 @@ public class User {
 	 * 查询数据库中检查项的数量
 	 */
 	public int getExamCount(){
-		int getExamCountResult = (new UserDao()).getExamCount();
+		int getExamCountResult = 0;
 		return getExamCountResult;
 	}
 
@@ -106,7 +106,7 @@ public class User {
 	 * 查询数据库中检验项的数量
 	 */
 	public int getTestCount(){
-		int getTestCountResult = (new UserDao()).getTestCount();
+		int getTestCountResult = 0;
 		return getTestCountResult;
 	}
 
