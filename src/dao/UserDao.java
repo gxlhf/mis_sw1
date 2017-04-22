@@ -41,5 +41,49 @@ public class UserDao {
             se.printStackTrace() ;   
              }   
 		return false;
-} 
+    } 
+    //病人数量
+    public int getPatientCount() {
+        int count = 0;
+        try{   
+            String sql = "select count(*) from patient";
+            PreparedStatement ps= con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            count = rs.getInt(1);
+        }catch(SQLException se ){   
+            System.out.println("patient count error");   
+            se.printStackTrace() ;   
+        } 
+
+        return count;
+    }
+
+    public int getExamCount() {
+        int count = 0;
+        try{   
+            String sql = "select count(*) from exam";
+            PreparedStatement ps= con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            count = rs.getInt(1);
+        }catch(SQLException se ){   
+            System.out.println("exam count error");   
+            se.printStackTrace() ;   
+        } 
+
+        return count;
+    }
+
+    public int getTestCount() {
+        int count = 0;
+        try{   
+            String sql = "select count(*) from test";
+            PreparedStatement ps= con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            count = rs.getInt(1);
+        }catch(SQLException se ){   
+            System.out.println("test count error");   
+            se.printStackTrace() ;   
+        } 
+        return count;
+    }
 }
