@@ -86,19 +86,10 @@ public class User {
 	}
 
 	/**
-	 * 查询所有历史查询，返回历史查询类列表
-	 */
-	public List<HistoryQueryItem>  getQueryHistory(){
-		List<HistoryQueryItem> getQueryHistoryResult = null;
-		return getQueryHistoryResult;
-	}
-
-
-	/**
 	 * 查询数据库中患者的数量
 	 */
 	public int getPatientCount(){
-		int getPatientCountResult = 0;
+		int getPatientCountResult = (new UserDao()).getPatientCount();
 		return getPatientCountResult;
 	}
 
@@ -106,8 +97,17 @@ public class User {
 	 * 查询数据库中检查项的数量
 	 */
 	public int getExamCount(){
-		int getExamCountResult = 0;
+		int getExamCountResult = (new UserDao()).getExamCount();
 		return getExamCountResult;
+	}
+
+
+	/**
+	 * 查询数据库中检验项的数量
+	 */
+	public int getTestCount(){
+		int getTestCountResult = (new UserDao()).getTestCount();
+		return getTestCountResult;
 	}
 
 
