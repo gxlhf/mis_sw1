@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>患者详情</title>
+    <!--<link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">-->
+    <script src="https://cdn.bootcss.com/vue/2.2.6/vue.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="http://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+    <div class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><span>LOGO</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+          <ul class="nav navbar-nav navbar-left">
+            <li class="dropdown active">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">多维查询</a>
+              <ul class="dropdown-menu">
+                <li><a href="quire.html">查询</a></li>
+                <li><a href="quire_history.html">历史查询</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">统计分析</a>
+            </li>
+            <li>
+              <a href="#">影像文本分析</a>
+            </li>
+            <li>
+              <a href="#">知识库</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">住院号</label>
+            <div class="col-sm-10">
+              <p class="form-control-static">12345623</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">姓名</label>
+            <div class="col-sm-10">
+              <p class="form-control-static">王大锤</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">性别</label>
+            <div class="col-sm-10">
+              <p class="form-control-static">男</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">出生日期</label>
+            <div class="col-sm-10">
+              <p class="form-control-static">1992-10-11</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="table-responsive">
+            <table id="tb-inHospitalRecord" class="table table-bordered table-hover table-striped">
+              <thead>
+                <tr>
+                  <td>住院次号</td>
+                  <td>住院时间</td>
+                  <td>入院时年龄</td>
+                  <td>诊断结果</td>
+                  <td></td>
+                </tr>
+              </thead>
+              <tbody>
+                <template v-for="item in tableContent.data">
+                  <tr>
+                    <td>{{item.index}}</td>
+                    <td>{{item.inTime}}</td>
+                    <td>{{item.inAge}}</td>
+                    <td>{{item.diag}}</td>
+                    <td>
+                      <a v-if="item.haveExam" v-on:click="getDetail('exam', item.index)" class="btn btn-primary btn-xs">检查详情</a>
+                      <a v-if="item.haveLab" class="btn btn-success btn-xs">检验详情</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="5" v-show="showDetail" class="patient-detail" :class="{loading: showLoading}">
+                      <div v-if="detailType === 'exam'" v-for="detail in item.detail.data" class="form-horizontal">
+                        <div class="form-group">
+                          <label class="control-label col-lg-2">检查号：</label>
+                          <div class="col-lg-9">
+                            <p>{{detail.examNo}}</p>
+                            <label>检查类别：</label>
+                            <p>{{detail.examType}}</p>
+                            <label>检查部位：</label>
+                            <p>{{detail.examPos}}</p>
+                            <label>正常与否：</label>
+                            <p>{{detail.isNormal}}</p>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-lg-2 control-label">描述：</label>
+                          <div class="col-lg-9">
+                            <p class="form-control-static" v-html="detail.description">
+                            </p>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-lg-2 control-label">诊断：</label>
+                          <div class="col-lg-9">
+                            <p class="form-control-static" v-html="detail.diag">
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div v-show="!showLoading" class="flod"><a>▲ 折叠检查详情</a></div>
+                    </td>
+                  </tr>
+                  <tr></tr>
+                </template>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    <script>
+    var inHospitalRecord = {
+      length: 3,
+      data:[
+        {
+          index: 1,
+          inTime: "2008-6-12",
+          inAge: 15,
+          diag: "肺炎",
+          haveExam: true,
+          haveLab: true,
+          detail:{}
+        },
+        {
+          index: 2,
+          inTime: "2008-8-12",
+          inAge: 15,
+          diag: "肠炎",
+          haveExam: true,
+          haveLab: true,
+          detail:{}
+        },
+        {
+          index: 3,
+          inTime: " 2011-6-12",
+          inAge: 17,
+          diag: "骨折",
+          haveExam: true,
+          haveLab: true,
+          detail:{}
+        },
+      ]
+    };
+    var examRecord = {
+      length: 2,
+      data:[
+        {
+          examNo: "123123",
+          examType: "B超",
+          examPos: "腹部",
+          isNormal: "否",
+          description: "右肺中叶大部分不张，呈条片状高密度影，边缘模糊，其内可见少许含气支气管影，右肺下叶可见斑片状高密度实变影，与邻近胸膜粘连，左肺下叶后基底段胸膜下可见少许斑片状模糊影，各叶段支气管通畅；双肺门及纵隔内未见增大淋巴结，双侧未见胸腔积液。\<br\>右膈面明显上抬，所示肝脏体积缩小、肝裂增宽，边缘不规则呈波浪结节样，右肝及左肝内叶可见巨大肿块灶，形态不规则，边界不清晰，密度不均匀，其内可见不规则片状低密度影及多发点片状点油沉积，增强扫描肿块呈不均匀明显强化。门静脉主干及其属支未见增粗，其内未见充盈缺损影。食管下段",
+          diag: "1.肝脏肿块较前增大，仍考虑恶性肿瘤（原发性肝癌？）可能。\<br\>2.右肝前叶小囊肿同前。\<br\>3.双肾囊肿，右肾多发小结石可能同前；\<br\>4.左肺下叶炎症较前吸收，左侧少-中量胸腔积液较前基本吸收；心包增厚较前改善；双肺慢性炎症，右侧少量胸水。\<br\>5.双侧甲状腺内多发结节灶，性质待定，建议进一步检查。"
+        },
+        {
+          examNo: "123123",
+          examType: "B超",
+          examPos: "腹部",
+          isNormal: "否",
+          description: "右肺中叶大部分不张，呈条片状高密度影，边缘模糊，其内可见少许含气支气管影，右肺下叶可见斑片状高密度实变影，与邻近胸膜粘连，左肺下叶后基底段胸膜下可见少许斑片状模糊影，各叶段支气管通畅；双肺门及纵隔内未见增大淋巴结，双侧未见胸腔积液。\<br\>右膈面明显上抬，所示肝脏体积缩小、肝裂增宽，边缘不规则呈波浪结节样，右肝及左肝内叶可见巨大肿块灶，形态不规则，边界不清晰，密度不均匀，其内可见不规则片状低密度影及多发点片状点油沉积，增强扫描肿块呈不均匀明显强化。门静脉主干及其属支未见增粗，其内未见充盈缺损影。食管下段",
+          diag: "1.肝脏肿块较前增大，仍考虑恶性肿瘤（原发性肝癌？）可能。\<br\>2.右肝前叶小囊肿同前。\<br\>3.双肾囊肿，右肾多发小结石可能同前；\<br\>4.左肺下叶炎症较前吸收，左侧少-中量胸腔积液较前基本吸收；心包增厚较前改善；双肺慢性炎症，右侧少量胸水。\<br\>5.双侧甲状腺内多发结节灶，性质待定，建议进一步检查。"
+        },
+      ]
+    }
+
+    var inHospitalRecord_vue = new Vue({
+      el: "#tb-inHospitalRecord",
+      data:{ 
+        tableContent: inHospitalRecord,
+        showDetail: false,
+        showLoading: true,
+        detailType: "exam"
+      },
+      methods: {
+        showLoading: function (a) {
+          this.showDetail = true;
+          this.showLoading = true;
+        },
+        hideLoading: function (a) {
+          this.showDetail = true;
+          this.showLoading = false;
+        },
+        getDetail: function(type, index){
+          switch(type){
+            case "exam":
+              this.methods.showLoading();
+              this.tableContent.data[index - 1].detail = examRecord;
+          }
+        }
+      }
+    })
+    </script>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped">
+              <thead>
+                <tr>
+                  <td>住院次号</td>
+                  <td>住院时间</td>
+                  <td>入院时年龄</td>
+                  <td>诊断结果</td>
+                  <td></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>2008-6-12</td>
+                  <td>15</td>
+                  <td>肺炎</td>
+                  <td>
+                    <a class="btn btn-primary btn-xs active">检查详情</a>
+                    <a class="btn btn-primary btn-xs">检验详情</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="5" class="patient-detail">
+                    <div class="form-horizontal">
+                      <div class="form-group">
+                        <label class="control-label col-lg-2">检查号：</label>
+                        <div class="col-lg-9">
+                          <p>123123</p>
+                          <label>检查类别：</label>
+                          <p>B超</p>
+                          <label>检查部位：</label>
+                          <p>腹部</p>
+                          <label>正常与否：</label>
+                          <p>否</p>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-lg-2 control-label">描述：</label>
+                        <div class="col-lg-9">
+                          <p class="form-control-static">
+                            右肺中叶大部分不张，呈条片状高密度影，边缘模糊，其内可见少许含气支气管影，右肺下叶可见斑片状高密度实变影，与邻近胸膜粘连，左肺下叶后基底段胸膜下可见少许斑片状模糊影，各叶段支气管通畅；双肺门及纵隔内未见增大淋巴结，双侧未见胸腔积液。<br>
+                            右膈面明显上抬，所示肝脏体积缩小、肝裂增宽，边缘不规则呈波浪结节样，右肝及左肝内叶可见巨大肿块灶，形态不规则，边界不清晰，密度不均匀，其内可见不规则片状低密度影及多发点片状点油沉积，增强扫描肿块呈不均匀明显强化。门静脉主干及其属支未见增粗，其内未见充盈缺损影。食管下段<br>
+                          </p>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-lg-2 control-label">诊断：</label>
+                        <div class="col-lg-9">
+                          <p class="form-control-static">
+                            1.肝脏肿块较前增大，仍考虑恶性肿瘤（原发性肝癌？）可能。<br>
+                            2.右肝前叶小囊肿同前。<br>
+                            3.双肾囊肿，右肾多发小结石可能同前；<br>
+                            4.左肺下叶炎症较前吸收，左侧少-中量胸腔积液较前基本吸收；心包增厚较前改善；双肺慢性炎症，右侧少量胸水。<br>
+                            5.双侧甲状腺内多发结节灶，性质待定，建议进一步检查。<br>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="flod"><a>▲ 折叠检查详情</a></div>
+                  </td>
+                </tr>
+                <tr></tr>
+                <tr>
+                  <td>2</td>
+                  <td>2008-8-12</td>
+                  <td>15</td>
+                  <td>肠炎</td>
+                  <td>
+                    <a class="btn btn-primary btn-xs">检验详情</a>
+                    <a class="btn btn-primary btn-xs active">检查详情</a>
+                  </td>
+                </tr>                
+                <tr>
+                  <td colspan="5" class="patient-detail">
+                    <div class="form-horizontal">
+                      <div class="form-group">
+                        <label class="control-label col-lg-2">检验号：</label>
+                        <div class="col-lg-9">
+                          <p>123123</p>
+                          <label>检验名称：</label>
+                          <p>血常规</p>
+                        </div>
+                      </div>
+                      <div class="lab-result">
+                        <div class="table-responsive col-lg-11">
+                          <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                              <tr>
+                                <td>指标名称</td>
+                                <td>结果</td>
+                                <td>单位</td>
+                                <td>结果指示</td>
+                                <td>正常区间</td>
+                              </tr>
+                            </thead>
+                            <tbody> 
+                              <tr>
+                              <td>白细胞</td>
+                              <td>2.96</td>
+                              <td>*10^9/L</td>
+                              <td>L</td>
+                              <td>4.0-10.9</td>
+                             </tr>
+                             <tr>
+                              <td>血红蛋白</td>
+                              <td>125</td>
+                              <td>g/L</td>
+                              <td></td>
+                              <td>110-170</td>
+                             </tr>
+                             <tr>
+                              <td>红细胞压积</td>
+                              <td>41.2</td>
+                              <td>%</td>
+                              <td></td>
+                              <td>37-52</td>
+                             </tr>
+                             <tr>
+                              <td>血小板</td>
+                              <td>61</td>
+                              <td>*10^9/L</td>
+                              <td>L</td>
+                              <td>95-350</td>
+                             </tr>
+                             <tr>
+                              <td>单核细胞绝对值</td>
+                              <td>0.16</td>
+                              <td>*10^9/L</td>
+                              <td></td>
+                              <td>0.1-1.8</td>
+                             </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div><div class="form-horizontal">
+                      <div class="form-group">
+                        <label class="control-label col-lg-2">检验号：</label>
+                        <div class="col-lg-9">
+                          <p>123123</p>
+                          <label>检验名称：</label>
+                          <p>血常规</p>
+                        </div>
+                      </div>
+                      <div class="lab-result">
+                        <div class="table-responsive col-lg-11">
+                          <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                              <tr>
+                                <td>指标名称</td>
+                                <td>结果</td>
+                                <td>单位</td>
+                                <td>结果指示</td>
+                                <td>正常区间</td>
+                              </tr>
+                            </thead>
+                            <tbody> 
+                              <tr>
+                              <td>白细胞</td>
+                              <td>2.96</td>
+                              <td>*10^9/L</td>
+                              <td>L</td>
+                              <td>4.0-10.9</td>
+                             </tr>
+                             <tr>
+                              <td>血红蛋白</td>
+                              <td>125</td>
+                              <td>g/L</td>
+                              <td></td>
+                              <td>110-170</td>
+                             </tr>
+                             <tr>
+                              <td>红细胞压积</td>
+                              <td>41.2</td>
+                              <td>%</td>
+                              <td></td>
+                              <td>37-52</td>
+                             </tr>
+                             <tr>
+                              <td>血小板</td>
+                              <td>61</td>
+                              <td>*10^9/L</td>
+                              <td>L</td>
+                              <td>95-350</td>
+                             </tr>
+                             <tr>
+                              <td>单核细胞绝对值</td>
+                              <td>0.16</td>
+                              <td>*10^9/L</td>
+                              <td></td>
+                              <td>0.1-1.8</td>
+                             </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="flod"><a>▲ 折叠检验详情</a></div>
+                  </td>
+                </tr>
+                <tr></tr>
+                <tr>
+                  <td>3</td>
+                  <td>2011-6-12</td>
+                  <td>17</td>
+                  <td>骨折</td>
+                  <td>
+                    <a class="btn btn-primary btn-xs">检验详情</a>
+                    <a class="btn btn-primary btn-xs">检查详情</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

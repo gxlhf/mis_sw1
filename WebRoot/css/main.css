@@ -1,0 +1,51 @@
+.patient-detail{
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0px 0px 16px #e4e4e4 inset; 
+}
+.patient-detail:hover{background: #fff;}
+.patient-detail:active{background: #fff;}
+.patient-detail .form-group:first-child div{
+	padding-top: 7px;
+	padding-bottom: 7px;
+}
+.patient-detail .form-group:first-child div p{
+	margin-right: 50px;
+	display: inline;
+}
+.patient-detail .form-group:first-child div label{
+	font-weight: bold;
+	margin-bottom: 0px !important;
+	display: inline;
+	margin-right: 30px;
+}
+.patient-detail .form-horizontal:not(:last-child):after{
+  content: "";
+  display: block;
+  height: 1px;
+  width: 90%;
+  margin: auto;
+  margin-bottom: 15px;
+	border-bottom: 1px solid #d4d4d4;
+}
+.patient-detail .lab-result{
+  overflow: hidden;
+}
+.patient-detail .lab-result .table-responsive{
+  float: none;
+  display: block;
+  margin: auto;
+}
+td.loading{
+  content: "" !important;
+  background-image: url("../images/loading.gif") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  /* display: none; */
+  height: 100px;
+}
+.flod{
+  text-align: center;
+  margin-top: -2px;
+  margin-bottom: 8px;
+}
