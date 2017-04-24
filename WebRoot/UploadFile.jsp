@@ -8,7 +8,7 @@
         <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="js/dropzone.css">
+        <link rel="stylesheet" href="css/dropzone.css">
     </head>
     <body>
     <div class="navbar navbar-default navbar-static-top">
@@ -52,7 +52,7 @@
            <div class="row clearfix">
 		
 		<div class="col-md-6 column" style="position:absolute; right:-300px;">
-			 <button type="button" class="btn btn-default btn-success">下载文件</button>
+			 <a href="DownloadFile.jsp"><input type="button" class="btn btn-default btn-success" value="下载文件"></a>
 		</div>
         <div id="mydropzone" class="dropzone" style="margin:100px 0 0 0px"></div>
 		</div>

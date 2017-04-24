@@ -1,4 +1,4 @@
-package fileup;
+package servlet;
 
 import readoffice.docConvector;
 import readoffice.PDF2SWFUtil;
@@ -196,7 +196,7 @@ public class Filelu extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		out.print("<script>alert('上传成功');location.href='/F0Fproject/UploadFile.jsp';</script>");	
+		out.print("<script>alert('上传成功');location.href='/MIS/UploadFile.jsp';</script>");	
 		
 	}
 
@@ -321,12 +321,12 @@ public class Filelu extends HttpServlet {
                 file3.delete();
              //   response.sendRedirect("admin/DataView.jsp");  
              //   System.out.println("删除单个文件"+fileName+"成功！"); 
-                out.print("<script>alert('删除成功');location.href='/F0Fproject/DownloadFile.jsp';</script>");	
+                out.print("<script>alert('删除成功');location.href='/MIS/DownloadFile.jsp';</script>");	
                 
             }else{    
              //    response.sendRedirect("admin/DataView.jsp");  
              //   System.out.println("删除单个文件"+fileName+"失败！");   
-            	out.print("<script>alert('删除失败');location.href='/F0Fproject/DownloadFile.jsp';</script>");	
+            	out.print("<script>alert('删除失败');location.href='/MIS/DownloadFile.jsp';</script>");	
             } 
 
         out.flush();
@@ -344,20 +344,23 @@ public class Filelu extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         //得到要下载的文件名
-           String fileName = request.getParameter("parameter");  
+           String fileName = request.getParameter("parameter");
            //获取preview中相应的pdf和swf文件
           String []fi=fileName.split("[+]");
           String[] filegroup=fi[0].split(" ");
           String newname="";                    //提取同一文件名的不同格式，如与ppt/doc搭配的pdf,swf之类的
+          String newname1="";
           String newname2="";
           for(int i=0;i<filegroup.length;i++){
+           newname="";newname2="";newname1="";
            newname=filegroup[i].substring(0,filegroup[i].lastIndexOf('.')+1);
-           newname=newname+"swf";
+           newname1=newname+"swf";
            newname2=newname+"pdf";
+           filegroup[i]=filegroup[i].replace('_','#');
        	String basePath = getServletContext().getRealPath("/upload");
        	String changePath = getServletContext().getRealPath("/preview");
            File file = new File(basePath , filegroup[i]);
-           File file2 = new File(changePath , newname);
+           File file2 = new File(changePath , newname1);
            File file3 = new File(changePath , newname2);
            if(file.isFile() && file.exists()){    
                 file.delete(); 
@@ -367,7 +370,7 @@ public class Filelu extends HttpServlet {
                 
             }
           }
-          out.print("<script>alert('删除成功');location.href='/F0Fproject/DownloadFile.jsp';</script>");	
+          out.print("<script>alert('删除成功');location.href='/MIS/DownloadFile.jsp';</script>");	
         out.flush();
         out.close();             
 	} 
