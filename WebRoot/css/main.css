@@ -36,7 +36,7 @@
   display: block;
   margin: auto;
 }
-td.loading{
+td.loading>.form-horizontal{
   content: "" !important;
   background-image: url("../images/loading.gif") !important;
   background-repeat: no-repeat !important;
@@ -48,4 +48,7 @@ td.loading{
   text-align: center;
   margin-top: -2px;
   margin-bottom: 8px;
+}
+.flod > a{
+  cursor: pointer !important;
 }
