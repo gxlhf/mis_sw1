@@ -27,13 +27,13 @@ body{background:#f8f8f8;}
     <h1 class="threed" style="font-size:70px" align="center">医疗信息课程项目</h1>
         <div class="card card-container">
         <h2 class='login_title text-center' style="color:gray">Login</h2>
-        <hr>
+        <hr/>
             <form class="form-signin" action="<%=path %>/LoginServlet" method="post" >
                 <span id="reauth-email" class="reauth-email"></span>
                 <p class="input_title">用户名</p>
-                <input type="text" id="inputEmail" name="inputUser" class="login_box" placeholder="userString" required autofocus>
+                <input type="text" id="inputEmail" name="inputUser" class="login_box" placeholder="userString" required autofocus/>
                 <p class="input_title">密码</p>
-                <input type="password" id="inputPassword" name="inputPassword"  class="login_box" placeholder="Nothing Here" required>
+                <input type="password" id="inputPassword" name="inputPassword"  class="login_box" placeholder="Nothing Here" required/>
                 <button class="a_demo_four" style="border-width:0px" type="submit">登录</button>
             </form><!-- /form -->
         </div><!-- /card-container -->
