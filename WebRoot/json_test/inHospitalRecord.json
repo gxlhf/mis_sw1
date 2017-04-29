@@ -1,0 +1,32 @@
+{
+  length: 3,
+  data:[
+    {
+      index: 0,
+      dataIndex: 0,
+      inTime: "2008-6-12",
+      inAge: 15,
+      diag: "肺炎",
+      haveExam: true,
+      haveLab: true
+    },
+    {
+      index: 1,
+      dataIndex: 1,
+      inTime: "2008-8-12",
+      inAge: 15,
+      diag: "肠炎",
+      haveExam: true,
+      haveLab: true
+    },
+    {
+      index: 2,
+      dataIndex: 2,          
+      inTime: " 2011-6-12",
+      inAge: 17,
+      diag: "骨折",
+      haveExam: true,
+      haveLab: true
+    },
+  ]
+}
