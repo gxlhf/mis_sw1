@@ -65,7 +65,7 @@
                 <td>{{item.examType}}</td>
                 <td>{{item.labType}}</td>
                 <td>{{item.queryTime}}</td>
-                <td><a href="query_history_result.html">详情</td>
+                <td><a @click="jumpToDetail(item.dataID)">详情</td>
               </tr>
             </tbody>
           </table>

@@ -36,13 +36,21 @@
   display: block;
   margin: auto;
 }
-td.loading>.form-horizontal{
-  content: "" !important;
+td.loading{
   background-image: url("../images/loading.gif") !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
-  /* display: none; */
-  height: 100px;
+  height: 160px;
+  position: relative;
+}
+td.loading>.form-horizontal{
+  display: none;
+}
+td.loading>.flod{
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
 }
 .flod{
   text-align: center;

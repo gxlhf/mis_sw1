@@ -225,10 +225,14 @@ var inHospitalRecord_vue = new Vue({
     },
     toggleDetail: function(type, index){
       var vueObj = this;
-      var sucCbk = function(){vueObj.hideLoading(index)};
-      var errCbk = function(){vueObj.hideDetail(index)};
+      var sucCbk = function(){
+      	vueObj.hideLoading(index);
+      };
+      var errCbk = function(){
+      	// vueObj.hideDetail(index);
+      };
       var curData = vueObj.tableContent.data[index];
-      var queryParm = {id: "index"};
+      var queryParm = {id: index};
       if(curData.showingDetail && curData.detail.type == type)
         vueObj.hideDetail(index);
       else{

@@ -40,5 +40,10 @@ var queryHistoryRecord_vue = new Vue({
   },
   created: function () {
     this.tableContent = queryHistoryRecord;
+  },
+  methods: {
+    jumpToDetail: function (recordID) {
+      window.location.href = "query_history_result.html?redordID=" + recordID;
+    }
   }
 })
