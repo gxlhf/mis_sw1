@@ -1,35 +1,35 @@
-var inHospitalRecord = {
-  length: 3,
-  data:[
-    {
-      index: 0,
-      dataIndex: 0,
-      inTime: "2008-6-12",
-      inAge: 15,
-      diag: "肺炎",
-      haveExam: true,
-      haveLab: true
-    },
-    {
-      index: 1,
-      dataIndex: 1,
-      inTime: "2008-8-12",
-      inAge: 15,
-      diag: "肠炎",
-      haveExam: true,
-      haveLab: true
-    },
-    {
-      index: 2,
-      dataIndex: 2,          
-      inTime: " 2011-6-12",
-      inAge: 17,
-      diag: "骨折",
-      haveExam: true,
-      haveLab: true
-    },
-  ]
-};
+// var inHospitalRecord = {
+//   length: 3,
+//   data:[
+//     {
+//       index: 0,
+//       dataIndex: 0,
+//       inTime: "2008-6-12",
+//       inAge: 15,
+//       diag: "肺炎",
+//       haveExam: true,
+//       haveLab: true
+//     },
+//     {
+//       index: 1,
+//       dataIndex: 1,
+//       inTime: "2008-8-12",
+//       inAge: 15,
+//       diag: "肠炎",
+//       haveExam: true,
+//       haveLab: true
+//     },
+//     {
+//       index: 2,
+//       dataIndex: 2,          
+//       inTime: " 2011-6-12",
+//       inAge: 17,
+//       diag: "骨折",
+//       haveExam: true,
+//       haveLab: true
+//     },
+//   ]
+// };
 var examRecord = {
   type: "exam",
   length: 2,
@@ -118,6 +118,8 @@ var labRecord = {
  */
 function dpCopy(dest, src) {
   for(item in src){
+    console.log(dest, src, item);
+    console.trace();
     if(typeof item == "object"){
       dpCopy(dest[item], src[item]);
     }
@@ -143,7 +145,7 @@ function ajax_get(url, dataToSet, dataToSend, successCbk, errorCbk) {
     dataType: "json",
     data: dataToSend,
     success: function (data) {
-      console.log(dataToSet);
+      // console.log(dataToSet);
       dpCopy(dataToSet, data);
       if(successCbk != undefined){
         successCbk();
@@ -200,6 +202,8 @@ var inHospitalRecord_vue = new Vue({
   },
   created: function () {
     var curData;
+    var inHospitalRecord;
+    ajax_get("json_test/inHospitalRecord.json", inHospitalRecord);
     for(var i = 0; i < inHospitalRecord.data.length; i++){
       curData = inHospitalRecord.data[i];
       curData.showingDetail = false;
@@ -229,7 +233,7 @@ var inHospitalRecord_vue = new Vue({
       	vueObj.hideLoading(index);
       };
       var errCbk = function(){
-      	// vueObj.hideDetail(index);
+      	vueObj.hideDetail(index);
       };
       var curData = vueObj.tableContent.data[index];
       var queryParm = {id: index};
