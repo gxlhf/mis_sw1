@@ -9,6 +9,8 @@ package entity;
 import java.util.List;
 
 import dao.ExamDao;
+import dao.PatientDao;
+import dao.TestDao;
 
 public class User {
 	String user;
@@ -57,7 +59,7 @@ public class User {
 	 * 检验指标大类包括 血常规，血脂全套，E4A等
 	 */
 	public String[] queryTestClass(){
-		String[] queryTestClassResult = null;
+		String[] queryTestClassResult = new  TestDao().quryTestResult();
 		return queryTestClassResult;
 	}
 
@@ -75,7 +77,7 @@ public class User {
 	 * 当性别和检验指标为不限的时候，默认为全选，查询全部结果
 	 */
 	public List<Patient> queryPatient(String sex, int minAge, int maxAge, String examClass){
-		List<Patient> queryPatientResult = null;
+		List<Patient> queryPatientResult = new PatientDao().queryPatient(sex, minAge, maxAge, examClass);
 		return queryPatientResult;
 	}
 
@@ -84,7 +86,7 @@ public class User {
 	 * 当性别和检验指标为不限的时候，默认为全选，查询全部结果
 	 */
 	public List<Patient> queryPatient(String sex, int minAge, int maxAge, String TestItem, double valueStart, double valueEnd) {
-		List<Patient> queryPatientResult = null;
+		List<Patient> queryPatientResult = new PatientDao().queryPatient(sex, minAge, maxAge, TestItem, valueStart, valueEnd);
 		return queryPatientResult;
 	}
 
@@ -92,7 +94,7 @@ public class User {
 	 * 查询数据库中患者的数量
 	 */
 	public int getPatientCount(){
-		int getPatientCountResult = 0;
+		int getPatientCountResult = new PatientDao().getPatientCount();
 		return getPatientCountResult;
 	}
 
@@ -109,8 +111,14 @@ public class User {
 	 * 查询数据库中检验项的数量
 	 */
 	public int getTestCount(){
-		int getTestCountResult = 0;
+		int getTestCountResult = new TestDao().getTestCount();
 		return getTestCountResult;
 	}
-	
+	/**
+	 * 查询病人一次住院的所有检查记录和测试记录
+	 */
+	public HospitalSituation getHospitalSituation(String patient_id,int sequence){
+		HospitalSituation hospitalSituation=null;
+		return hospitalSituation;
+	}
 }
