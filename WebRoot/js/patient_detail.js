@@ -113,20 +113,36 @@ var labRecord = {
   ]
 };
 
+
 /*
  * 深拷贝
  */
 function dpCopy(dest, src) {
   for(item in src){
     console.log(dest, src, item);
-    console.trace();
+    // console.trace();
     if(typeof item == "object"){
+      console.log(1);
       dpCopy(dest[item], src[item]);
     }
     else{
+      console.log(2);
       dest[item] = src[item];
     }
   }
+}
+
+function clone(o){
+  var k, ret= o, b;
+  if(o && ((b = (o instanceof Array)) || o instanceof Object)) {
+    ret = b ? [] : {};
+    for(k in o){
+      if(o.hasOwnProperty(k)){
+        ret[k] = clone(o[k]);
+      }
+    }
+  }
+  return ret;
 }
 
 
@@ -147,8 +163,9 @@ function ajax_get(url, dataToSet, dataToSend, successCbk, errorCbk) {
     success: function (data) {
       // console.log(dataToSet);
       dpCopy(dataToSet, data);
+      // dataToSet = clone(data);
       if(successCbk != undefined){
-        successCbk();
+        successCbk(data);
       }
     },
     error: function (XMLHttpRequest, textStatus, errorThrown) {   
@@ -203,14 +220,18 @@ var inHospitalRecord_vue = new Vue({
   created: function () {
     var curData;
     var inHospitalRecord;
-    ajax_get("json_test/inHospitalRecord.json", inHospitalRecord);
-    for(var i = 0; i < inHospitalRecord.data.length; i++){
-      curData = inHospitalRecord.data[i];
-      curData.showingDetail = false;
-      curData.showingLoading = false;
-      curData.detail = {type: "", length: 0, data: []};
-    }
-    this.tableContent = inHospitalRecord;
+    var v = this;
+    ajax_get("json_test/inHospitalRecord.json", inHospitalRecord,
+      function (inHospitalRecord) {
+        for(var i = 0; i < inHospitalRecord.data.length; i++){
+          curData = inHospitalRecord.data[i];
+          curData.showingDetail = false;
+          curData.showingLoading = false;
+          curData.detail = {type: "", length: 0, data: []};
+        }
+        console.log(inHospitalRecord);
+        v.tableContent = inHospitalRecord;
+      });
   },
   methods: {
     showLoading: function (index) {
