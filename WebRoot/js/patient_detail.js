@@ -119,14 +119,10 @@ var labRecord = {
  */
 function dpCopy(dest, src) {
   for(item in src){
-    console.log(dest, src, item);
-    // console.trace();
     if(typeof item == "object"){
-      console.log(1);
       dpCopy(dest[item], src[item]);
     }
     else{
-      console.log(2);
       dest[item] = src[item];
     }
   }
@@ -161,11 +157,10 @@ function ajax_get(url, dataToSet, dataToSend, successCbk, errorCbk) {
     dataType: "json",
     data: dataToSend,
     success: function (data) {
-      // console.log(dataToSet);
       dpCopy(dataToSet, data);
-      // dataToSet = clone(data);
+      // console.log(successCbk);
       if(successCbk != undefined){
-        successCbk(data);
+        successCbk();
       }
     },
     error: function (XMLHttpRequest, textStatus, errorThrown) {   
@@ -218,25 +213,25 @@ var inHospitalRecord_vue = new Vue({
     }
   },
   created: function () {
-    var curData;
-    var inHospitalRecord;
-    var v = this;
-    ajax_get("json_test/inHospitalRecord.json", inHospitalRecord,
-      function (inHospitalRecord) {
-        for(var i = 0; i < inHospitalRecord.data.length; i++){
-          curData = inHospitalRecord.data[i];
-          curData.showingDetail = false;
-          curData.showingLoading = false;
-          curData.detail = {type: "", length: 0, data: []};
+    inHospitalRecord = {};
+    var queryParm = {patientID: "123123"};
+    var vueObj = this;
+    ajax_get("json_test/inHospitalRecord.json", inHospitalRecord, queryParm,
+      function () {
+        for(var i = 0; i < inHospitalRecord.length; i++){
+          inHospitalRecord.data[i].showingDetail = false;
+          inHospitalRecord.data[i].showingLoading = false;
+          inHospitalRecord.data[i].detail = {type: "", length: 0, data: []};
         }
-        console.log(inHospitalRecord);
-        v.tableContent = inHospitalRecord;
+        console.log(vueObj);
+        vueObj.tableContent = inHospitalRecord;
       });
+    
   },
   methods: {
     showLoading: function (index) {
       var curData = this.tableContent.data[index];
-      curData.showingDetail = true;
+      this.tableContent.data[index].showingDetail = true;
       curData.showingLoading = true;
     },
     hideLoading: function (index) {
