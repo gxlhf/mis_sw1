@@ -76,8 +76,8 @@ public class User {
 	 * 根据性别，年龄段，检查指标查询患者信息，返回患者类列表
 	 * 当性别和检验指标为不限的时候，默认为全选，查询全部结果
 	 */
-	public List<Patient> queryPatient(String sex, int minAge, int maxAge, String examClass){
-		List<Patient> queryPatientResult = new PatientDao().queryPatient(sex, minAge, maxAge, examClass);
+	public List<QueryResult> queryPatient(String sex, int minAge, int maxAge, String examClass){
+		List<QueryResult> queryPatientResult = null;
 		return queryPatientResult;
 	}
 
@@ -85,8 +85,8 @@ public class User {
 	 * 根据性别，年龄段，检查指标具体类别，指标值范围查询患者信息，返回患者列表
 	 * 当性别和检验指标为不限的时候，默认为全选，查询全部结果
 	 */
-	public List<Patient> queryPatient(String sex, int minAge, int maxAge, String TestItem, double valueStart, double valueEnd) {
-		List<Patient> queryPatientResult = new PatientDao().queryPatient(sex, minAge, maxAge, TestItem, valueStart, valueEnd);
+	public List<QueryResult> queryPatient(String sex, int minAge, int maxAge, String TestItem, double valueStart, double valueEnd) {
+		List<QueryResult> queryPatientResult = null;
 		return queryPatientResult;
 	}
 
