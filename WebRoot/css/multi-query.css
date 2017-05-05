@@ -1,0 +1,41 @@
+body {
+    font-family: sans-serif;
+}
+
+._left-title {
+    width: 85px;
+    padding-left: 12px;
+    line-height: 39px;
+    background: #f3f3f3;
+}
+._first-item {
+    padding-left: 40px;
+}
+._first-input {
+    padding-left: 20px;
+}
+._first-select {
+    margin-left: 20px;
+}
+.row {
+    margin-bottom: 20px;
+}
+._button-row {
+    margin-top: 5px;
+}
+._first-form {
+    border-top: 1px solid #DDD;
+}
+.form,
+.form-inline {
+    border-bottom: 1px solid #DDD;
+    border-left: 1px solid #DDD;
+    border-right: 1px solid #DDD;
+    height: 40.5px;
+}
+.container {
+    margin-top: 20px;
+}
+._single-input {
+    border-radius: 3px !important;
+}
