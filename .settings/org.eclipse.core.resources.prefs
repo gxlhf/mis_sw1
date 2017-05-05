@@ -4,7 +4,9 @@
 eclipse.preferences.version=1
 encoding//WebRoot/index.jsp=UTF-8
 encoding//WebRoot/json_test/examRecord.json=UTF-8
+encoding//WebRoot/json_test/inHospitalRecord.json=UTF-8
 encoding//WebRoot/json_test/labRecord.json=UTF-8
+encoding//WebRoot/json_test/patientInfo.json=UTF-8
 encoding//src/dao/UserDao.java=UTF-8
 encoding//src/database/ConnectionPool.java=UTF-8
 encoding//src/database/DBConnection.java=UTF-8

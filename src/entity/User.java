@@ -118,7 +118,7 @@ public class User {
 	 * 查询病人一次住院的所有检查记录和测试记录
 	 */
 	public HospitalSituation getHospitalSituation(String patient_id,int sequence){
-		HospitalSituation hospitalSituation=null;
+		HospitalSituation hospitalSituation=new PatientDao().getHospitalSituation(patient_id, sequence);
 		return hospitalSituation;
 	}
 }

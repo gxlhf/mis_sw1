@@ -12,7 +12,6 @@
     <servlet-name>Filelu</servlet-name>
     <servlet-class>servlet.Filelu</servlet-class>
   </servlet>
-
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/LoginServlet</url-pattern>
