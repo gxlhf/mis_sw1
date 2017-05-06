@@ -51,13 +51,7 @@ var examList_vue = new Vue({
     el: "#div-examInfo",
     data:{
         examContent: {
-            length: "",
-            examClass: [
-                {
-                    name: "",
-                    detail: {length: "", examClass: []}
-                }
-            ]
+            examClass: []
         }
     },
     created: function () {
@@ -66,28 +60,34 @@ var examList_vue = new Vue({
 });
 
 /**
- * 所有检验指标以及子指标的名称，从 labList.json 里得来
+ * 所有检验指标的名称，从 labList.json 里得来
  * @type {Vue}
  */
 var labList_vue = new Vue({
-    el: "#div-labInfo",
+    el: "#sel-labInfo",
     data:{
         labContent: {
-            length: "",
-            labs: [
-                {
-                    labName: "",
-                    subLength: "",
-                    subLab: [
-                        { subName: "" }
-                    ],
-                    detail: {length: "", labs: [] }
-                }
-            ]
+            labs: []
         }
     },
     created: function () {
         ajax_get("json_test/labList.json", this.labContent);
+    }
+});
+
+/**
+ * 检验指标的子指标的名称，从 labList.json 里得来
+ * @type {Vue}
+ */
+var subList_vue = new Vue({
+    el: "#sel-subInfo",
+    data:{
+        subContent: {
+
+        }
+    },
+    created: function () {
+        ajax_get("json_test/labList.json", this.subContent);
     }
 });
 
@@ -99,18 +99,7 @@ var searchRecord_vue = new Vue({
     el: "#tb-searchRecord",
     data:{
         tableContent: {
-            length: "",
-            result: [
-                {
-                    name: "",
-                    sex: "",
-                    diag: "",
-                    testNO: "",
-                    patientID: "",
-                    visitTime: "",
-                    detail: {length: "", result: []}
-                }
-            ]
+            result: []
         }
     },
     created: function () {
