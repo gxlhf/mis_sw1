@@ -1,48 +1,32 @@
-package servlet;
+package entity;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.poi.xwpf.usermodel.UpdateEmbeddedDoc;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.sun.xml.internal.fastinfoset.algorithm.IEEE754FloatingPointEncodingAlgorithm;
-
-import dao.PatientDao;
-import dao.UserDao;
-import entity.HospitalSituation;
-import entity.Patient;
-import entity.QueryResult;
-import entity.User;
-import jdk.nashorn.internal.scripts.JS;
 
 /**
- * Servlet implementation class inHospitalRecord
+ * Servlet implementation class labRecord
  */
-@WebServlet("/inHospitalRecord")
-public class inHospitalRecord extends HttpServlet {
+@WebServlet("/labRecord")
+public class labRecord extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public inHospitalRecord() {
+    public labRecord() {
         super();
         // TODO Auto-generated constructor stub
     }
-//excam 检查
-  // test检验
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -57,17 +41,43 @@ public class inHospitalRecord extends HttpServlet {
 			sequence=Integer.valueOf(Sequence);
 		HospitalSituation hospitalSituation=user.getHospitalSituation(id, sequence);
 		JSONObject jsonData=new JSONObject();
-		
-		
-
-		
-		
-		response.getWriter().println(jsonData.toString());
+		try {
+			
+			jsonData.put("type", "lab");
+			jsonData.put("length", hospitalSituation.getTest().length);
+			
+			JSONArray data=new JSONArray();
 
 			
+			for(int i=0;i<hospitalSituation.getTest().length;i++){
+				Test test=hospitalSituation.getTest()[i];
+				JSONObject lab=new JSONObject();
+				lab.put("labNO", test.getTest_no());
+				lab.put("labName", test.getItem_name());
+				JSONArray result=new JSONArray();
+				for(int j=0;j<test.getTest_result().length;j++){
+					JSONObject res=new JSONObject();
+					TestResult testResult=test.getTest_result()[j];
+					res.put("name", testResult.getReport_item_name());
+					res.put("resultVal", testResult.getResult());
+					res.put("unit", testResult.getUnits());
+					res.put("resultIndicate", testResult.getAbnormal_indicator());
+					res.put("normalRange", testResult.getNormal_value());
+					result.put(res);
+				}
+				
+				lab.put("result",result );
+				data.put(lab);
+			}
+			jsonData.put("data", data);
+			response.getWriter().println(jsonData.toString());
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		 
-			
+		
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
