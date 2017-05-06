@@ -12,20 +12,6 @@ function dpCopy(dest, src) {
     }
 }
 
-function clone(o){
-    var k, ret= o, b;
-    if(o && ((b = (o instanceof Array)) || o instanceof Object)) {
-        ret = b ? [] : {};
-        for(k in o){
-            if(o.hasOwnProperty(k)){
-                ret[k] = clone(o[k]);
-            }
-        }
-    }
-    return ret;
-}
-
-
 /*
  * get方法获取json
  * @parm url
@@ -42,7 +28,6 @@ function ajax_get(url, dataToSet, dataToSend, successCbk, errorCbk) {
         data: dataToSend,
         success: function (data) {
             dpCopy(dataToSet, data);
-            // console.log(successCbk);
             if(successCbk != undefined){
                 successCbk();
             }
@@ -58,32 +43,77 @@ function ajax_get(url, dataToSet, dataToSend, successCbk, errorCbk) {
     })
 }
 
-var searchInfo_vue = new Vue({
-    el: "#div-searchInfo",
-    data: {
-        searchInfo: {
-            examType: "", 
-            labName: ""
+/**
+ * 所有检查指标的名称，从 examList.json 里得来
+ * @type {Vue}
+ */
+var examList_vue = new Vue({
+    el: "#div-examInfo",
+    data:{
+        examContent: {
+            length: "",
+            examClass: [
+                {
+                    name: "",
+                    detail: {length: "", examClass: []}
+                }
+            ]
         }
     },
-    created: function() {
-        var vueObj = this;
-        ajax_get("json_test/searchInfo.json", this.searchInfo);
+    created: function () {
+        ajax_get("json_test/examList.json",this.examContent);
     }
 });
 
+/**
+ * 所有检验指标以及子指标的名称，从 labList.json 里得来
+ * @type {Vue}
+ */
+var labList_vue = new Vue({
+    el: "#div-labInfo",
+    data:{
+        labContent: {
+            length: "",
+            labs: [
+                {
+                    labName: "",
+                    subLength: "",
+                    subLab: [
+                        { subName: "" }
+                    ],
+                    detail: {length: "", labs: [] }
+                }
+            ]
+        }
+    },
+    created: function () {
+        ajax_get("json_test/labList.json", this.labContent);
+    }
+});
+
+/**
+ * 搜索结果，从 searchRecord.json 里得来
+ * @type {Vue}
+ */
 var searchRecord_vue = new Vue({
     el: "#tb-searchRecord",
     data:{
         tableContent: {
-            patientID: "",
-            name: "",
-            sex: "",
-            birthday: ""
+            length: "",
+            result: [
+                {
+                    name: "",
+                    sex: "",
+                    diag: "",
+                    testNO: "",
+                    patientID: "",
+                    visitTime: "",
+                    detail: {length: "", result: []}
+                }
+            ]
         }
     },
     created: function () {
-        var vueObj = this;
         ajax_get("json_test/searchRecord.json", this.tableContent);
     }
 });
