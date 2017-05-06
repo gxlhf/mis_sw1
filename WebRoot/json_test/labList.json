@@ -1,0 +1,30 @@
+{
+  "length": 2,
+  "labs": [
+    {
+      "labName": "血常规",
+      "subLength": 3,
+      "subLab": [
+        { "subName": "白细胞" },
+        { "subName": "血小板" },
+        { "subName": "白蛋白" }
+      ]
+    },
+    {
+      "labName": "尿常规",
+      "subLength": 2,
+      "subLab": [
+        { "subName": "尿素" },
+        { "subName": "尿酸" }
+      ]
+    },
+    {
+      "labName": "肝功能",
+      "subLength": 2,
+      "subLab": [
+        { "subName": "乙肝表面抗原" },
+        { "subName": "乙肝表面抗体" }
+      ]
+    }
+  ]
+}
