@@ -57,20 +57,20 @@
                         </div>
                     </div>
 
-                    <div class="form-inline" role="form" id="div-labInfo">
+                    <div class="form-inline" role="form">
                         <div class="form-group">
                             <label class="_left-title">检验指标</label>
-                            <select name="labName" class="form-control input-sm _first-select">
+                            <select name="labName" class="form-control input-sm _first-select" id="sel-labInfo">
                                 <option>不限</option>
                                 <option v-for="lab in labContent.labs">
                                     {{ lab.labName }}
                                 </option>
                             </select>
                             →
-                            <select name="subLabName" class="form-control input-sm">
+                            <select name="subLabName" class="form-control input-sm"  id="sel-subInfo">
                                 <option>不限</option>
-                                <option v-if="" v-for="subLab in labContent.labs">
-                                    {{ subLab.subName}}
+                                <option v-for="sub in subContent.sublab">
+                                    {{ sub.subName }}
                                 </option>
                             </select>
 
