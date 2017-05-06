@@ -1,48 +1,35 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.poi.xwpf.usermodel.UpdateEmbeddedDoc;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.sun.xml.internal.fastinfoset.algorithm.IEEE754FloatingPointEncodingAlgorithm;
-
-import dao.PatientDao;
-import dao.UserDao;
+import entity.Exam;
 import entity.HospitalSituation;
-import entity.Patient;
-import entity.QueryResult;
 import entity.User;
-import jdk.nashorn.internal.scripts.JS;
 
 /**
- * Servlet implementation class inHospitalRecord
+ * Servlet implementation class examRecord
  */
-@WebServlet("/inHospitalRecord")
-public class inHospitalRecord extends HttpServlet {
+@WebServlet("/examRecord")
+public class examRecord extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public inHospitalRecord() {
+    public examRecord() {
         super();
         // TODO Auto-generated constructor stub
     }
-//excam 检查
-  // test检验
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -58,16 +45,31 @@ public class inHospitalRecord extends HttpServlet {
 		HospitalSituation hospitalSituation=user.getHospitalSituation(id, sequence);
 		JSONObject jsonData=new JSONObject();
 		
-		
-
-		
-		
-		response.getWriter().println(jsonData.toString());
-
+		try {
 			
+			jsonData.put("type", "exam");
+			jsonData.put("length", hospitalSituation.getExam().length);
+			JSONArray data=new JSONArray();
+			for(int i=0;i<hospitalSituation.getExam().length;i++){
+				Exam exam=hospitalSituation.getExam()[i];
+				JSONObject exa=new JSONObject();
+				exa.put("examNo", exam.getExam_no());
+				exa.put("examType", exam.getExam_sub_class());
+				exa.put("examPos", exam.getExam_class());
+				exa.put("isNormal", "");
+				exa.put("description", exam.getDescription());
+				exa.put("diag", exam.getImpression());
+				data.put(exa);
+			}
+			jsonData.put("data", data);
+			response.getWriter().println(jsonData.toString());
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		 
-			
+		
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

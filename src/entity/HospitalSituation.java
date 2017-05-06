@@ -2,7 +2,7 @@
  * 住院情况类：
  * sequence:住院次数
  * exam:检查记录
- * test:测试记录
+ * test:检验记录
  * patient_id:患者编号
  * 
  **/
