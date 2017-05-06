@@ -121,4 +121,21 @@ public class User {
 		HospitalSituation hospitalSituation=new PatientDao().getHospitalSituation(patient_id, sequence);
 		return hospitalSituation;
 	}
+	
+	/**
+	 * 根据患者编号，查询患者信息
+	 */
+	public Patient queryPatientInfo(String patient_id) 
+	{
+		Patient patient = null;
+		return patient;
+	}
+	
+	/**
+	 * 根据患者编号，查询患者所有住院记录
+	 */
+	public InHospitalRecord[] getInHospitalRecord(String patient_id) {
+		InHospitalRecord[] inHospitalRecords = null;
+		return inHospitalRecords;
+	}
 }

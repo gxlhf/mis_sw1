@@ -10,10 +10,12 @@ public class Patient {
 	String patient_id;
 	String patient_name;
 	String sex;
-	public Patient(String patient_id, String patient_name, String sex) {
+	String birthday;
+	public Patient(String patient_id, String patient_name, String sex, String birthday) {
 		this.patient_id = patient_id;
 		this.patient_name = patient_name;
 		this.sex = sex;
+		this.birthday = birthday;
 	}
 	public String getPatient_id() {
 		return patient_id;
@@ -33,5 +35,12 @@ public class Patient {
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
+	public String getBirthday() {
+		return birthday;
+	}
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+	
 	
 }
