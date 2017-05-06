@@ -14,7 +14,7 @@ public class InHospitalRecord {
 	String inAge;
 	String diag;
 	public InHospitalRecord(int sequence,String patientId, String inTime, String inAge, String diag) {
-	    this,patientId = patientId;
+	    this.patientId = patientId;
 		this.sequence = sequence;
 		this.inTime = inTime;
 		this.inAge = inAge;
