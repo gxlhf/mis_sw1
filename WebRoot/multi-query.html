@@ -9,67 +9,77 @@
     <link rel="stylesheet" href="css/multi-query.css">
     <script src="js/vue.js"></script>
     <script src="js/jquery-3.1.1.min.js"></script>
-    <script src="css/bootstrap.min.css"></script>
+    <script src="js/bootstrap.min.js"></script>
 </head>
 
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-xs-12" id="div-searchInfo">
+            <div class="col-xs-12">
                 <form method="get">
-                    <div class="form-inline _first-form" role="form">
-                        <div class="form-group">
-                            <label class="_left-title" for="multi-query-id">住院号</label>
-                            <div class="input-group input-group-sm _first-input">
-                                <input type="text" name="patientID" class="search-input form-control _single-input"
-                                       id="multi-query-id">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-inline" role="form">
-                        <div class="form-group">
-                            <label class="_left-title" for="multi-query-name">姓名</label>
-                            <div class="input-group input-group-sm _first-input">
-                                <input type="text" name="name" class="search-input form-control _single-input"
-                                       id="multi-query-name">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form" role="form">
+                    <div class="form _first-form" role="form">
                         <div class="form-group">
                             <label class="_left-title">性别</label>
 
                             <label class="radio-inline _first-item">
-                                <input type="radio" name="sex" value="unlimited"> 不限
+                                <input type="radio" name="sex" value="不限"> 不限
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" name="sex" value="male"> 男
+                                <input type="radio" name="sex" value="男"> 男
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" name="sex" value="female"> 女
+                                <input type="radio" name="sex" value="女"> 女
                             </label>
                         </div>
                     </div>
 
                     <div class="form-inline" role="form">
+                        <div class="form-group">
+                            <label class="_left-title" for="multi-query-ageFrom">年龄</label>
+                            <div class="input-group input-group-sm _first-input">
+                                <span class="input-group-addon">从</span>
+                                <input type="text" name="ageFrom" class="form-control" id="multi-query-ageFrom">
+                                <span class="input-group-addon">到</span>
+                                <input type="text" name="ageTo" class="form-control" id="multi-query-ageTo">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-inline" role="form" id="div-examInfo">
                         <div class="form-group">
                             <label class="_left-title">检查指标</label>
-                            <select class="form-control  input-sm _first-select">
+                            <select name="examType" class="form-control input-sm _first-select">
                                 <option>不限</option>
-                                <option>{{searchInfo.examType}}</option>
+                                <option v-for="exam in examContent.examClass">
+                                    {{ exam.name }}
+                                </option>
                             </select>
                         </div>
                     </div>
 
-                    <div class="form-inline" role="form">
+                    <div class="form-inline" role="form" id="div-labInfo">
                         <div class="form-group">
                             <label class="_left-title">检验指标</label>
-                            <select class="form-control  input-sm _first-select">
+                            <select name="labName" class="form-control input-sm _first-select">
                                 <option>不限</option>
-                                <option>{{searchInfo.labName}}</option>
+                                <option v-for="lab in labContent.labs">
+                                    {{ lab.labName }}
+                                </option>
                             </select>
+                            →
+                            <select name="subLabName" class="form-control input-sm">
+                                <option>不限</option>
+                                <option v-if="" v-for="subLab in labContent.labs">
+                                    {{ subLab.subName}}
+                                </option>
+                            </select>
+
+                            <div class="input-group input-group-sm _first-item">
+                                <span class="input-group-addon">从</span>
+                                <input type="text" name="subNumFrom" class="form-control" id="multi-query-subNumFrom">
+                                <span class="input-group-addon">到</span>
+                                <input type="text" name="subNumTo" class="form-control" id="multi-query-subNumTo">
+                            </div>
                         </div>
                     </div>
 
@@ -90,24 +100,26 @@
                 <div class="table-responsive">
                     <table id="tb-searchRecord" class="table table-bordered table-hover table-striped">
                         <thead>
-                        <tr>
-                            <td>住院号</td>
+                        <tr class="text-center">
                             <td>姓名</td>
                             <td>性别</td>
-                            <td>出生日期</td>
-                            <td>详情</td>
+                            <td>临床诊断</td>
+                            <td>影像 ID</td>
+                            <td>住院号</td>
+                            <td>住院次数</td>
+                            <!--<td>详情</td>-->
                         </tr>
                         </thead>
                         <tbody>
 
-                            <tr>
-                                <td>{{tableContent.patientID}}</td>
-                                <td>{{tableContent.name}}</td>
-                                <td>{{tableContent.sex}}</td>
-                                <td>{{tableContent.birthday}}</td>
-                                <td>
-                                    <a href="">患者详情</a>
-                                </td>
+                            <tr class="text-center" v-for="tableContent in tableContent.result">
+                                <td>{{ tableContent.name }}</td>
+                                <td>{{ tableContent.sex }}</td>
+                                <td>{{ tableContent.diag }}</td>
+                                <td>{{ tableContent.testNO }}</td>
+                                <td>{{ tableContent.patientID }}</td>
+                                <td>{{ tableContent.visitTime }}</td>
+                                <!--<td><button  class="btn btn-info btn-xs">点击查看</button></td>-->
                             </tr>
 
                         </tbody>
