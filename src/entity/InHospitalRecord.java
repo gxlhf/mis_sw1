@@ -9,21 +9,30 @@ package entity;
 
 public class InHospitalRecord {
 	int sequence;
+	String patientId;
 	String inTime;
 	String inAge;
 	String diag;
-	public InHospitalRecord(int sequence, String inTime, String inAge, String diag) {
+	public InHospitalRecord(int sequence,String patientId, String inTime, String inAge, String diag) {
+	    this,patientId = patientId;
 		this.sequence = sequence;
 		this.inTime = inTime;
 		this.inAge = inAge;
 		this.diag = diag;
 	}
+	
 	public int getSequence() {
 		return sequence;
 	}
 	public void setSequence(int sequence) {
 		this.sequence = sequence;
 	}
+	public String getPatientId() {
+        return patientId;
+    }
+    public void setPatientId(String patientId) {
+        this.patientId = patientId;
+    }
 	public String getInTime() {
 		return inTime;
 	}
