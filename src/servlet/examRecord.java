@@ -56,7 +56,7 @@ public class examRecord extends HttpServlet {
 				exa.put("examNo", exam.getExam_no());
 				exa.put("examType", exam.getExam_sub_class());
 				exa.put("examPos", exam.getExam_class());
-				exa.put("isNormal", "");
+				exa.put("isNormal", exam.getIsAbnormal()==1?"否":"是");
 				exa.put("description", exam.getDescription());
 				exa.put("diag", exam.getImpression());
 				data.put(exa);

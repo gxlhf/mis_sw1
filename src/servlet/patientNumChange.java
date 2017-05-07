@@ -7,23 +7,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONException;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
-import entity.Patient;
 import entity.User;
 
 /**
- * Servlet implementation class PatientInfo
+ * Servlet implementation class patientNumChange
  */
-@WebServlet("/PatientInfo")
-public class PatientInfo extends HttpServlet {
+@WebServlet("/patientNumChange")
+public class patientNumChange extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PatientInfo() {
+    public patientNumChange() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,23 +33,15 @@ public class PatientInfo extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=UTF-8");
-		User user=new User("", "", "");
-		String id=request.getParameter("patient_id");
-		Patient patient=user.queryPatientInfo(id);
-		JSONObject jsonData=new JSONObject();
-		try {
-			jsonData.put("patientID", patient.getPatient_id());
-			jsonData.put("name", patient.getPatient_name());
-			jsonData.put("sex", patient.getSex());
-			jsonData.put("birthday", patient.getBirthday());
-			response.getWriter().println(jsonData.toString());
-			
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		String from=request.getParameter("datefrom");
+		String to=request.getParameter("dateto");
+		Integer[] data=new User("", "", "").getPatientNumChange(from,to);
+		JSONArray jsonData=new JSONArray();
+		for(int i=0;i<data.length;i++){
+			jsonData.put(data[i]);
 		}
+		response.getWriter().println(jsonData.toString());
 
-		
 	}
 
 	/**
