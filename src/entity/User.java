@@ -135,7 +135,7 @@ public class User {
 	 * 根据患者编号，查询患者所有住院记录
 	 */
 	public InHospitalRecord[] getInHospitalRecord(String patient_id) {
-		InHospitalRecord[] inHospitalRecords = null;
+		InHospitalRecord[] inHospitalRecords = new ExamDao().getInHospitalRecord(patient_id);
 		return inHospitalRecords;
 	}
 	/**

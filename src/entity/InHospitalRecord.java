@@ -52,4 +52,6 @@ public class InHospitalRecord {
 		this.diag = diag;
 	}
 	
+	
+	
 }
