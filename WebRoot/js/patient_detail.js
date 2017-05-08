@@ -114,159 +114,148 @@ var labRecord = {
 };
 
 
-/*
- * 深拷贝
- */
-function dpCopy(dest, src) {
-  for(item in src){
-    if(typeof item == "object"){
-      dpCopy(dest[item], src[item]);
-    }
-    else{
-      dest[item] = src[item];
-    }
-  }
-}
+// /*
+//  * 深拷贝
+//  */
+// function dpCopy(dest, src) {
+//   for(item in src){
+//     if(typeof item == "object"){
+//       dpCopy(dest[item], src[item]);
+//     }
+//     else{
+//       dest[item] = src[item];
+//     }
+//   }
+// }
 
-function clone(o){
-  var k, ret= o, b;
-  if(o && ((b = (o instanceof Array)) || o instanceof Object)) {
-    ret = b ? [] : {};
-    for(k in o){
-      if(o.hasOwnProperty(k)){
-        ret[k] = clone(o[k]);
+// /*
+//  * get方法获取json
+//  * @parm url 
+//  * @parm dataToSet 结束ajax时会将该变量设置为json返回的对象
+//  * @param dataToSend 可选 随ajax发送的数据
+//  * @parm successCbk 可选 成功时的回调函数
+//  * @parm errorCbk 可选 失败时回调函数
+//  */
+// function ajax_get(url, dataToSet, dataToSend, successCbk, errorCbk) {
+//   $.ajax({
+//     url: url,
+//     type: "GET",
+//     dataType: "json",
+//     data: dataToSend,
+//     success: function (data) {
+//       dpCopy(dataToSet, data);
+//       // console.log(successCbk);
+//       if(successCbk != undefined){
+//         successCbk();
+//       }
+//     },
+//     error: function (XMLHttpRequest, textStatus, errorThrown) {   
+//       if(errorCbk != undefined){
+//         errorCbk();
+//       }   
+//       console.log("ajaxErr");
+//       console.log(XMLHttpRequest, textStatus, errorThrown);
+//       alert("获取数据出错");
+//     }
+//   })
+// }
+
+document.write("<script language=javascript src='js/ajax_pack.js'></script>");
+window.onload = function(){
+  var patientInfo_vue = new Vue({
+    el: "#div-patientInfo",
+    data: {
+      patientInfo: {
+        patientID: "",
+        name: "",
+        sex: "",
+        birthday: ""
       }
-    }
-  }
-  return ret;
-}
-
-
-/*
- * get方法获取json
- * @parm url 
- * @parm dataToSet 结束ajax时会将该变量设置为json返回的对象
- * @param dataToSend 可选 随ajax发送的数据
- * @parm successCbk 可选 成功时的回调函数
- * @parm errorCbk 可选 失败时回调函数
- */
-function ajax_get(url, dataToSet, dataToSend, successCbk, errorCbk) {
-  $.ajax({
-    url: url,
-    type: "GET",
-    dataType: "json",
-    data: dataToSend,
-    success: function (data) {
-      dpCopy(dataToSet, data);
-      // console.log(successCbk);
-      if(successCbk != undefined){
-        successCbk();
-      }
     },
-    error: function (XMLHttpRequest, textStatus, errorThrown) {   
-      if(errorCbk != undefined){
-        errorCbk();
-      }   
-      console.log("ajaxErr");
-      console.log(XMLHttpRequest, textStatus, errorThrown);
-      alert("获取数据出错");
-    }
-  })
-}
-
-var patientInfo_vue = new Vue({
-  el: "#div-patientInfo",
-  data: {
-    patientInfo: {
-      patientID: "",
-      name: "",
-      sex: "",
-      birthday: ""
-    }
-  },
-  created: function function_name(argument) {
-    var queryParm = {patientID: "123123"};
-    var vueObj = this;
-    ajax_get("json_test/patientInfo.json", this.patientInfo, queryParm);
-  }
-});
-
-var inHospitalRecord_vue = new Vue({
-  el: "#tb-inHospitalRecord",
-  data:{ 
-    tableContent: {
-      length: 1,
-      data:[
-        {
-          index: 0,
-          dataIndex: 0,
-          inTime: "",
-          inAge: 0,
-          diag: "",
-          haveExam: true,
-          haveLab: true,
-          showingDetail: false,
-          showingLoading: false,
-          detail: {type: "", length: 0, data: []}
-        }
-      ]
-    }
-  },
-  created: function () {
-    inHospitalRecord = {};
-    var queryParm = {patientID: "123123"};
-    var vueObj = this;
-    ajax_get("json_test/inHospitalRecord.json", inHospitalRecord, queryParm,
-      function () {
-        for(var i = 0; i < inHospitalRecord.length; i++){
-          inHospitalRecord.data[i].showingDetail = false;
-          inHospitalRecord.data[i].showingLoading = false;
-          inHospitalRecord.data[i].detail = {type: "", length: 0, data: []};
-        }
-        console.log(vueObj);
-        vueObj.tableContent = inHospitalRecord;
-      });
-    
-  },
-  methods: {
-    showLoading: function (index) {
-      var curData = this.tableContent.data[index];
-      this.tableContent.data[index].showingDetail = true;
-      curData.showingLoading = true;
-    },
-    hideLoading: function (index) {
-      var curData = this.tableContent.data[index];
-      curData.showingDetail = true;
-      curData.showingLoading = false;
-    },
-    hideDetail: function (index) {
-      var curData = this.tableContent.data[index];
-      curData.showingDetail = false;
-    },
-    toggleDetail: function(type, index){
+    created: function function_name(argument) {
+      var queryParm = {patientID: "123123"};
       var vueObj = this;
-      var sucCbk = function(){
-      	vueObj.hideLoading(index);
-      };
-      var errCbk = function(){
-      	vueObj.hideDetail(index);
-      };
-      var curData = vueObj.tableContent.data[index];
-      var queryParm = {id: index};
-      if(curData.showingDetail && curData.detail.type == type)
-        vueObj.hideDetail(index);
-      else{
-        vueObj.showLoading(index);
-        switch(type){
-          case "exam":
-            // curData.detail = examRecord;
-            ajax_get("json_test/examRecord.json", curData.detail, queryParm, sucCbk, errCbk);
-            break;
-          case "lab":
-            ajax_get("json_test/labRecord.json", curData.detail, queryParm, sucCbk, errCbk);
-            break;
+      ajax_get("json_test/patientInfo.json", this.patientInfo, queryParm);
+    }
+  });
+
+  var inHospitalRecord_vue = new Vue({
+    el: "#tb-inHospitalRecord",
+    data:{ 
+      tableContent: {
+        length: 1,
+        data:[
+          {
+            index: 0,
+            dataIndex: 0,
+            inTime: "",
+            inAge: 0,
+            diag: "",
+            haveExam: true,
+            haveLab: true,
+            showingDetail: false,
+            showingLoading: false,
+            detail: {type: "", length: 0, data: []}
+          }
+        ]
+      }
+    },
+    created: function () {
+      inHospitalRecord = {};
+      var queryParm = {patientID: "123123"};
+      var vueObj = this;
+      ajax_get("json_test/inHospitalRecord.json", inHospitalRecord, queryParm,
+        function () {
+          for(var i = 0; i < inHospitalRecord.length; i++){
+            inHospitalRecord.data[i].showingDetail = false;
+            inHospitalRecord.data[i].showingLoading = false;
+            inHospitalRecord.data[i].detail = {type: "", length: 0, data: []};
+          }
+          console.log(vueObj);
+          vueObj.tableContent = inHospitalRecord;
+        });
+      
+    },
+    methods: {
+      showLoading: function (index) {
+        var curData = this.tableContent.data[index];
+        this.tableContent.data[index].showingDetail = true;
+        curData.showingLoading = true;
+      },
+      hideLoading: function (index) {
+        var curData = this.tableContent.data[index];
+        curData.showingDetail = true;
+        curData.showingLoading = false;
+      },
+      hideDetail: function (index) {
+        var curData = this.tableContent.data[index];
+        curData.showingDetail = false;
+      },
+      toggleDetail: function(type, index){
+        var vueObj = this;
+        var sucCbk = function(){
+        	vueObj.hideLoading(index);
+        };
+        var errCbk = function(){
+        	vueObj.hideDetail(index);
+        };
+        var curData = vueObj.tableContent.data[index];
+        var queryParm = {id: index};
+        if(curData.showingDetail && curData.detail.type == type)
+          vueObj.hideDetail(index);
+        else{
+          vueObj.showLoading(index);
+          switch(type){
+            case "exam":
+              // curData.detail = examRecord;
+              ajax_get("json_test/examRecord.json", curData.detail, queryParm, sucCbk, errCbk);
+              break;
+            case "lab":
+              ajax_get("json_test/labRecord.json", curData.detail, queryParm, sucCbk, errCbk);
+              break;
+          }
         }
       }
     }
-  }
-})
+  });
+};
