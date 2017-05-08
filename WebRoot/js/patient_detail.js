@@ -160,8 +160,9 @@ var labRecord = {
 //   })
 // }
 
-document.write("<script language=javascript src='js/ajax_pack.js'></script>");
+document.write("<script language=javascript src='js/public_pack.js'></script>");
 window.onload = function(){
+  var patientID = getQueryString("patientID");
   var patientInfo_vue = new Vue({
     el: "#div-patientInfo",
     data: {
@@ -173,7 +174,7 @@ window.onload = function(){
       }
     },
     created: function function_name(argument) {
-      var queryParm = {patientID: "123123"};
+      var queryParm = {"patientID": patientID};
       var vueObj = this;
       ajax_get("json_test/patientInfo.json", this.patientInfo, queryParm);
     }
@@ -202,7 +203,7 @@ window.onload = function(){
     },
     created: function () {
       inHospitalRecord = {};
-      var queryParm = {patientID: "123123"};
+      var queryParm = {"patient_id": patientID};
       var vueObj = this;
       ajax_get("json_test/inHospitalRecord.json", inHospitalRecord, queryParm,
         function () {
@@ -211,7 +212,6 @@ window.onload = function(){
             inHospitalRecord.data[i].showingLoading = false;
             inHospitalRecord.data[i].detail = {type: "", length: 0, data: []};
           }
-          console.log(vueObj);
           vueObj.tableContent = inHospitalRecord;
         });
       
@@ -240,7 +240,7 @@ window.onload = function(){
         	vueObj.hideDetail(index);
         };
         var curData = vueObj.tableContent.data[index];
-        var queryParm = {id: index};
+        var queryParm = {"patient_id": patientID, "sequence": index};
         if(curData.showingDetail && curData.detail.type == type)
           vueObj.hideDetail(index);
         else{
@@ -248,7 +248,7 @@ window.onload = function(){
           switch(type){
             case "exam":
               // curData.detail = examRecord;
-              ajax_get("json_test/examRecord.json", curData.detail, queryParm, sucCbk, errCbk);
+              ajax_get("examRecord", curData.detail, queryParm, sucCbk, errCbk);
               break;
             case "lab":
               ajax_get("json_test/labRecord.json", curData.detail, queryParm, sucCbk, errCbk);

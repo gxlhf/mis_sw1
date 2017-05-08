@@ -39,7 +39,17 @@ function ajax_get(url, dataToSet, dataToSend, successCbk, errorCbk) {
       }   
       console.log("ajaxErr");
       console.log(XMLHttpRequest, textStatus, errorThrown);
-      alert("获取数据出错");
+      // alert("获取数据出错");
     }
   })
+}
+
+/*
+ * 获取地址栏参数
+ */
+function getQueryString(name)
+{
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return  unescape(r[2]); return null;
 }

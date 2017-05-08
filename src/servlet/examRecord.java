@@ -54,8 +54,8 @@ public class examRecord extends HttpServlet {
 				Exam exam=hospitalSituation.getExam()[i];
 				JSONObject exa=new JSONObject();
 				exa.put("examNo", exam.getExam_no());
-				exa.put("examType", exam.getExam_sub_class());
-				exa.put("examPos", exam.getExam_class());
+				exa.put("examPos", exam.getExam_sub_class());
+				exa.put("examType", exam.getExam_class());
 				exa.put("isNormal", exam.getIsAbnormal()==1?"否":"是");
 				exa.put("description", exam.getDescription());
 				exa.put("diag", exam.getImpression());

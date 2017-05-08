@@ -207,7 +207,7 @@ public class PatientDao {
 
 	public static void main(String[] args) {
 		System.out.println(
-		new PatientDao().getHospitalSituation("302533", 1).toString());
+		new PatientDao().getHospitalSituation("302533", 1).getExam().length);
 		
 	}
 

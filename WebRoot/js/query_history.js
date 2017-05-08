@@ -21,7 +21,7 @@
 //   ]
 // };
 
-document.write("<script language=javascript src='/js/ajax_pack.js'></script>");
+document.write("<script language=javascript src='/js/public_pack.js'></script>");
 
 window.onload = function(){
   var queryHistoryRecord_vue = new Vue({
