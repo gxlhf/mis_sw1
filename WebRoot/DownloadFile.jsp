@@ -67,7 +67,7 @@ a:active {
                 <ul class="nav navbar-nav navbar-left">
                    
                     <li>
-                        <a href="#">数据显示</a>
+                        <a href="index.html">数据显示</a>
                     </li>
                     <li>
                         <a href="#">统计处分析</a>
@@ -76,8 +76,8 @@ a:active {
                      <li class="dropdown active">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">知识库</a>
                         <ul class="dropdown-menu">
-                            <li><a href="">上传资料</a></li>
-                            <li><a href="">下载资料</a></li>
+                            <li><a href="UploadFile.jsp">上传资料</a></li>
+                            <li><a href="DownloadFile.jsp">下载资料</a></li>
                         </ul>
                     </li>
                     
@@ -197,9 +197,10 @@ a:active {
 		       $('input[name="check"]:checked').each(function(){  
 		         var change=$(this).val().replace('#','_');  
                 content=content+change+"+";  
-               });   
-		       if(content=="")  alert("请选择要删除的文件");
-		       else{
+               })
+                 
+		       if(content=="")  alert("请选择要删除的文件");		       
+		       else{		        
 		          var url="${pageContext.request.contextPath }/Filelu?method=plurality&parameter="+content;
 		          window.location.href=url;
 		       }

@@ -1,0 +1,62 @@
+{
+  "type": "lab",
+  "length": 2,
+  "data": [
+    {
+      "labNo": "123123",
+      "labName": "血常规",
+      "result":[
+        {
+          "name": "白细胞",
+          "resultVal": "2.89",
+          "unit": "*10^9/L",
+          "resultIndicate": "L",
+          "normalRange": "4.0-10.9"
+        },
+        {
+          "name": "白细胞",
+          "resultVal": "2.89",
+          "unit": "*10^9/L",
+          "resultIndicate": "L",
+          "normalRange": "4.0-10.9"
+        },
+        {
+          "name": "白细胞",
+          "resultVal": "2.89",
+          "unit": "*10^9/L",
+          "resultIndicate": "L",
+          "normalRange": "4.0-10.9"
+        }
+      ]
+    },
+    {
+      "labNo": "123123",
+      "labName": "血常规",
+      "result":[
+        {
+          "name": "白细胞",
+          "resultVal": "2.89",
+          "unit": "*10^9/L",
+          "resultIndicate": "L",
+          "normalRange": "4.0-10.9"
+        },
+        {
+          "name": "白细胞",
+          "resultVal": "2.89",
+          "unit": "*10^9/L",
+          "resultIndicate": "L",
+          "normalRange": "4.0-10.9"
+        },
+        {
+          "name": "白细胞",
+          "resultVal": "2.89",
+          "unit": "*10^9/L",
+          "resultIndicate": "L",
+          "normalRange": "4.0-10.9"
+        }
+      ]
+    }
+  ]
+}
+
+/* finished */

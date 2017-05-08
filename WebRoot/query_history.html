@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>历史查询</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#"><span>LOGO</span></a>
+      </div>
+      <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+        <ul class="nav navbar-nav navbar-left">
+          <li class="dropdown active">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">多维查询</a>
+            <ul class="dropdown-menu">
+              <li><a href="query.html">查询</a></li>
+              <li><a href="query_history.html">历史查询</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="index.html">统计分析</a>
+          </li>
+          <li>
+            <a href="#">影像文本分析</a>
+          </li>
+          <li>
+            <a href="UploadFile.jsp">知识库</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover table-striped" id="tb-queryHistoryRecord">
+            <thead>
+              <tr>
+                <td>性别</td>
+                <td>年龄段</td>
+                <td>检查指标</td>
+                <td>检验指标</td>
+                <td>查询时间</td>
+                <td>查询结果</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item in tableContent.data">
+                <td>{{item.sex}}</td>
+                <td>{{item.ageArea}}</td>
+                <td>{{item.examType}}</td>
+                <td>{{item.labType}}</td>
+                <td>{{item.queryTime}}</td>
+                <td><a @click="jumpToDetail(item.dataID)">详情</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="js/vue.js"></script>
+  <script src="js/query_history.js"></script>
+</body>
+</html>

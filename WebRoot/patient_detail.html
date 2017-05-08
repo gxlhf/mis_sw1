@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>患者详情</title>
+    <!--<link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">-->
+    <script src="js/vue.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+    <div class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><span>LOGO</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+          <ul class="nav navbar-nav navbar-left">
+            <li class="dropdown active">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">多维查询</a>
+              <ul class="dropdown-menu">
+                <li><a href="query.html">查询</a></li>
+                <li><a href="query_history.html">历史查询</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="index.html">统计分析</a>
+            </li>
+            <li>
+              <a href="#">影像文本分析</a>
+            </li>
+            <li>
+              <a href="UploadFile.jsp">知识库</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="form-horizontal" id="div-patientInfo">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">住院号</label>
+            <div class="col-sm-10">
+              <p class="form-control-static">{{patientInfo.patientID}}</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">姓名</label>
+            <div class="col-sm-10">
+              <p class="form-control-static">{{patientInfo.name}}</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">性别</label>
+            <div class="col-sm-10">
+              <p class="form-control-static">{{patientInfo.sex}}</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">出生日期</label>
+            <div class="col-sm-10">
+              <p class="form-control-static">{{patientInfo.birthday}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="table-responsive">
+            <table id="tb-inHospitalRecord" class="table table-bordered table-hover table-striped">
+              <thead>
+                <tr>
+                  <td>住院次号</td>
+                  <td>住院时间</td>
+                  <td>入院时年龄</td>
+                  <td>诊断结果</td>
+                  <td></td>
+                </tr>
+              </thead>
+              <tbody>
+                <template v-for="item in tableContent.data">
+                  <tr>
+                    <td>{{item.index + 1}}</td>
+                    <td>{{item.inTime}}</td>
+                    <td>{{item.inAge}}</td>
+                    <td>{{item.diag}}</td>
+                    <td>
+                      <a v-if="item.haveExam" @click="toggleDetail('exam', item.index)" class="btn btn-primary btn-xs" :class="{active: (item.detail.type == 'exam'&&item.showingDetail)}">检查详情</a>
+                      <a v-if="item.haveLab" @click="toggleDetail('lab', item.index)" class="btn btn-success btn-xs" :class="{active: (item.detail.type == 'lab'&&item.showingDetail)}">检验详情</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="5" v-if="item.showingDetail" class="patient-detail" :class="{loading: item.showingLoading}">
+
+                      <div v-if="item.detail.type == 'exam'" v-for="detail in item.detail.data" class="form-horizontal">
+                        <div class="form-group">
+                          <label class="control-label col-lg-2">检查号：</label>
+                          <div class="col-lg-9">
+                            <p>{{detail.examNo}}</p>
+                            <label>检查类别：</label>
+                            <p>{{detail.examType}}</p>
+                            <label>检查部位：</label>
+                            <p>{{detail.examPos}}</p>
+                            <label>正常与否：</label>
+                            <p>{{detail.isNormal}}</p>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-lg-2 control-label">描述：</label>
+                          <div class="col-lg-9">
+                            <p class="form-control-static" v-html="detail.description">
+                            </p>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-lg-2 control-label">诊断：</label>
+                          <div class="col-lg-9">
+                            <p class="form-control-static" v-html="detail.diag">
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div v-if="item.detail.type == 'lab'" v-for="detail in item.detail.data" class="form-horizontal">
+                        <div class="form-group">
+                          <label class="control-label col-lg-2">检验号：</label>
+                          <div class="col-lg-9">
+                            <p>{{detail.labNo}}</p>
+                            <label>检验名称：</label>
+                            <p>{{detail.labName}}</p>
+                          </div>
+                        </div>
+                        <div class="lab-result">
+                          <div class="table-responsive col-lg-11">
+                            <table class="table table-bordered table-hover table-striped">
+                              <thead>
+                                <tr>
+                                  <td>指标名称</td>
+                                  <td>结果</td>
+                                  <td>单位</td>
+                                  <td>结果指示</td>
+                                  <td>正常区间</td>
+                                </tr>
+                              </thead>
+                              <tbody> 
+                                <tr v-for="resultItem in detail.result">
+                                  <td>{{resultItem.name}}</td>
+                                  <td>{{resultItem.resultVal}}</td>
+                                  <td>{{resultItem.unit}}</td>
+                                  <td>{{resultItem.resultIndicate}}</td>
+                                  <td>{{resultItem.normalRange}}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                      <div @click="hideDetail(item.index)" class="flod">
+                        <a>▲ 折叠详情</a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr></tr>
+                </template>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <script src="js/patient_detail.js"></script>
+  </body>
+</html>

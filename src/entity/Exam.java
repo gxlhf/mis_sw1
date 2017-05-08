@@ -10,6 +10,7 @@
  * phys_sign:物理症状
  * description:描述
  * impression:结论
+ * isAbnormal:正常情况
  */
 package entity;
 
@@ -25,6 +26,8 @@ public class Exam {
 	String clin_diag;
 	String description;
 	String impression;
+	int isAbnormal;
+
 	public Exam(String exam_no, String patient_id, String visit_id, String req_date_time, String exam_sub_class,
 			String exam_class, String clin_symp, String phys_sign, String clin_diag, String description,
 			String impression) {
@@ -39,6 +42,22 @@ public class Exam {
 		this.clin_diag = clin_diag;
 		this.description = description;
 		this.impression = impression;
+	}
+	public Exam(String exam_no, String patient_id, String visit_id, String req_date_time, String exam_sub_class,
+			String exam_class, String clin_symp, String phys_sign, String clin_diag, String description,
+			String impression, int isAbnormal) {
+		this.exam_no = exam_no;
+		this.patient_id = patient_id;
+		this.visit_id = visit_id;
+		this.req_date_time = req_date_time;
+		this.exam_sub_class = exam_sub_class;
+		this.exam_class = exam_class;
+		this.clin_symp = clin_symp;
+		this.phys_sign = phys_sign;
+		this.clin_diag = clin_diag;
+		this.description = description;
+		this.impression = impression;
+		this.isAbnormal = isAbnormal;
 	}
 	public String getExam_no() {
 		return exam_no;
@@ -106,5 +125,12 @@ public class Exam {
 	public void setImpression(String impression) {
 		this.impression = impression;
 	}
+	public int getIsAbnormal() {
+		return isAbnormal;
+	}
+	public void setIsAbnormal(int isAbnormal) {
+		this.isAbnormal = isAbnormal;
+	}
+	
 	
 }
