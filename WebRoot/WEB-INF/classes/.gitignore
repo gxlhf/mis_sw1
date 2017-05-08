@@ -1,2 +1,5 @@
-/dbpool.properties
+/dao/
+/database/
+/entity/
 /readoffice/
+/servlet/

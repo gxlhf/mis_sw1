@@ -42,7 +42,8 @@ window.onload = function(){
       }
     },
     created: function () {
-      this.tableContent = queryHistoryRecord;
+      // this.tableContent = queryHistoryRecord;
+      ajax_get("json_test/queryHistory.json", this.tableContent);
     },
     methods: {
       jumpToDetail: function (recordID) {
