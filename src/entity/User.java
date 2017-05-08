@@ -68,7 +68,7 @@ public class User {
 	 * 如参数血常规，返回所有血常规的具体检验项，如白细胞，血红蛋白等
 	 */
 	public String[] queryTestItem(String TestClass){
-		String[] queryTestItemResult = null;
+		String[] queryTestItemResult = (new TestDao()).queryTestItem(TestClass);
 		return queryTestItemResult;
 	}
 
