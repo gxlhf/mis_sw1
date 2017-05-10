@@ -293,7 +293,7 @@ public class PatientDao {
 		return hospitalSituation;
 	}
 
-	public Integer[] getPatientNumChagne(String datefrom, String dateto) {
+	public Integer[] getPatientNumChange(String datefrom, String dateto) {
 		try {
 			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
@@ -365,7 +365,7 @@ public class PatientDao {
 
 	public static void main(String[] args) {
 		System.out.println(new PatientDao().getHospitalSituation("302533", 1).getExam().length);
-		Integer[] tmp = new PatientDao().getPatientNumChagne("2015-01-24", "2015-01-24");
+		Integer[] tmp = new PatientDao().getPatientNumChange("2015-01-24", "2015-01-24");
 		for (Integer x : tmp) {
 			System.out.println(x);
 		}
