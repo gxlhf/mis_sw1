@@ -141,7 +141,7 @@ public class User {
 	/**
 	 * 根据时间段，按天返回从datefrom到dateto每日在院患者数量
 	 */
-	public Integer[] getPatientNumChagne(String datefrom,String dateto){
+	public Integer[] getPatientNumChange(String datefrom,String dateto){
 		Integer[] data=null;
 		return data;
 	}
