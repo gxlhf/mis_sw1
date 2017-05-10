@@ -20,7 +20,13 @@ public class InHospitalRecord {
 		this.inAge = inAge;
 		this.diag = diag;
 	}
-	
+	public InHospitalRecord() {
+	    this.patientId = null;
+		this.sequence = 0;
+		this.inTime = null;
+		this.inAge = null;
+		this.diag = null;
+	}
 	public int getSequence() {
 		return sequence;
 	}
