@@ -162,7 +162,7 @@ var labRecord = {
 
 document.write("<script language=javascript src='js/public_pack.js'></script>");
 window.onload = function(){
-  var patientID = getQueryString("patientID");
+  var patientID = getQueryString("patient_id");
   var patientInfo_vue = new Vue({
     el: "#div-patientInfo",
     data: {
