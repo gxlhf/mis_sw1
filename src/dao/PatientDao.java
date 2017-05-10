@@ -7,99 +7,200 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
+package dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import database.ConnectionPool;
 import entity.Exam;
 import entity.HospitalSituation;
 import entity.Patient;
+import entity.QueryResult;
 import entity.Test;
 import entity.TestResult;
+
 public class PatientDao {
-    ConnectionPool pool = null;
-    Connection con = null;
-    public PatientDao() {
-        try {
-            pool = ConnectionPool.getInstance();
-            con = pool.getConnection();
-        } catch (Exception se) {
-            System.out.println("数据库连接失败！");
-            se.printStackTrace();
-        }
-    }
-    public int getPatientCount() {
-        int result = 0;
-        try {
-            String sql = "SELECT COUNT(*) FROM patient_information";
-            PreparedStatement preparedStatement = con.prepareStatement(sql);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                result = resultSet.getInt(1);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-    public List<Patient> queryPatient(String sex, int minAge, int maxAge, String examClass) {
-        List<Patient> result = new ArrayList<Patient>();
-        try {
-            String sql = "SELECT patient_information.PATIENT_ID,patient_information.SEX,patient_information.PATIENT_NAME FROM "
-                    + "(SELECT patient_to_exam.PATIENT_ID,SEX,EXAM_CLASS FROM exam_master INNER JOIN patient_to_exam ON patient_to_exam.EXAM_NO = exam_master.EXAM_NO) a INNER JOIN "
-                    + "patient_information ON a.PATIENT_ID = patient_information.PATIENT_ID WHERE SEX = ? AND AGE >= ? AND AGE <= ? AND examClass =?";
-            PreparedStatement preparedStatement = con.prepareStatement(sql);
-            preparedStatement.setString(1, sex);
-            preparedStatement.setInt(2, minAge);
-            preparedStatement.setInt(3, maxAge);
-            preparedStatement.setString(4, examClass);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                result.add(new Patient(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3)));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-    public List<Patient> queryPatient(String sex, int minAge, int maxAge, String testItem, double valueStart,
-            double valueEnd) {
-        List<Patient> result = new ArrayList<Patient>();
-        try {
-            pool = ConnectionPool.getInstance();
-            con = pool.getConnection();
-        } catch (Exception se) {
-            System.out.println("数据库连接失败！");
-            se.printStackTrace();
-        }
-        try {
-            String sql = "SELECT patient_information.PATIENT_ID, patient_information.PATIENT_NAME,patient_information.SEX,c.RESULT FROM "
-                    + "(SELECT patient_to_test.PATIENT_ID,b.RESULT,b.ITEM_NAME FROM "
-                    + "(SELECT a.TEST_NO,a.RESULT,lab_test_items.ITEM_NAME FROM "
-                    + "(SELECT lab_test_master.TEST_NO,lab_result.RESULT FROM "
-                    + "lab_result INNER JOIN lab_test_master ON lab_result.TEST_NO = lab_test_master.TEST_NO) a INNER JOIN "
-                    + "lab_test_items ON a.TEST_NO=lab_test_items.TEST_NO) b INNER JOIN "
-                    + "patient_to_test on b.TEST_NO = patient_to_test.TEST_NO) c INNER JOIN "
-                    + "patient_information ON patient_information.PATIENT_ID = c.PATIENT_ID "
-                    + "WHERE SEX = ? AND AGE >= ? AND AGE <= ? AND ITEM_NAME = ?";
-            PreparedStatement preparedStatement = con.prepareStatement(sql);
-            preparedStatement.setString(1, sex);
-            preparedStatement.setInt(2, minAge);
-            preparedStatement.setInt(3, maxAge);
-            preparedStatement.setString(4, testItem);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                try {
-                    float value = Float.parseFloat(resultSet.getString(4));
-                } catch (NumberFormatException e) {
-                    continue;
-                }
-                result.add(new Patient(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3)));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
+	ConnectionPool pool = null;
+	Connection con = null;
+
+	public PatientDao() {
+		//do nothing
+	}
+
+	public int getPatientCount() {
+		int result = 0;
+		try {
+			pool = ConnectionPool.getInstance();
+			con = pool.getConnection();
+		} catch (Exception se) {
+			System.out.println("数据库连接失败！");
+			se.printStackTrace();
+		}
+		try {
+			String sql = "SELECT COUNT(*) FROM patient_information";
+			PreparedStatement preparedStatement = con.prepareStatement(sql);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				result = resultSet.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionPool.getInstance().release(con);
+		}
+		return result;
+	}
+
+	/**
+	 * 根据性别，年龄段，检查指标查询患者信息，返回患者类列表
+	 * 当性别和检验指标为不限的时候，默认为全选，查询全部结果
+	 */
+	public List<QueryResult> queryPatient(String sex, int minAge, int maxAge, String examClass) {
+		List<QueryResult> result = new ArrayList<QueryResult>();
+		String last_id = "", patient_id = "";
+		String patient_name = "";
+		String patient_sex = "";
+		String patient_diag = "";
+		int hospitalCount = 0;
+		int last_visit = 0, visit = 0;
+		Map<Integer, String> clinicDiagMap = new TreeMap<Integer, String>();
+		try {
+			pool = ConnectionPool.getInstance();
+			con = pool.getConnection();
+		} catch (Exception se) {
+			System.out.println("数据库连接失败！");
+			se.printStackTrace();
+		}
+		try {
+			String  sql = "SELECT a.PATIENT_ID,a.SEX,a.VISIT_ID,a.CLIN_DIAG,patient_information.PATIENT_NAME,patient_information.DATE_OF_BIRTH FROM " +
+					"(SELECT exam_master.PATIENT_ID,exam_master.SEX,exam_master.VISIT_ID,exam_master.CLIN_DIAG FROM exam_master " +
+					"WHERE SEX LIKE '%?%' AND exam_master.CLIN_DIAG LIKE '%?%' " +
+					"AND YEAR(exam_master.REQ_DATE_TIME)-YEAR(exam_master.DATE_OF_BIRTH) >= ? AND " + 
+					"YEAR(exam_master.REQ_DATE_TIME)-YEAR(exam_master.DATE_OF_BIRTH) <= ?) a " +
+					"LEFT JOIN patient_information ON a.PATIENT_ID = patient_information.PATIENT_ID ORDER BY a.PATIENT_ID,a.VISIT_ID";
+			PreparedStatement preparedStatement = con.prepareStatement(sql);
+			preparedStatement.setString(1, sex);
+			preparedStatement.setString(2, examClass);
+			preparedStatement.setInt(3, minAge);
+			preparedStatement.setInt(4, maxAge);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				patient_id = resultSet.getString(1);
+				if(patient_id == last_id) {		//同一人的记录
+					visit = resultSet.getInt(3);
+					if(visit == last_visit) {	//同一次的记录
+						continue;
+					} else {					//不同次的记录
+						patient_diag = resultSet.getString(4);
+						clinicDiagMap.put(visit, patient_diag);
+						++hospitalCount;
+						last_visit = visit;
+					}
+				} else {						//新的人的记录
+					if(!patient_id.equals("")) {//保存上一个人的记录
+						result.add(new QueryResult(new Patient(patient_id, patient_name, patient_sex),
+								hospitalCount,
+								clinicDiagMap));
+					}
+					clinicDiagMap.clear();
+					last_id = patient_id;
+					hospitalCount = 1;
+					patient_name = resultSet.getString(5);
+					patient_sex = resultSet.getString(2);
+					visit = resultSet.getInt(3);
+					patient_diag = resultSet.getString(4);
+					last_id = patient_id;
+					clinicDiagMap.put(visit, patient_diag);
+				}
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.release(con);
+		}
+		return result;
+	}
+
+	public List<QueryResult> queryPatient(String sex, int minAge, int maxAge, String testItem, double valueStart,
+			double valueEnd) {
+		List<QueryResult> result = new ArrayList<QueryResult>();
+		String last_id = "", patient_id = "";
+		String patient_name = "";
+		String patient_sex = "";
+		String patient_diag = "";
+		int hospitalCount = 0;
+		int last_visit = 0, visit = 0;
+		double resultValue = 0;
+		Map<Integer, String> clinicDiagMap = new TreeMap<Integer, String>();
+		try {
+			pool = ConnectionPool.getInstance();
+			con = pool.getConnection();
+		} catch (Exception se) {
+			System.out.println("数据库连接失败！");
+			se.printStackTrace();
+		}
+		try {
+			String sql = "SELECT a.PATIENT_ID,PATIENT_NAME,SEX,VISIT_ID,RELEVANT_CLINIC_DIAG,RESULT " + 
+					"FROM (SELECT lab_test_master.TEST_NO,PATIENT_ID,VISIT_ID,RELEVANT_CLINIC_DIAG,RESULT from " + 
+					"lab_result LEFT JOIN lab_test_master USING(TEST_NO) WHERE SEX LIKE'%?%' AND " + 
+					"AGE>=? AND AGE<=? AND REPORT_ITEM_NAME LIKE '%?%') a LEFT JOIN patient_information USING(PATIENT_ID)";
+			PreparedStatement preparedStatement = con.prepareStatement(sql);
+			preparedStatement.setString(1, sex);
+			preparedStatement.setInt(2, minAge);
+			preparedStatement.setInt(3, maxAge);
+			preparedStatement.setString(4, testItem);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				try{
+					resultValue = Double.parseDouble(resultSet.getString(6));
+				} catch(NumberFormatException e) {
+					continue;
+				}
+				if(resultValue < valueStart || resultValue > valueEnd) {
+					continue;
+				}
+				patient_id = resultSet.getString(1);
+				if(patient_id == last_id) {		//同一人的记录
+					visit = resultSet.getInt(4);
+					if(visit == last_visit) {	//同一次的记录
+						continue;
+					} else {					//不同次的记录
+						patient_diag = resultSet.getString(5);
+						clinicDiagMap.put(visit, patient_diag);
+						++hospitalCount;
+						last_visit = visit;
+					}
+				} else {						//新的人的记录
+					if(!patient_id.equals("")) {//保存上一个人的记录
+						result.add(new QueryResult(new Patient(patient_id, patient_name, patient_sex),
+								hospitalCount,
+								clinicDiagMap));
+					}
+					clinicDiagMap.clear();
+					last_id = patient_id;
+					hospitalCount = 1;
+					patient_name = resultSet.getString(2);
+					patient_sex = resultSet.getString(3);
+					visit = resultSet.getInt(4);
+					patient_diag = resultSet.getString(5);
+					last_id = patient_id;
+					clinicDiagMap.put(visit, patient_diag);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.release(con);
+		}
+		return result;
+	}
     /**
      * 查询病人一次住院的所有检查记录和测试记录
      */
@@ -231,10 +332,10 @@ public class PatientDao {
 
 	public static void main(String[] args) {
         System.out.println(new PatientDao().getHospitalSituation("302533", 1).getExam().length);
-//        Integer [] tmp=new PatientDao().getPatientNumChagne("2015-01-24", "2015-01-24");
-//		for(Integer x:tmp){
-//			System.out.println(x);
-//		}
+        Integer [] tmp=new PatientDao().getPatientNumChagne("2015-01-24", "2015-01-24");
+		for(Integer x:tmp){
+			System.out.println(x);
+		}
 	}
 
 }
