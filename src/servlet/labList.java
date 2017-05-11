@@ -34,14 +34,19 @@ public class labList extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("out");
 		response.setContentType("text/html;charset=UTF-8");
 		User user=new User("", "","");
 		String[] labList=user.queryTestClass();
 		JSONObject jsonData=new JSONObject();
 		JSONArray jsonArray=new JSONArray();
+		for(String s:labList)
+			if(s!=null)
+			System.out.println(s);
+		System.out.println("out");
 		try {
-			for(int i=0;i<labList.length;i++)
-				jsonArray.put(labList[i]);
+			for(String s:labList)
+				jsonArray.put(s);
 			jsonData.put("labClass", jsonArray);
 			response.getWriter().println(jsonData.toString());
 			
@@ -49,6 +54,8 @@ public class labList extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+			
 		
 	}
 
