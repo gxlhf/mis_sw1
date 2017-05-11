@@ -2,7 +2,6 @@ package servlet;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,11 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import entity.InHospitalRecord;
 import entity.QueryResult;
 import entity.User;
 import net.sf.json.JSONArray;
-import sun.util.locale.provider.AvailableLanguageTags;
 
 /**
  * Servlet implementation class queryResult
@@ -49,15 +46,22 @@ public class queryResult extends HttpServlet {
 		String labSubType=request.getParameter("labSubType");
 		String labValFrom=request.getParameter("labValFrom");
 		String labValTo=request.getParameter("labValTo");
-		List<QueryResult> queryResult=user.queryPatient(sex,Integer.parseInt(ageFrom) ,Integer.parseInt(ageTo) , examType);
-		List<QueryResult>  queryResults=user.queryPatient(sex, Integer.parseInt(ageFrom) ,Integer.parseInt(ageTo) ,labSubType,Double.parseDouble(labValFrom) , Double.parseDouble(labValTo));
+		List<QueryResult> queryResult=null;
+		List<QueryResult>  queryResults=null;
+		if(!(ageFrom.equals("")||ageTo.equals("")))
+			queryResult=user.queryPatient(sex,Integer.parseInt(ageFrom) ,Integer.parseInt(ageTo) , examType);
+		if(!ageFrom.equals("")&&!ageTo.endsWith("")&&!labValFrom.equals("")&&!labValTo.equals(""))
+			queryResults=user.queryPatient(sex, Integer.parseInt(ageFrom) ,Integer.parseInt(ageTo) ,labSubType,Double.parseDouble(labValFrom) , Double.parseDouble(labValTo));
+		if(queryResult!=null&&queryResults!=null)
 		for(QueryResult q:queryResults){
 			queryResult.add(q);
 		}
+		else if(queryResults!=null)
+			queryResult=queryResults;
 		JSONObject jsonData=new JSONObject();
 		JSONArray jsonArray=new JSONArray();
 		
-		
+		if(queryResult!=null){
 		try {
 			
 			for(QueryResult q:queryResult){
@@ -80,7 +84,15 @@ public class queryResult extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		} else{
+			try {
+				jsonData.put("result", jsonArray);
+				response.getWriter().println(jsonData);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 	}
 
