@@ -1,4 +1,4 @@
-package entity;
+package servlet;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -10,6 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import entity.HospitalSituation;
+import entity.Test;
+import entity.TestResult;
+import entity.User;
 
 
 /**
