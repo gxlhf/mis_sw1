@@ -68,7 +68,7 @@ public class User {
 	 * 如参数血常规，返回所有血常规的具体检验项，如白细胞，血红蛋白等
 	 */
 	public String[] queryTestItem(String TestClass){
-		String[] queryTestItemResult = null;
+		String[] queryTestItemResult = (new TestDao()).queryTestItem(TestClass);
 		return queryTestItemResult;
 	}
 
@@ -135,14 +135,14 @@ public class User {
 	 * 根据患者编号，查询患者所有住院记录
 	 */
 	public InHospitalRecord[] getInHospitalRecord(String patient_id) {
-		InHospitalRecord[] inHospitalRecords = null;
+		InHospitalRecord[] inHospitalRecords = new ExamDao().getInHospitalRecord(patient_id);
 		return inHospitalRecords;
 	}
 	/**
 	 * 根据时间段，按天返回从datefrom到dateto每日在院患者数量
 	 */
-	public Integer[] getPatientNumChagne(String datefrom,String dateto){
-		Integer[] data=null;
+	public Integer[] getPatientNumChange(String datefrom,String dateto){
+		Integer[] data=new PatientDao().getPatientNumChange(datefrom, dateto);
 		return data;
 	}
 	

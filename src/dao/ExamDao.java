@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import database.ConnectionPool;
+import entity.InHospitalRecord;
 
 public class ExamDao {
 	ConnectionPool pool = null;
@@ -123,11 +124,76 @@ public class ExamDao {
 		return getExamCountResult;
 	}
 
+	/**
+	 * 根据患者编号，查询患者所有住院记录
+	 */
+	public InHospitalRecord[] getInHospitalRecord(String patient_id) {
+		InHospitalRecord[] inHospitalRecords = null;
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		List<InHospitalRecord> list = null;
+
+		try {
+			connection = ConnectionPool.getInstance().getConnection();
+			String sql = "select * from inhospitalrecord where patientid = ?";
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, patient_id);
+			
+			resultSet = preparedStatement.executeQuery();
+			
+			list = new ArrayList<InHospitalRecord>();
+			InHospitalRecord inHospitalRecord = null;
+			while (resultSet.next()) {
+				inHospitalRecord = new InHospitalRecord();
+				
+				inHospitalRecord.setSequence(resultSet.getInt(2));
+				inHospitalRecord.setPatientId(resultSet.getString(1));
+				inHospitalRecord.setInTime(resultSet.getString(3));
+				inHospitalRecord.setInAge(resultSet.getString(5));
+				inHospitalRecord.setDiag(resultSet.getString(6));
+				
+				list.add(inHospitalRecord);
+			}
+			inHospitalRecords = new InHospitalRecord[list.size()];
+			for(int i = 0; i<list.size(); i++)
+			{
+				inHospitalRecords[i] = list.get(i);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (resultSet != null) {
+				try {
+					resultSet.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (preparedStatement != null) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+
+		}
+		return inHospitalRecords;
+	}
+
 	public static void main(String[] args) {
-		System.out.println(new ExamDao().getExamCount());
-		String[] strs = new ExamDao().queryExamClass();
-		for (String s : strs) {
-			System.out.println(s);
+		InHospitalRecord[] InHospitalRecords = new ExamDao().getInHospitalRecord("355580");
+		for (InHospitalRecord inHospitalRecord : InHospitalRecords) {
+			System.out.println(inHospitalRecord.getDiag());
 		}
 	}
 

@@ -27,6 +27,22 @@ public class Exam {
 	String description;
 	String impression;
 	int isAbnormal;
+
+	public Exam(String exam_no, String patient_id, String visit_id, String req_date_time, String exam_sub_class,
+			String exam_class, String clin_symp, String phys_sign, String clin_diag, String description,
+			String impression) {
+		this.exam_no = exam_no;
+		this.patient_id = patient_id;
+		this.visit_id = visit_id;
+		this.req_date_time = req_date_time;
+		this.exam_sub_class = exam_sub_class;
+		this.exam_class = exam_class;
+		this.clin_symp = clin_symp;
+		this.phys_sign = phys_sign;
+		this.clin_diag = clin_diag;
+		this.description = description;
+		this.impression = impression;
+	}
 	public Exam(String exam_no, String patient_id, String visit_id, String req_date_time, String exam_sub_class,
 			String exam_class, String clin_symp, String phys_sign, String clin_diag, String description,
 			String impression, int isAbnormal) {
