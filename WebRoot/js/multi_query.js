@@ -70,6 +70,12 @@ window.onload = function () {
       },
       valided: function () {
         return this.ageMsg == 0 && this.labMsg == 0;
+      },
+      showNoResult: function () {
+        return this.queryResult.showing && this.queryResult.result.length == 0;
+      },
+      showResult: function () {
+        return this.queryResult.showing && !this.queryResult.loading && this.queryResult.result.length > 0;
       }
     },
     created: function () {
@@ -80,8 +86,6 @@ window.onload = function () {
 
       // 获取检验一级指标
       ajax_get("json_test/labList.json", vueObj.formOptions.lab);
-      // 获取检验二级指标
-      ajax_get("json_test/sublabList.json", vueObj.formOptions.subLab);
 
     },
     methods: {
@@ -95,7 +99,7 @@ window.onload = function () {
         }
 
         var fetchParm = {"labType": encodeURI(vueObj.queryParm.labType)};
-        ajax_get("json_test/sublabList.json", vueObj.formOptions.subLab, fetchParm);
+        ajax_get("json_test/subLabList.json", vueObj.formOptions.subLab, fetchParm);
       },
       multiQuery: function () {
         var vueObj = this;

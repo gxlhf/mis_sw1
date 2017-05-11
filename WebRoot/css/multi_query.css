@@ -59,3 +59,9 @@ body {
 .loading:focus {
     color: transparent;
 }
+
+.no-result {
+    border: 1px solid #ddd;
+    line-height: 100px !important;
+    text-align: center;
+}
