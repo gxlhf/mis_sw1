@@ -41,14 +41,11 @@ public class examList extends HttpServlet {
 		User user=new User("", "", "");
 		JSONObject jsonData=new JSONObject();
 		JSONArray jsonArray=new JSONArray();
-		JSONObject jsonData1=new JSONObject();
 		String []examList=user.queryExamClass();
 
 		try {
-		for(String e:examList){
-			jsonData1=new JSONObject();
-			jsonData1.put("name", e);
-			jsonArray.put(jsonData1);
+		for(int i=0;i<examList.length;i++){
+			jsonArray.put(examList[i]);
 		}
 		jsonData.put("examClass", jsonArray);
 		response.getWriter().println(jsonData);

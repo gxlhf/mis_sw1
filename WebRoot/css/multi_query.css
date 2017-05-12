@@ -33,9 +33,35 @@ body {
     border-right: 1px solid #DDD;
     height: 40.5px;
 }
-.container {
-    margin-top: 20px;
-}
 ._single-input {
     border-radius: 3px !important;
+}
+
+.help-block {
+    display: inline-block;
+    margin-left: 8px;
+    color: #a94442;
+}
+
+.loading {
+    background-image: url("../images/loading.gif");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+    color: transparent;
+}
+.loading:active {
+    color: transparent;
+}
+.loading:hover {
+    color: transparent;
+}
+.loading:focus {
+    color: transparent;
+}
+
+.no-result {
+    border: 1px solid #ddd;
+    line-height: 100px !important;
+    text-align: center;
 }

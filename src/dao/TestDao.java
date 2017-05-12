@@ -124,7 +124,8 @@ public class TestDao {
 	
 	public static void main(String[] args) {
 		System.out.println((new TestDao()).getTestCount());
-		String[] s = (new TestDao()).queryTestItem("血常规");
+		User user=new User("", "", "");
+		String[] s = (new TestDao()).quryTestResult();
 		for(int i = 0; i < s.length; i++) {
 			System.out.println(s[i]);
 		}

@@ -6,25 +6,24 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sound.sampled.LineUnavailableException;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
+import entity.QueryHistory;
 import entity.User;
+import net.sf.json.JSONArray;
 
 /**
- * Servlet implementation class labList
+ * Servlet implementation class queryHistory
  */
-@WebServlet("/labList")
-public class labList extends HttpServlet {
+@WebServlet("/queryHistory")
+public class queryHistory extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public labList() {
+    public queryHistory() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,29 +33,10 @@ public class labList extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("out");
 		response.setContentType("text/html;charset=UTF-8");
-		User user=new User("", "","");
-		String[] labList=user.queryTestClass();
-		JSONObject jsonData=new JSONObject();
-		JSONArray jsonArray=new JSONArray();
-		for(String s:labList)
-			if(s!=null)
-			System.out.println(s);
-		System.out.println("out");
-		try {
-			for(String s:labList)
-				jsonArray.put(s);
-			jsonData.put("labClass", jsonArray);
-			response.getWriter().println(jsonData.toString());
-			
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		User user=new User("", "", "");
 
-			
-		
+	
 	}
 
 	/**
