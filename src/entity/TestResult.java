@@ -1,5 +1,5 @@
 /**
- * 检查结果类
+ * 检验结果类
  * print_order:打印顺序
  * report_item_name:指标名称
  * result:结果

@@ -1,5 +1,10 @@
 /**
  * 历史查询项类
+ * sex:性别
+ * minAge、maxAge:年龄范围
+ * examClass:检查指标
+ * testItem:检验指标
+ * patients:符合以上条件的患者
  */
 package entity;
 

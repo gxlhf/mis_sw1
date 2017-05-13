@@ -77,16 +77,16 @@ public class User {
 	 * 当性别和检验指标为不限的时候，默认为全选，查询全部结果
 	 */
 	public List<QueryResult> queryPatient(String sex, int minAge, int maxAge, String examClass){
-		List<QueryResult> queryPatientResult = null;
-		return queryPatientResult;
+		List<QueryResult> queryPatientResult = new PatientDao().queryPatient(sex, minAge, maxAge, examClass)
+;		return queryPatientResult;
 	}
 
 	/**
 	 * 根据性别，年龄段，检查指标具体类别，指标值范围查询患者信息，返回患者列表
 	 * 当性别和检验指标为不限的时候，默认为全选，查询全部结果
 	 */
-	public List<QueryResult> queryPatient(String sex, int minAge, int maxAge, String TestItem, double valueStart, double valueEnd) {
-		List<QueryResult> queryPatientResult = null;
+	public List<QueryResult> queryPatient(String sex, int minAge, int maxAge, String testItem, double valueStart, double valueEnd) {
+		List<QueryResult> queryPatientResult = new PatientDao().queryPatient(sex, minAge, maxAge, testItem, valueStart, valueEnd);
 		return queryPatientResult;
 	}
 
@@ -127,7 +127,7 @@ public class User {
 	 */
 	public Patient queryPatientInfo(String patient_id) 
 	{
-		Patient patient = null;
+		Patient patient = new PatientDao().queryPatientInfo(patient_id);
 		return patient;
 	}
 	
