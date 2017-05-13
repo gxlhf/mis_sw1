@@ -92,7 +92,7 @@ public class Filelu extends HttpServlet {
 			String basePath = getServletContext().getRealPath("/upload");
 		//	String changePath=getServletContext().getRealPath("/preview");
 			String bpath=basePath+"\\"+fileName;
-			
+			System.out.println(bpath);
 			String suffix=fileName.substring(fileName.lastIndexOf('.')+1);   //根据不同的后缀采取不同的转换策略
 			if(suffix.equals("txt")||suffix.equals("html")||suffix.equals("xml")||suffix.equals("doc")||suffix.equals("doc")||
 					suffix.equals("ppt")||suffix.equals("pptx")||suffix.equals("xls")||suffix.equals("xlsx")){
