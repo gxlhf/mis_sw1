@@ -176,7 +176,7 @@ window.onload = function(){
     created: function function_name(argument) {
       var queryParm = {"patientID": patientID};
       var vueObj = this;
-      ajax_get("json_test/patientInfo.json", this.patientInfo, queryParm);
+      ajax_get("patientInfo", this.patientInfo, queryParm);
     }
   });
 
@@ -205,7 +205,7 @@ window.onload = function(){
       inHospitalRecord = {};
       var queryParm = {"patient_id": patientID};
       var vueObj = this;
-      ajax_get("json_test/inHospitalRecord.json", inHospitalRecord, queryParm,
+      ajax_get("inHospitalRecord", inHospitalRecord, queryParm,
         function () {
           for(var i = 0; i < inHospitalRecord.length; i++){
             inHospitalRecord.data[i].showingDetail = false;
@@ -251,7 +251,7 @@ window.onload = function(){
               ajax_get("examRecord", curData.detail, queryParm, sucCbk, errCbk);
               break;
             case "lab":
-              ajax_get("json_test/labRecord.json", curData.detail, queryParm, sucCbk, errCbk);
+              ajax_get("labRecord", curData.detail, queryParm, sucCbk, errCbk);
               break;
           }
         }

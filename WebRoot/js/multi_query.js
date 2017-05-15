@@ -82,10 +82,10 @@ window.onload = function () {
       var vueObj = this;
 
       // 获取检查列表
-      ajax_get("json_test/examList.json", vueObj.formOptions.exam);
+      ajax_get("examList", vueObj.formOptions.exam);
 
       // 获取检验一级指标
-      ajax_get("json_test/labList.json", vueObj.formOptions.lab);
+      ajax_get("labList", vueObj.formOptions.lab);
 
     },
     methods: {
@@ -99,16 +99,19 @@ window.onload = function () {
         }
 
         var fetchParm = {"labType": encodeURI(vueObj.queryParm.labType)};
-        ajax_get("json_test/subLabList.json", vueObj.formOptions.subLab, fetchParm);
+        ajax_get("subLabList", vueObj.formOptions.subLab, fetchParm);
       },
       multiQuery: function () {
         var vueObj = this;
         vueObj.queryResult.showing = true;
         vueObj.queryResult.loading = true;
-        ajax_get("json_test/queryResult.json", vueObj.queryResult, vueObj.queryParm, 
+        ajax_get("queryResult", vueObj.queryResult, vueObj.queryParm, 
           function () {
             vueObj.queryResult.loading = false;
           });
+      },
+      jumpToDetail: function (paID) {
+        window.location.href = "patient_detail.html?patient_id=" + paID;
       }
     }
   });

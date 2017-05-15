@@ -16,6 +16,19 @@ window.onload = function(){
             queryTime: ""
           }
         ]
+      },
+      retData: {
+        data:[
+          {
+            index: 0,
+            dataID: "",
+            sex: "",
+            ageArea: "",
+            examType: "",
+            labType: "",
+            queryTime: ""
+          }
+        ]
       }
     },
     created: function () {

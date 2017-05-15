@@ -158,7 +158,7 @@
                 <td>{{ result.diag }}</td>
                 <td>{{ result.patientID }}</td>
                 <td>{{ result.inHospitalCount }}</td>
-                <td><a>患者详情</a></td>
+                <td><a @click="jumpToDetail(result.patientID)">患者详情</a></td>
               </tr>
 
             </tbody>

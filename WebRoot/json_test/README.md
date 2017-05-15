@@ -19,10 +19,10 @@
         * 历史查询记录
 
 * `patient_detail.html`
-    * `inHospitalRecord.json` **json已稳定** 
-        * 传入 "patient_id" 作为参数，返回住院号为 "patient_id" 的病人所有住院记录
-    * `inHospitalRecord.json` **json已稳定**
+    * `patientInfo.json` **json已稳定** 
         * 传入 "patient_id" 作为参数，返回住院号为 "patient_id" 的病人个人信息
+    * `inHospitalRecord.json` **json已稳定**
+        * 传入 "patient_id" 作为参数，返回住院号为 "patient_id" 的病人所有住院记录
     * `examRecord.json` **json已稳定** **已对接**
         * 传入 "patient_id" 、 "sequence" 作为参数，返回住院号为 "patient_id" 的病人第 "sequence" 次住院的所有检查结果
     * `labRecord.json` **json已稳定**
