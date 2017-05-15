@@ -1,21 +1,51 @@
 {
   "data": [
     {
-      "index": 0,
       "queryID": "123",
       "sex": "男",
-      "ageArea": "10-15",
+      "ageFrom": "10",
+      "ageTo": "100",
       "examType": "CT",
       "labType": "血常规",
+      "labSubType": "红细胞",
+      "labValFrom": "0",
+      "labValTo": "100",
       "queryTime": "2017-4-1"
     },
     {
-      "index": 1,
       "queryID": "123",
       "sex": "男",
-      "ageArea": "15-20",
+      "ageFrom": "",
+      "ageTo": "",
       "examType": "CT",
       "labType": "血常规",
+      "labSubType": "",
+      "labValFrom": "",
+      "labValTo": "",
+      "queryTime": "2017-4-1"
+    },
+    {
+      "queryID": "123",
+      "sex": "男",
+      "ageFrom": "10",
+      "ageTo": "100",
+      "examType": "CT",
+      "labType": "血常规",
+      "labSubType": "红细胞",
+      "labValFrom": "0",
+      "labValTo": "",
+      "queryTime": "2017-4-1"
+    },
+    {
+      "queryID": "123",
+      "sex": "男",
+      "ageFrom": "10",
+      "ageTo": "100",
+      "examType": "CT",
+      "labType": "血常规",
+      "labSubType": "红细胞",
+      "labValFrom": "0",
+      "labValTo": "100",
       "queryTime": "2017-4-1"
     }
   ]

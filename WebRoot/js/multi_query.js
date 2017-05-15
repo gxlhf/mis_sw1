@@ -98,7 +98,7 @@ window.onload = function () {
           return;
         }
 
-        var fetchParm = {"labType": encodeURI(vueObj.queryParm.labType)};
+        var fetchParm = {"labType": vueObj.queryParm.labType};
         ajax_get("subLabList", vueObj.formOptions.subLab, fetchParm);
       },
       multiQuery: function () {

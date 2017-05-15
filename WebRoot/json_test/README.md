@@ -15,8 +15,12 @@
         * 传入"sex"、"ageFrom"、"ageTo"、"examType"、"labType"、"labSubType"、"labValFrom"、"labValTo"作为参数，返回符合条件的查询结果
 
 * `query_history.html`
-    * `queryHistory.json` **json已稳定**
-        * 历史查询记录
+    * `queryHistory.json` **json有更改**
+        * 历史查询记录。其中 ageFrom ageTo labValFrom labValTo 请以字符串返回，当某次历史查询记录无此条件时请返回空字串
+
+* `query_history_result.html`
+    * `queryHistoryResult.json` **json已稳定**
+        * 历史查询记录结果。传入 "queryID" 作为参数。json中"queryAbstract"为查询概要，包括该次查询条件、查询时间及查询ID
 
 * `patient_detail.html`
     * `patientInfo.json` **json已稳定** 

@@ -7,25 +7,15 @@ window.onload = function(){
       tableContent: {
         data:[
           {
-            index: 0,
-            dataID: "",
+            queryID: "",
             sex: "",
-            ageArea: "",
+            ageFrom: "",
+            ageTo: "",
             examType: "",
             labType: "",
-            queryTime: ""
-          }
-        ]
-      },
-      retData: {
-        data:[
-          {
-            index: 0,
-            dataID: "",
-            sex: "",
-            ageArea: "",
-            examType: "",
-            labType: "",
+            labSubType: "",
+            labValFrom: "",
+            labValTo: "",
             queryTime: ""
           }
         ]
@@ -36,8 +26,20 @@ window.onload = function(){
       ajax_get("json_test/queryHistory.json", this.tableContent);
     },
     methods: {
-      jumpToDetail: function (recordID) {
-        window.location.href = "query_history_result.html?redordID=" + recordID;
+      jumpToResult: function (recordID) {
+        window.location.href = "query_history_result.html?queryID=" + recordID;
+      },
+      showingAgeTilde: function (index) {
+        var da = this.tableContent.data[index];
+        return da.ageFrom.length > 0 || da.ageTo.length > 0;
+      },
+      showingLabArrow: function (index) {
+        var da = this.tableContent.data[index];
+        return da.labSubType != "不限" && da.labSubType.length > 0 ;
+      },
+      showingLabTilde: function (index) {
+        var da = this.tableContent.data[index];
+        return da.labValFrom.length > 0 || da.labValTo.length > 0;
       }
     }
   })

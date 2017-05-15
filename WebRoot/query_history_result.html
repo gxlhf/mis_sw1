@@ -50,25 +50,60 @@
           <table class="table table-bordered table-hover table-striped">
             <thead>
               <tr>
-                <td>姓名</td>
                 <td>性别</td>
-                <td>临床诊断</td>
-                <td>影像ID</td>
-                <td>住院号</td>
-                <td>住院次数</td>
-                <td></td>
+                <td>年龄段</td>
+                <td>检查指标</td>
+                <td>检验指标</td>
+                <td>检验指标范围</td>
+                <td>查询时间</td>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>王大锤</td>
-                <td>男</td>
-                <td>脑残</td>
-                <td>54438</td>
-                <td>2B</td>
-                <td>2</td>
-                <td><a href="">查看详情</a></td>
+                <td>{{queryAbstract.sex}}</td>
+                <td>
+                  {{queryAbstract.ageFrom}}
+                  <span v-if="showingAgeTilde"> ~ </span><span v-else>不限</span>
+                  {{queryAbstract.ageTo}}
+                </td>
+                <td>{{queryAbstract.examType}}</td>
+                <td>
+                  {{queryAbstract.labType}}
+                  <span v-if="showingLabArrow"> → {{queryAbstract.labSubType}}</span>
+                </td>
+                <td>
+                  {{queryAbstract.labValFrom}}
+                  <span v-if="showingLabTilde"> ~ </span><span v-else>不限</span>
+                  {{queryAbstract.labValTo}}
+                </td>
+                <td>{{queryAbstract.queryTime}}</td>
               </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover table-striped">
+            <thead>
+              <tr class="text-center">
+                <td>姓名</td>
+                <td>性别</td>
+                <td>临床诊断</td>
+                <td>住院号</td>
+                <td>住院次数</td>
+                <td>详情</td>
+              </tr>
+            </thead>
+            <tbody>
+    
+              <tr class="text-center" v-for="result in queryResult.result">
+                <td>{{ result.name }}</td>
+                <td>{{ result.sex }}</td>
+                <td>{{ result.diag }}</td>
+                <td>{{ result.patientID }}</td>
+                <td>{{ result.inHospitalCount }}</td>
+                <td><a @click="jumpToDetail(result.patientID)">患者详情</a></td>
+              </tr>
+
             </tbody>
           </table>
         </div>
