@@ -40,7 +40,7 @@ public class examRecord extends HttpServlet {
 		String id=request.getParameter("patient_id");
 		String Sequence=request.getParameter("sequence");
 		int sequence=1;
-		System.out.println(id+Sequence);
+//		System.out.println(id+Sequence);
 		if(Sequence!=null)
 			sequence=Integer.valueOf(Sequence);
 		HospitalSituation hospitalSituation=user.getHospitalSituation(id, sequence);

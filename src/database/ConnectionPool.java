@@ -116,7 +116,7 @@ public class ConnectionPool {
         try {
             String path = this.getClass().getResource("/").getPath();
             path=path.substring(0, path.lastIndexOf("/"))+"/dbpool.properties";
-            System.out.println(path);
+//            System.out.println(path);
             FileInputStream is = new FileInputStream(path);
             Properties props = new Properties();
 

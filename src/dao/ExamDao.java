@@ -191,7 +191,7 @@ public class ExamDao {
 	}
 
 	public static void main(String[] args) {
-		InHospitalRecord[] InHospitalRecords = new ExamDao().getInHospitalRecord("355580");
+		InHospitalRecord[] InHospitalRecords = new ExamDao().getInHospitalRecord("204020");
 		for (InHospitalRecord inHospitalRecord : InHospitalRecords) {
 			System.out.println(inHospitalRecord.getDiag());
 		}
