@@ -106,6 +106,9 @@ public class TestDao {
             	list.add(rs.getString(1));
             }
             String[] s = new String[count];
+            for(int i = 0; i< count; i++) {
+            	s[i] = list.get(i);
+            }
             //test
             System.out.println(s.length);
             System.out.println(count);
@@ -114,9 +117,6 @@ public class TestDao {
             }
             //test over
             
-            for(int i = 0; i< count; i++) {
-            	s[i] = list.get(i);
-            }
             return s;
         }catch(SQLException se ){   
             System.out.println("test count error");   
