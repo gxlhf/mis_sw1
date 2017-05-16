@@ -138,6 +138,7 @@ public class User {
 		InHospitalRecord[] inHospitalRecords = new ExamDao().getInHospitalRecord(patient_id);
 		return inHospitalRecords;
 	}
+	
 	/**
 	 * 根据时间段，按天返回从datefrom到dateto每日在院患者数量
 	 */
@@ -145,6 +146,16 @@ public class User {
 		Integer[] data=new PatientDao().getPatientNumChange(datefrom, dateto);
 		return data;
 	}
+	
+	/**
+	 * 从数据库中查询该查询条件是否已存在于数据库中
+	 */
+	public boolean fileExistJudge(String sex, int minAge, int maxAge, String examClass, String testItem, double valueStart, double valueEnd) {
+		boolean result = false;
+		return result;
+	}
+	
+	
 	
 	public static void main(String[] args){
 		InHospitalRecord[] inHospitalRecords=new User("", "", "").getInHospitalRecord("123141");

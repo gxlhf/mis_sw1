@@ -59,22 +59,27 @@ public class inHospitalRecord extends HttpServlet {
 		try {
 			jsonData.put("length", inHospitalRecords.length);
 			JSONArray data=new JSONArray();
-			for(int i=0;i<inHospitalRecords.length;i++){
+			for(int i=0;i<inHospitalRecords.length;i++)
+			{
 				JSONObject jsonObject=new JSONObject();
 				jsonObject.put("index", i);
 				jsonObject.put("inTime", inHospitalRecords[i].getInTime());
 				jsonObject.put("inAge", inHospitalRecords[i].getInAge());
 				jsonObject.put("diag", inHospitalRecords[i].getDiag());
 				HospitalSituation hospitalSituation=user.getHospitalSituation(inHospitalRecords[i].getPatientId(), inHospitalRecords[i].getSequence());
-				if(hospitalSituation.getExam()!=null)
-					jsonObject.put("haveExam", true);
-				else
-					jsonObject.put("haveExam", false);
-				if(hospitalSituation.getTest()!=null)
-					jsonObject.put("haveLab", true);
-				else
-					jsonObject.put("haveLab", false);
-				data.put(jsonObject);
+				if(hospitalSituation!=null)
+				{
+					if(hospitalSituation.getExam()!=null)
+						jsonObject.put("haveExam", true);
+					else
+						jsonObject.put("haveExam", false);
+					if(hospitalSituation.getTest()!=null)
+						jsonObject.put("haveLab", true);
+					else
+						jsonObject.put("haveLab", false);
+					data.put(jsonObject);
+				}
+				
 			}
 			jsonData.put("data", data);
 		} catch (JSONException e) {
