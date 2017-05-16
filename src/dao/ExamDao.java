@@ -11,17 +11,7 @@ import database.ConnectionPool;
 import entity.InHospitalRecord;
 
 public class ExamDao {
-	ConnectionPool pool = null;
-	Connection con = null;
-
 	public ExamDao() {
-		try {
-			pool = ConnectionPool.getInstance();
-			con = pool.getConnection();
-		} catch (Exception se) {
-			System.out.println("数据库连接失败！");
-			se.printStackTrace();
-		}
 	}
 
 	/**
@@ -64,11 +54,13 @@ public class ExamDao {
 				}
 			}
 			if (connection != null) {
-				try {
+				/*try {
 					connection.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
-				}
+				}*/
+				//修改为释放连接而非关闭连接
+				ConnectionPool.getInstance().release(connection);
 			}
 
 		}
@@ -113,11 +105,13 @@ public class ExamDao {
 				}
 			}
 			if (connection != null) {
-				try {
+				/*try {
 					connection.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
-				}
+				}*/
+				//修改为释放连接而非关闭连接
+				ConnectionPool.getInstance().release(connection);
 			}
 
 		}
@@ -179,13 +173,15 @@ public class ExamDao {
 				}
 			}
 			if (connection != null) {
-				try {
+				/*try {
 					connection.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
-				}
-			}
+				}*/
 
+				//修改为释放连接而非关闭连接
+				ConnectionPool.getInstance().release(connection);
+			}
 		}
 		return inHospitalRecords;
 	}

@@ -47,7 +47,7 @@ public class PatientDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			ConnectionPool.getInstance().release(con);
+			pool.release(con);
 		}
 		return result;
 	}
@@ -56,6 +56,14 @@ public class PatientDao {
 	 * 根据性别，年龄段，检查指标查询患者信息，返回患者类列表 当性别和检验指标为不限的时候，默认为全选，查询全部结果
 	 */
 	public List<QueryResult> queryPatient(String sex, int minAge, int maxAge, String examClass) {
+
+		try {
+			pool = ConnectionPool.getInstance();
+			con = pool.getConnection();
+		} catch (Exception se) {
+			System.out.println("数据库连接失败！");
+			se.printStackTrace();
+		}
 		List<QueryResult> result = new ArrayList<QueryResult>();
 		String last_id = "", patient_id = "";
 		String patient_name = "";
@@ -124,6 +132,14 @@ public class PatientDao {
 
 	public List<QueryResult> queryPatient(String sex, int minAge, int maxAge, String testItem, double valueStart,
 			double valueEnd) {
+
+		try {
+			pool = ConnectionPool.getInstance();
+			con = pool.getConnection();
+		} catch (Exception se) {
+			System.out.println("数据库连接失败！");
+			se.printStackTrace();
+		}
 		List<QueryResult> result = new ArrayList<QueryResult>();
 		String last_id = "", patient_id = "";
 		String patient_name = "";
@@ -289,6 +305,8 @@ public class PatientDao {
 			hospitalSituation = new HospitalSituation(sequence, exams, tests, patient_id);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			pool.release(con);
 		}
 		return hospitalSituation;
 	}
@@ -359,6 +377,7 @@ public class PatientDao {
 			e.printStackTrace();
 		} finally {
 			pool.release(con);
+			pool=null;
 		}
 		return null;
 	}

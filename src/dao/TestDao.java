@@ -14,6 +14,8 @@ public class TestDao {
 	ConnectionPool pool=null;
     Connection con =null;
 	public TestDao(){
+	}
+	public int getTestCount() {
 		try{   
             pool = ConnectionPool.getInstance();
             con = pool.getConnection();
@@ -21,8 +23,6 @@ public class TestDao {
             System.out.println("数据库连接失败！");   
             se.printStackTrace() ;   
              }   
-	}
-	public int getTestCount() {
         int count = 0;
         PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -36,25 +36,27 @@ public class TestDao {
             System.out.println("test count error");   
             se.printStackTrace() ;   
         } finally {
-        	try {
-				rs.close();
-				ps.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				pool.release(con);
         }
 
         return count;
     }
 	
 	public String[] quryTestResult() {
+		try{   
+            pool = ConnectionPool.getInstance();
+            con = pool.getConnection();
+        }catch(Exception se ){   
+            System.out.println("数据库连接失败！");   
+            se.printStackTrace() ;   
+             }   
 		int count = 0;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<String> list = new ArrayList<String>();
         try{   
             String sql = "select distinct item_name from lab_test_items";
+            System.out.println(con);
             ps= con.prepareStatement(sql);
             rs = ps.executeQuery();
             while(rs.next()) {
@@ -70,13 +72,7 @@ public class TestDao {
             System.out.println("test count error");   
             se.printStackTrace() ;   
         } finally {
-        	try {
-				rs.close();
-				ps.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}       	
+			pool.release(con);
         }
 
         return null;
@@ -88,6 +84,13 @@ public class TestDao {
 	 * 如参数血常规，返回所有血常规的具体检验项，如白细胞，血红蛋白等
 	 */
 	public String[] queryTestItem(String TestClass){
+		try{   
+            pool = ConnectionPool.getInstance();
+            con = pool.getConnection();
+        }catch(Exception se ){   
+            System.out.println("数据库连接失败！");   
+            se.printStackTrace() ;   
+             }   
 		int count = 0;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -95,13 +98,22 @@ public class TestDao {
         try{   
             String sql = "select reportitemname from itemtoresult where itemname =?";
             ps= con.prepareStatement(sql);
-            ps.setString(1, TestClass);
+            ps.setString(1, TestClass.replaceAll("\\s*",""));
+            System.out.println("testClass:"+TestClass);
             rs = ps.executeQuery();
             while(rs.next()) {
             	count++;
             	list.add(rs.getString(1));
             }
             String[] s = new String[count];
+            //test
+            System.out.println(s.length);
+            System.out.println(count);
+            for(int i = 0; i< count; i++) {
+    			System.out.println(s[i]);
+            }
+            //test over
+            
             for(int i = 0; i< count; i++) {
             	s[i] = list.get(i);
             }
@@ -110,13 +122,9 @@ public class TestDao {
             System.out.println("test count error");   
             se.printStackTrace() ;   
         } finally {
-        	try {
-				rs.close();
-				ps.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				pool.release(con);
+				con=null;
+				System.out.println("TestDAO.queryTestItem 已经释放");
         }
 
         return null;
@@ -125,7 +133,7 @@ public class TestDao {
 	public static void main(String[] args) {
 		System.out.println((new TestDao()).getTestCount());
 		User user=new User("", "", "");
-		String[] s = (new TestDao()).quryTestResult();
+		String[] s = (new TestDao()).queryTestItem("肾功能");
 		for(int i = 0; i < s.length; i++) {
 			System.out.println(s[i]);
 		}

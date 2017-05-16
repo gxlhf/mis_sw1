@@ -12,6 +12,8 @@ public class UserDao {
 	ConnectionPool pool=null;
     Connection con =null;
 	public UserDao(){
+	}
+	public boolean verifyUser(User user){
 		try{   
             pool = ConnectionPool.getInstance();
             con = pool.getConnection();
@@ -19,8 +21,6 @@ public class UserDao {
             System.out.println("数据库连接失败！");   
             se.printStackTrace() ;   
              }   
-	}
-	public boolean verifyUser(User user){
         try{   
         	String sql = "select password from user where user.user = ? ";
         	PreparedStatement ps= con.prepareStatement(sql);
@@ -39,7 +39,9 @@ public class UserDao {
         }catch(SQLException se ){   
             System.out.println("用户识别失败！");   
             se.printStackTrace() ;   
-             }   
+             }   finally {
+     			pool.release(con);
+     		}
 		return false;
     } 
 }
