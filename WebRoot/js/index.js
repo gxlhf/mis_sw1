@@ -23,15 +23,14 @@ Date.prototype.setDateAfter = function(after){
   var beforMilliseconds = this.getTime() + 1000 * 3600 * 24 * after;
   this.setTime(beforMilliseconds);
   return this;
-}
+};
 
-function date2string(date) {
-  
+function date2string(date) {  
   var y = date.getFullYear();
-  var m = (date.getMonth() < 10 ? "0" : "") + date.getMonth();
+  var m = ((date.getMonth() + 1) < 10 ? "0" : "") + (date.getMonth() + 1);
   var d = (date.getDate() < 10 ? "0" : "") + date.getDate();
   return y + "-" + m + "-" + d;
-}
+};
 
 function selectOption(type){
   mychart = echarts.init(document.getElementById('presentation'));
@@ -52,15 +51,18 @@ function selectOption(type){
       break;
   }
 
-  date.setDateAfter(-minusDate);
+  date.setDateAfter(-minusDate + 1);
   queryParm.datefrom = date2string(date);
   option.xAxis.data = [];
   for (var i = 0; i < minusDate; i++) {
     option.xAxis.data.push(date2string(date.setDateAfter(1)));
   }
 
-  ajax_get("json_test/patientNumChange.json", option.series, queryParm, function () {
+  ajax_get("patientNumChange", option.series.data, queryParm, function () {
     mychart.clear();
     mychart.setOption(option);
   });
+};
+window.onload = function () {
+  selectOption("week");
 }

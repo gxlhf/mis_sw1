@@ -207,14 +207,13 @@ window.onload = function(){
       var vueObj = this;
       ajax_get("inHospitalRecord", inHospitalRecord, queryParm,
         function () {
-          for(var i = 0; i < inHospitalRecord.length; i++){
-            inHospitalRecord.data[i].showingDetail = false;
-            inHospitalRecord.data[i].showingLoading = false;
-            inHospitalRecord.data[i].detail = {type: "", length: 0, data: []};
+          for (i in inHospitalRecord.data) {
+            inHospitalRecord.data[i]["showingDetail"] = false;
+            inHospitalRecord.data[i]["showingLoading"] = false;
+            inHospitalRecord.data[i]["detail"] = {type: "", length: 0, data: []};
           }
           vueObj.tableContent = inHospitalRecord;
         });
-      
     },
     methods: {
       showLoading: function (index) {

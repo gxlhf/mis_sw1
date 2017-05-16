@@ -59,7 +59,7 @@ public class labRecord extends HttpServlet {
 			for(int i=0;i<hospitalSituation.getTest().length;i++){
 				Test test=hospitalSituation.getTest()[i];
 				JSONObject lab=new JSONObject();
-				lab.put("labNO", test.getTest_no());
+				lab.put("labNo", test.getTest_no());
 				lab.put("labName", test.getItem_name());
 				JSONArray result=new JSONArray();
 				for(int j=0;j<test.getTest_result().length;j++){
