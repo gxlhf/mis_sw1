@@ -81,15 +81,15 @@ public class PatientDao {
 			se.printStackTrace();
 		}
 		try {
-			String sql = "SELECT a.PATIENT_ID,a.SEX,a.VISIT_ID,a.CLIN_DIAG,patient_information.PATIENT_NAME,patient_information.DATE_OF_BIRTH FROM "
-					+ "(SELECT exam_master.PATIENT_ID,exam_master.SEX,exam_master.VISIT_ID,exam_master.CLIN_DIAG FROM exam_master "
-					+ "WHERE SEX LIKE '%?%' AND exam_master.CLIN_DIAG LIKE '%?%' "
+			String sql = "SELECT a.PATIENT_ID,a.SEX,a.VISIT_ID,a.EXAM_CLASS,patient_information.PATIENT_NAME,patient_information.DATE_OF_BIRTH FROM "
+					+ "(SELECT exam_master.PATIENT_ID,exam_master.SEX,exam_master.VISIT_ID,exam_master.EXAM_CLASS FROM exam_master "
+					+ "WHERE SEX LIKE ? AND exam_master.EXAM_CLASS LIKE ? "
 					+ "AND YEAR(exam_master.REQ_DATE_TIME)-YEAR(exam_master.DATE_OF_BIRTH) >= ? AND "
 					+ "YEAR(exam_master.REQ_DATE_TIME)-YEAR(exam_master.DATE_OF_BIRTH) <= ?) a "
 					+ "LEFT JOIN patient_information ON a.PATIENT_ID = patient_information.PATIENT_ID ORDER BY a.PATIENT_ID,a.VISIT_ID";
 			PreparedStatement preparedStatement = con.prepareStatement(sql);
-			preparedStatement.setString(1, sex);
-			preparedStatement.setString(2, examClass);
+			preparedStatement.setString(1, "%"+sex+"%");
+			preparedStatement.setString(2, "%"+examClass+"%");
 			preparedStatement.setInt(3, minAge);
 			preparedStatement.setInt(4, maxAge);
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -383,13 +383,14 @@ public class PatientDao {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(new PatientDao().getHospitalSituation("302533", 1).getExam().length);
+		/*System.out.println(new PatientDao().getHospitalSituation("302533", 1).getExam().length);
 		Integer[] tmp = new PatientDao().getPatientNumChange("2015-01-24", "2015-01-24");
 		for (Integer x : tmp) {
 			System.out.println(x);
 		}
 		Patient p= new PatientDao().queryPatientInfo("123141");
-		System.out.println(p.getPatient_id()+" "+p.getPatient_name()+" "+p.getSex()+" "+p.getBirthday());
+		System.out.println(p.getPatient_id()+" "+p.getPatient_name()+" "+p.getSex()+" "+p.getBirthday());*/
+		System.out.println(new PatientDao().queryPatient("", 10, 70, "黑白超").size());
 	}
 
 }

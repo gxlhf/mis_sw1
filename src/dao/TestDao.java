@@ -56,7 +56,7 @@ public class TestDao {
 		List<String> list = new ArrayList<String>();
         try{   
             String sql = "select distinct item_name from lab_test_items";
-            System.out.println(con);
+//            System.out.println(con);
             ps= con.prepareStatement(sql);
             rs = ps.executeQuery();
             while(rs.next()) {

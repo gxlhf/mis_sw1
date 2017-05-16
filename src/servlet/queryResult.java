@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -38,14 +39,21 @@ public class queryResult extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=UTF-8");
 		User user=new User("", "","");
-		String sex=request.getParameter("sex");
-		String ageFrom=request.getParameter("ageFrom");
-		String ageTo=request.getParameter("ageTo");
-		String examType=request.getParameter("examType");
-		String labType=request.getParameter("labType");
-		String labSubType=request.getParameter("labSubType");
-		String labValFrom=request.getParameter("labValFrom");
-		String labValTo=request.getParameter("labValTo");
+		String sex=URLDecoder.decode(request.getParameter("sex"), "UTF-8");
+//		System.out.println(URLDecoder.decode(request.getParameter("sex"), "UTF-8"));
+		if (sex.equals("不限")) 
+			sex = "";
+		String ageFrom=URLDecoder.decode(request.getParameter("ageFrom"), "UTF-8");
+		String ageTo=URLDecoder.decode(request.getParameter("ageTo"), "UTF-8");
+		String examType=URLDecoder.decode(request.getParameter("examType"), "UTF-8");
+		String labType=URLDecoder.decode(request.getParameter("labType"), "UTF-8");
+		if (labType.equals("不限")) 
+			labType = "";
+		String labSubType=URLDecoder.decode(request.getParameter("labSubType"), "UTF-8");
+		if (labSubType.equals("不限")) 
+			labSubType = "";
+		String labValFrom=URLDecoder.decode(request.getParameter("labValFrom"), "UTF-8");
+		String labValTo=URLDecoder.decode(request.getParameter("labValTo"), "UTF-8");
 		List<QueryResult> queryResult=null;
 		List<QueryResult>  queryResults=null;
 		if(!(ageFrom.equals("")||ageTo.equals("")))
@@ -53,9 +61,10 @@ public class queryResult extends HttpServlet {
 		if(!ageFrom.equals("")&&!ageTo.endsWith("")&&!labValFrom.equals("")&&!labValTo.equals(""))
 			queryResults=user.queryPatient(sex, Integer.parseInt(ageFrom) ,Integer.parseInt(ageTo) ,labSubType,Double.parseDouble(labValFrom) , Double.parseDouble(labValTo));
 		if(queryResult!=null&&queryResults!=null)
-		for(QueryResult q:queryResults){
-			queryResult.add(q);
-		}
+			for(QueryResult q:queryResults)
+			{
+				queryResult.add(q);
+			}
 		else if(queryResults!=null)
 			queryResult=queryResults;
 		JSONObject jsonData=new JSONObject();
