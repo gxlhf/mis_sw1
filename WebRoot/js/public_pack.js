@@ -21,11 +21,15 @@ function dpCopy(dest, src) {
  * @parm errorCbk 可选 失败时回调函数
  */
 function ajax_get(url, dataToSet, dataToSend, successCbk, errorCbk) {
+  var dataToSendTemp = {};
+  for(item in dataToSend){
+    dataToSendTemp[item] = encodeURIComponent(dataToSend[item]);
+  }
   $.ajax({
     url: url,
     type: "GET",
     dataType: "json",
-    data: dataToSend,
+    data: dataToSendTemp,
     success: function (data) {
       dpCopy(dataToSet, data);
       // console.log(successCbk);
