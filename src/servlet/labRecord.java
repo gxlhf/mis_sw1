@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,8 +41,8 @@ public class labRecord extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=UTF-8");
 		User user=new User("", "", "");
-		String id=request.getParameter("patient_id");
-		String Sequence=request.getParameter("sequence");
+		String id=URLDecoder.decode(request.getParameter("patient_id"), "UTF-8");
+		String Sequence=URLDecoder.decode(request.getParameter("sequence"), "UTF-8");
 		int sequence=1;
 		if(Sequence!=null)
 			sequence=Integer.valueOf(Sequence);

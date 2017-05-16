@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,7 +37,7 @@ public class subLabList extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=UTF-8");
 		User user=new User("", "","");
-		String lab=request.getParameter("labType");
+		String lab=URLDecoder.decode(request.getParameter("labType"), "UTF-8");
 		String[] subLablist=user.queryTestItem(lab);
 		JSONObject jsonData=new JSONObject();
 		JSONArray jsonArray=new JSONArray();

@@ -44,8 +44,18 @@ public class queryResult extends HttpServlet {
 //		System.out.println(URLDecoder.decode(request.getParameter("sex"), "UTF-8"));
 		if (sex.equals("不限")) 
 			sex = "";
-		String ageFrom=URLDecoder.decode(request.getParameter("ageFrom"), "UTF-8");
-		String ageTo=URLDecoder.decode(request.getParameter("ageTo"), "UTF-8");
+		/*String ageFrom=URLDecoder.decode(request.getParameter("ageFrom"), "UTF-8");
+		String ageTo=URLDecoder.decode(request.getParameter("ageTo"), "UTF-8");*/
+		int ageFrom;
+		int ageTo;
+		if(URLDecoder.decode(request.getParameter("ageFrom"), "UTF-8").equals(""))
+			ageFrom = -1;
+		else
+			ageFrom = Integer.parseInt(URLDecoder.decode(request.getParameter("ageFrom"), "UTF-8"));
+		if(URLDecoder.decode(request.getParameter("ageTo"), "UTF-8").equals(""))
+			ageTo = 100;
+		else
+			ageTo = Integer.parseInt(URLDecoder.decode(request.getParameter("ageTo"), "UTF-8"));
 		String examType=URLDecoder.decode(request.getParameter("examType"), "UTF-8");
 		String labType=URLDecoder.decode(request.getParameter("labType"), "UTF-8");
 		if (labType.equals("不限")) 
@@ -57,11 +67,11 @@ public class queryResult extends HttpServlet {
 		String labValTo=URLDecoder.decode(request.getParameter("labValTo"), "UTF-8");
 		List<QueryResult> queryResult=null;
 		List<QueryResult>  queryResults=null;
-		if(ageFrom!=null&&ageTo!=null){
-			queryResult=user.queryPatient(sex,Integer.parseInt(ageFrom),Integer.parseInt(ageTo) , examType);
-		}
-		if(labValFrom!=""&&labValTo!=""&&ageFrom!=null&&ageTo!=null)
-			queryResults=user.queryPatient(sex, Integer.parseInt(ageFrom),Integer.parseInt(ageTo) ,labSubType,Double.parseDouble(labValFrom) , Double.parseDouble(labValTo));
+		
+		queryResult=user.queryPatient(sex, ageFrom, ageTo, examType);
+		
+		if(!labValFrom.equals("") && !labValTo.equals(""))
+			queryResults=user.queryPatient(sex, ageFrom, ageTo, labSubType, Double.parseDouble(labValFrom) , Double.parseDouble(labValTo));
 		if(queryResult!=null&&queryResults!=null)
 			for(QueryResult q:queryResults)
 			{

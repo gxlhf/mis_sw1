@@ -146,4 +146,9 @@ public class User {
 		return data;
 	}
 	
+	public static void main(String[] args){
+		InHospitalRecord[] inHospitalRecords=new User("", "", "").getInHospitalRecord("123141");
+		System.out.println(inHospitalRecords[1].getDiag());
+	}
+	
 }

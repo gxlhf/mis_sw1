@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +52,7 @@ public class inHospitalRecord extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=UTF-8");
 		User user=new User("", "", "");
-		String id=request.getParameter("patient_id");
+		String id=URLDecoder.decode(request.getParameter("patient_id"), "UTF-8");
 		InHospitalRecord[] inHospitalRecords=user.getInHospitalRecord(id);
 		JSONObject jsonData=new JSONObject();
 		if(inHospitalRecords!=null){
@@ -65,11 +66,11 @@ public class inHospitalRecord extends HttpServlet {
 				jsonObject.put("inAge", inHospitalRecords[i].getInAge());
 				jsonObject.put("diag", inHospitalRecords[i].getDiag());
 				HospitalSituation hospitalSituation=user.getHospitalSituation(inHospitalRecords[i].getPatientId(), inHospitalRecords[i].getSequence());
-				if(hospitalSituation.getExam()==null)
+				if(hospitalSituation.getExam()!=null)
 					jsonObject.put("haveExam", true);
 				else
 					jsonObject.put("haveExam", false);
-				if(hospitalSituation.getTest()==null)
+				if(hospitalSituation.getTest()!=null)
 					jsonObject.put("haveLab", true);
 				else
 					jsonObject.put("haveLab", false);

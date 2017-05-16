@@ -391,14 +391,15 @@ public class PatientDao {
 		}
 		Patient p= new PatientDao().queryPatientInfo("123141");
 		System.out.println(p.getPatient_id()+" "+p.getPatient_name()+" "+p.getSex()+" "+p.getBirthday());*/
-		List<QueryResult> list = new PatientDao().queryPatient("男", 10, 70, "DR/CR");
+		/*List<QueryResult> list = new PatientDao().queryPatient("男", 10, 70, "DR/CR");
 		for(QueryResult q: list) {
 			System.out.println(q.getPatient().getPatient_name() + ":" + q.getHospitalCount());
 			Map<Integer, String> map = q.getClinicDiagMap();
 			for(Integer i: map.keySet()) {
 				System.out.println("\t" + i + " " + map.get(i));
 			}
-		}
+		}*/
+		System.out.println(new PatientDao().getHospitalSituation("123141", 3).getTest().length);
 	}
 
 }

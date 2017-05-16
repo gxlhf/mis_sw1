@@ -11,6 +11,7 @@ encoding//WebRoot/json_test/labList.json=UTF-8
 encoding//WebRoot/json_test/labRecord.json=UTF-8
 encoding//WebRoot/json_test/patientInfo.json=UTF-8
 encoding//WebRoot/json_test/queryHistory.json=UTF-8
+encoding//WebRoot/json_test/queryHistoryResult.json=UTF-8
 encoding//WebRoot/json_test/queryResult.json=UTF-8
 encoding//WebRoot/json_test/subLabList.json=UTF-8
 encoding//src/dao/UserDao.java=UTF-8

@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,8 +35,8 @@ public class patientNumChange extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=UTF-8");
-		String from=request.getParameter("datefrom");
-		String to=request.getParameter("dateto");
+		String from=URLDecoder.decode(request.getParameter("datefrom"), "UTF-8");
+		String to=URLDecoder.decode(request.getParameter("dateto"), "UTF-8");
 		Integer[] data=new User("", "", "").getPatientNumChange(from,to);
 		JSONArray jsonData=new JSONArray();
 		for(int i=0;i<data.length;i++){

@@ -44,11 +44,11 @@ public class examList extends HttpServlet {
 		String []examList=user.queryExamClass();
 
 		try {
-		for(int i=0;i<examList.length;i++){
-			jsonArray.put(examList[i]);
-		}
-		jsonData.put("examClass", jsonArray);
-		response.getWriter().println(jsonData);
+			for(int i=0;i<examList.length;i++){
+				jsonArray.put(examList[i]);
+			}
+			jsonData.put("examClass", jsonArray);
+			response.getWriter().println(jsonData);
 		} catch (Exception e1) {
 		// TODO Auto-generated catch block
 		e1.printStackTrace();

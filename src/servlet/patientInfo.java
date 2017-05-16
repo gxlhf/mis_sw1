@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,7 +37,7 @@ public class patientInfo extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=UTF-8");
 		User user=new User("", "", "");
-		String id=request.getParameter("patient_id");
+		String id=URLDecoder.decode(request.getParameter("patientID"), "UTF-8");
 		Patient patient=user.queryPatientInfo(id);
 		JSONObject jsonData=new JSONObject();
 		try {
