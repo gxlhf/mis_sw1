@@ -12,10 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONArray;
 
 import entity.QueryResult;
 import entity.User;
-import net.sf.json.JSONArray;
+
 
 /**
  * Servlet implementation class queryResult
@@ -56,10 +57,11 @@ public class queryResult extends HttpServlet {
 		String labValTo=URLDecoder.decode(request.getParameter("labValTo"), "UTF-8");
 		List<QueryResult> queryResult=null;
 		List<QueryResult>  queryResults=null;
-		if(!(ageFrom.equals("")||ageTo.equals("")))
-			queryResult=user.queryPatient(sex,Integer.parseInt(ageFrom) ,Integer.parseInt(ageTo) , examType);
-		if(!ageFrom.equals("")&&!ageTo.endsWith("")&&!labValFrom.equals("")&&!labValTo.equals(""))
-			queryResults=user.queryPatient(sex, Integer.parseInt(ageFrom) ,Integer.parseInt(ageTo) ,labSubType,Double.parseDouble(labValFrom) , Double.parseDouble(labValTo));
+		if(ageFrom!=null&&ageTo!=null){
+			queryResult=user.queryPatient(sex,Integer.parseInt(ageFrom),Integer.parseInt(ageTo) , examType);
+		}
+		if(labValFrom!=""&&labValTo!=""&&ageFrom!=null&&ageTo!=null)
+			queryResults=user.queryPatient(sex, Integer.parseInt(ageFrom),Integer.parseInt(ageTo) ,labSubType,Double.parseDouble(labValFrom) , Double.parseDouble(labValTo));
 		if(queryResult!=null&&queryResults!=null)
 			for(QueryResult q:queryResults)
 			{
@@ -69,20 +71,21 @@ public class queryResult extends HttpServlet {
 			queryResult=queryResults;
 		JSONObject jsonData=new JSONObject();
 		JSONArray jsonArray=new JSONArray();
-		
 		if(queryResult!=null){
 		try {
 			
 			for(QueryResult q:queryResult){
 				for(Integer in:q.getClinicDiagMap().keySet()){
 					JSONObject jsonObject=new JSONObject();
-					String string=q.getClinicDiagMap().get(in);
+					String string="";
+					if(q.getClinicDiagMap()!=null)
+						string=q.getClinicDiagMap().get(in);
 					jsonObject.put("name", q.getPatient().getPatient_name());
 					jsonObject.put("sex", q.getPatient().getSex());
 					jsonObject.put("diag", string);
 					jsonObject.put("patientID", q.getPatient().getPatient_id());
-					jsonObject.put("inHospitalCount", q.getHospitalCount());
-					jsonArray.add(jsonObject);
+					jsonObject.put("inHospitalCount",q.getHospitalCount());
+					jsonArray.put(jsonObject);
 				}
 			}
 			jsonData.put("result", jsonArray);

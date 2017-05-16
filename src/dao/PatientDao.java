@@ -95,30 +95,31 @@ public class PatientDao {
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				patient_id = resultSet.getString(1);
-				if (patient_id == last_id) { // 同一人的记录
+				if (patient_id.equals(last_id)) { // 同一人的记录
 					visit = resultSet.getInt(3);
 					if (visit == last_visit) { // 同一次的记录
 						continue;
 					} else { // 不同次的记录
 						patient_diag = resultSet.getString(4);
+						System.out.println(patient_name + " " + visit + " " + last_visit);
 						clinicDiagMap.put(visit, patient_diag);
 						++hospitalCount;
 						last_visit = visit;
 					}
 				} else { // 新的人的记录
 					if (!patient_id.equals("")) {// 保存上一个人的记录
-						result.add(new QueryResult(new Patient(patient_id, patient_name, patient_sex, patient_birthday),
-								String.valueOf(hospitalCount), clinicDiagMap));
+						result.add(new QueryResult(new Patient(last_id, patient_name, patient_sex, patient_birthday),
+								hospitalCount, clinicDiagMap));
 					}
-					clinicDiagMap.clear();
-					last_id = patient_id;
+					clinicDiagMap = new TreeMap<Integer, String>();
 					hospitalCount = 1;
-					patient_name = resultSet.getString(5);
 					patient_sex = resultSet.getString(2);
 					visit = resultSet.getInt(3);
 					patient_diag = resultSet.getString(4);
+					patient_name = resultSet.getString(5);
 					patient_birthday = resultSet.getString(6);
 					last_id = patient_id;
+					last_visit = 0;
 					clinicDiagMap.put(visit, patient_diag);
 				}
 			}
@@ -189,9 +190,9 @@ public class PatientDao {
 						last_visit = visit;
 					}
 				} else { // 新的人的记录
-					if (!patient_id.equals("")) {// 保存上一个人的记录
+					if (!patient_id.equals("") && hospitalCount!=0) {// 保存上一个人的记录
 						result.add(new QueryResult(new Patient(patient_id, patient_name, patient_sex, patient_birthday),
-								String.valueOf(hospitalCount), clinicDiagMap));
+								hospitalCount, clinicDiagMap));
 					}
 					clinicDiagMap.clear();
 					last_id = patient_id;
@@ -390,7 +391,14 @@ public class PatientDao {
 		}
 		Patient p= new PatientDao().queryPatientInfo("123141");
 		System.out.println(p.getPatient_id()+" "+p.getPatient_name()+" "+p.getSex()+" "+p.getBirthday());*/
-		System.out.println(new PatientDao().queryPatient("", 10, 70, "黑白超").size());
+		List<QueryResult> list = new PatientDao().queryPatient("男", 10, 70, "DR/CR");
+		for(QueryResult q: list) {
+			System.out.println(q.getPatient().getPatient_name() + ":" + q.getHospitalCount());
+			Map<Integer, String> map = q.getClinicDiagMap();
+			for(Integer i: map.keySet()) {
+				System.out.println("\t" + i + " " + map.get(i));
+			}
+		}
 	}
 
 }

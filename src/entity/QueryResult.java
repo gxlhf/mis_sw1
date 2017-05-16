@@ -10,9 +10,9 @@ import java.util.Map;
 
 public class QueryResult {
 	Patient patient;
-	String hospitalCount;
+	int hospitalCount;
 	Map<Integer, String> clinicDiagMap;
-	public QueryResult(Patient patient, String hospitalCount, Map<Integer, String> clinicDiagMap) {
+	public QueryResult(Patient patient, int hospitalCount, Map<Integer, String> clinicDiagMap) {
 		this.patient = patient;
 		this.hospitalCount = hospitalCount;
 		this.clinicDiagMap = clinicDiagMap;
@@ -23,10 +23,10 @@ public class QueryResult {
 	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
-	public String getHospitalCount() {
+	public int getHospitalCount() {
 		return hospitalCount;
 	}
-	public void setHospitalCount(String hospitalCount) {
+	public void setHospitalCount(int hospitalCount) {
 		this.hospitalCount = hospitalCount;
 	}
 	public Map<Integer, String> getClinicDiagMap() {
