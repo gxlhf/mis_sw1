@@ -71,22 +71,18 @@ public class ExamDao {
 	 * 查询数据库中检查项的数量
 	 */
 	public int getExamCount() {
-		int getExamCountResult = 0;
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-
+		int count=0;
 		try {
 			connection = ConnectionPool.getInstance().getConnection();
-			String sql = "select distinct exam_class from exam_master";
-			preparedStatement = connection.prepareStatement(sql);
-			resultSet = preparedStatement.executeQuery();
-			int count = 0;
-			while (resultSet.next()) {
-				count++;
-			}
-			getExamCountResult = count;
+			String sql = "select count(*) from exam_master";
+            preparedStatement= connection.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            count = resultSet.getInt(1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -115,7 +111,7 @@ public class ExamDao {
 			}
 
 		}
-		return getExamCountResult;
+		return count;
 	}
 
 	/**
