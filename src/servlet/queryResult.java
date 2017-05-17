@@ -82,21 +82,23 @@ public class queryResult extends HttpServlet {
 		JSONObject jsonData=new JSONObject();
 		JSONArray jsonArray=new JSONArray();
 		if(queryResult!=null){
-		try {
+			for(QueryResult q:queryResult){
+				System.out.println(q.getHospitalCount()+q.getPatient().getPatient_name()+q.getPatient().getSex());
+			}
+			
+			try {
 			
 			for(QueryResult q:queryResult){
-				for(Integer in:q.getClinicDiagMap().keySet()){
 					JSONObject jsonObject=new JSONObject();
-					String string="";
-					if(q.getClinicDiagMap()!=null)
-						string=q.getClinicDiagMap().get(in);
 					jsonObject.put("name", q.getPatient().getPatient_name());
 					jsonObject.put("sex", q.getPatient().getSex());
-					jsonObject.put("diag", string);
 					jsonObject.put("patientID", q.getPatient().getPatient_id());
-					jsonObject.put("inHospitalCount",q.getHospitalCount());
+					if(q.getClinicDiagMap()!=null)
+						jsonObject.put("inHospitalCount",q.getClinicDiagMap().size());
+					else
+						jsonObject.put("inHospitalCount", 0);
 					jsonArray.put(jsonObject);
-				}
+				
 			}
 			jsonData.put("result", jsonArray);
 			
