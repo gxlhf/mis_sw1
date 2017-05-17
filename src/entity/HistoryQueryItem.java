@@ -4,7 +4,8 @@
  * minAge、maxAge:年龄范围
  * examClass:检查指标
  * testItem:检验指标
- * patients:符合以上条件的患者
+ * labValFrom、labValTo：检验指标值范围
+ * filename：文件名
  */
 package entity;
 
@@ -14,15 +15,19 @@ public class HistoryQueryItem {
 	int maxAge;
 	String examClass;
 	String testItem;
-	Patient[] patients;
-	public HistoryQueryItem(String sex, int minAge, int maxAge, String examClass, String testItem, Patient[] patients) {
-		super();
+	String labValFrom;
+	String labValTo;
+	String filename;
+	public HistoryQueryItem(String sex, int minAge, int maxAge, String examClass, String testItem, String labValFrom,
+			String labValTo, String filename) {
 		this.sex = sex;
 		this.minAge = minAge;
 		this.maxAge = maxAge;
 		this.examClass = examClass;
 		this.testItem = testItem;
-		this.patients = patients;
+		this.labValFrom = labValFrom;
+		this.labValTo = labValTo;
+		this.filename = filename;
 	}
 	public String getSex() {
 		return sex;
@@ -54,11 +59,24 @@ public class HistoryQueryItem {
 	public void setTestItem(String testItem) {
 		this.testItem = testItem;
 	}
-	public Patient[] getPatients() {
-		return patients;
+	public String getLabValFrom() {
+		return labValFrom;
 	}
-	public void setPatients(Patient[] patients) {
-		this.patients = patients;
+	public void setLabValFrom(String labValFrom) {
+		this.labValFrom = labValFrom;
 	}
+	public String getLabValTo() {
+		return labValTo;
+	}
+	public void setLabValTo(String labValTo) {
+		this.labValTo = labValTo;
+	}
+	public String getFilename() {
+		return filename;
+	}
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+	
 	
 }
