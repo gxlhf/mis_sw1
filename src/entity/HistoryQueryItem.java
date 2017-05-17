@@ -18,6 +18,17 @@ public class HistoryQueryItem {
 	String labValFrom;
 	String labValTo;
 	String filename;
+	//Constructor : filename is not required
+	public HistoryQueryItem(String sex, int minAge, int maxAge, String examClass, String testItem, String labValFrom,
+			String labValTo) {
+		this.sex = sex;
+		this.minAge = minAge;
+		this.maxAge = maxAge;
+		this.examClass = examClass;
+		this.testItem = testItem;
+		this.labValFrom = labValFrom;
+		this.labValTo = labValTo;
+	}
 	public HistoryQueryItem(String sex, int minAge, int maxAge, String examClass, String testItem, String labValFrom,
 			String labValTo, String filename) {
 		this.sex = sex;

@@ -9,6 +9,7 @@ package entity;
 import java.util.List;
 
 import dao.ExamDao;
+import dao.HistoryRecordDao;
 import dao.PatientDao;
 import dao.TestDao;
 
@@ -150,8 +151,9 @@ public class User {
 	/**
 	 * 从数据库中查询该查询条件记录是否已存在于数据库中，若存在返回文件名，若不存在返回null
 	 */
-	public String historyRecordExistJudge(String sex, int minAge, int maxAge, String examClass, String testItem, double valueStart, double valueEnd) {
+	public String historyRecordExistJudge(HistoryQueryItem historyQueryItem) {
 		String result = null;
+		result=new HistoryRecordDao().historyRecordExistJudge(historyQueryItem);
 		return result;
 	}
 	
@@ -160,6 +162,7 @@ public class User {
 	 */
 	public boolean addHistoryRecord(HistoryQueryItem historyQueryItem) {
 		boolean result = false;
+		result=new HistoryRecordDao().addHistoryRecord(historyQueryItem);
 		return result;
 	}
 	
@@ -168,6 +171,7 @@ public class User {
 	 */
 	public boolean updateHistoryRecord(HistoryQueryItem historyQueryItem) {
 		boolean result = false;
+		result=new HistoryRecordDao().updateHistoryRecord(historyQueryItem);
 		return result;
 	}
 	
