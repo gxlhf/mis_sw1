@@ -29,7 +29,7 @@
           <li class="dropdown active">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">多维查询</a>
             <ul class="dropdown-menu">
-              <li><a href="query.html">查询</a></li>
+              <li><a href="multi_query.html">查询</a></li>
               <li><a href="query_history.html">历史查询</a></li>
             </ul>
           </li>
@@ -144,7 +144,7 @@
               <tr class="text-center">
                 <td>姓名</td>
                 <td>性别</td>
-                <td>临床诊断</td>
+                <!-- <td>临床诊断</td> -->
                 <td>住院号</td>
                 <td>住院次数</td>
                 <td>详情</td>
@@ -155,7 +155,7 @@
               <tr class="text-center" v-for="result in queryResult.result">
                 <td>{{ result.name }}</td>
                 <td>{{ result.sex }}</td>
-                <td>{{ result.diag }}</td>
+                <!-- <td>{{ result.diag }}</td> -->
                 <td>{{ result.patientID }}</td>
                 <td>{{ result.inHospitalCount }}</td>
                 <td><a @click="jumpToDetail(result.patientID)">患者详情</a></td>
