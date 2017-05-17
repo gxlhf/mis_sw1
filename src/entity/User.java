@@ -6,6 +6,7 @@
  */
 package entity;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.json.JSONObject;
@@ -14,6 +15,7 @@ import dao.ExamDao;
 import dao.HistoryRecordDao;
 import dao.PatientDao;
 import dao.TestDao;
+import fio.HistoryQuery;
 
 public class User {
 	String user;
@@ -187,9 +189,26 @@ public class User {
 	
 	/**
 	 * 存储历史查询记录操作
+	 * @throws IOException 
 	 */
-	public void storeHistoryQuery(HistoryQueryItem historyQueryItem, JSONObject jsonObject) {
-		
+	public void storeHistoryQuery(HistoryQueryItem historyQueryItem, JSONObject jsonObject) throws IOException {
+		String path = historyRecordExistJudge(historyQueryItem);
+		if(path == null)
+		{
+			path = new HistoryQuery().addHistoryFile(historyQueryItem, jsonObject);
+			historyQueryItem.setFilename(path);
+			addHistoryRecord(historyQueryItem);
+		}
+		else
+		{
+			HistoryQuery historyQuery = new HistoryQuery();
+			if(historyQuery.deleteHistoryFile(path))
+			{
+				path = historyQuery.addHistoryFile(historyQueryItem, jsonObject);
+				historyQueryItem.setFilename(path);
+				addHistoryRecord(historyQueryItem);
+			}
+		}
 	}
 	
 	public static void main(String[] args){

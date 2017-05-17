@@ -1,5 +1,6 @@
 package fio;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -7,10 +8,13 @@ import java.io.PrintWriter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import entity.HistoryQueryItem;
+
 public class HistoryQuery {
-	public static void writeFile(String filePath, String sets)  
+	String directory = "";
+	public void writeFile(String filePath, String sets)  
             throws IOException {  
-        FileWriter fw = new FileWriter(filePath);  
+        FileWriter fw = new FileWriter(directory + filePath);  
         PrintWriter out = new PrintWriter(fw);  
         out.write(sets);  
         out.println();  
@@ -18,11 +22,15 @@ public class HistoryQuery {
         out.close();  
     } 
 	/**
-	 * 根据查询条件，添加历史查询文件，返回文件名
+	 * 根据历史查询项类和存有历史查询信息的JSONObject，添加历史查询文件，返回文件名
+	 * @throws IOException 
 	 */
-	public String addHistoryFile(String sex, int minAge, int maxAge, String examClass, String testItem, double valueStart, double valueEnd)
+	public String addHistoryFile(HistoryQueryItem historyQueryItem, JSONObject hqJsonObject) throws IOException
 	{
-		String fileName = "";
+		String string = historyQueryItem.getSex() + historyQueryItem.getMinAge() + historyQueryItem.getMaxAge() + historyQueryItem.getExamClass() + historyQueryItem.getLabSubType() + historyQueryItem.getLabValFrom() + historyQueryItem.getLabValTo();
+		int hashCode = string.hashCode();
+		String fileName = Integer.toString(hashCode);
+		writeFile(fileName + ".json", hqJsonObject.toString());
 		return fileName;
 	}
 	
@@ -31,6 +39,12 @@ public class HistoryQuery {
 	 */
 	public boolean deleteHistoryFile(String fileName) {
 		boolean result = false;
+		File file = new File(directory + fileName);  
+	    // 路径为文件且不为空则进行删除  
+	    if (file.isFile() && file.exists()) {  
+	        file.delete();  
+	        result = true;  
+	    }  
 		return result;
 	}
 	public static void main(String[] args) throws JSONException, IOException{
@@ -42,8 +56,11 @@ public class HistoryQuery {
         jsonObject.put("5", "五");  
         jsonObject.put("6", "六");  
         jsonObject.put("7", "⑦");  
-        System.out.println(jsonObject);  
+        System.out.println(jsonObject);
+        HistoryQueryItem historyQueryItem = new HistoryQueryItem("", 0, 1, "", "", "", "", "", "", "");
   
-        writeFile("test.json", jsonObject.toString()); 
+//        new HistoryQuery().writeFile("test.json", jsonObject.toString());
+//        new HistoryQuery().deleteHistoryFile("HistoryQueryFiles/test.json");
+        new HistoryQuery().addHistoryFile(historyQueryItem,jsonObject);
 	}
 }
