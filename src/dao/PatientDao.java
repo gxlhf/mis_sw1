@@ -81,8 +81,8 @@ public class PatientDao {
 			se.printStackTrace();
 		}
 		try {
-			String sql = "SELECT a.PATIENT_ID,a.SEX,a.VISIT_ID,a.EXAM_CLASS,patient_information.PATIENT_NAME,patient_information.DATE_OF_BIRTH FROM "
-					+ "(SELECT exam_master.PATIENT_ID,exam_master.SEX,exam_master.VISIT_ID,exam_master.EXAM_CLASS FROM exam_master "
+			String sql = "SELECT a.PATIENT_ID,a.SEX,a.VISIT_ID,a.CLIN_DIAG,patient_information.PATIENT_NAME,patient_information.DATE_OF_BIRTH FROM "
+					+ "(SELECT exam_master.PATIENT_ID,exam_master.SEX,exam_master.VISIT_ID,exam_master.CLIN_DIAG FROM exam_master "
 					+ "WHERE SEX LIKE ? AND exam_master.EXAM_CLASS LIKE ? "
 					+ "AND YEAR(exam_master.REQ_DATE_TIME)-YEAR(exam_master.DATE_OF_BIRTH) >= ? AND "
 					+ "YEAR(exam_master.REQ_DATE_TIME)-YEAR(exam_master.DATE_OF_BIRTH) <= ?) a "
@@ -101,7 +101,7 @@ public class PatientDao {
 						continue;
 					} else { // 不同次的记录
 						patient_diag = resultSet.getString(4);
-						System.out.println(patient_name + " " + visit + " " + last_visit);
+						//System.out.println(patient_name + " " + visit + " " + last_visit);
 						clinicDiagMap.put(visit, patient_diag);
 						++hospitalCount;
 						last_visit = visit;
@@ -399,7 +399,14 @@ public class PatientDao {
 				System.out.println("\t" + i + " " + map.get(i));
 			}
 		}*/
-		System.out.println(new PatientDao().getHospitalSituation("123141", 3).getTest().length);
+		//System.out.println(new PatientDao().getHospitalSituation("123141", 3).getTest().length);
+		List<QueryResult> list = new PatientDao().queryPatient("", -1, 1000, "彩超");
+		for(QueryResult qr: list) {
+			System.out.println(qr.getPatient().getPatient_name());
+			for(Integer integer : qr.getClinicDiagMap().keySet()) {
+				System.out.println("\t" + qr.getClinicDiagMap().get(integer));
+			}
+		}
 	}
 
 }

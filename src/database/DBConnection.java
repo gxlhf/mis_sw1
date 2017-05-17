@@ -6,7 +6,7 @@ import java.sql.*;
 public class DBConnection {
 	// JDBC 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟捷匡拷URL锟斤拷
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	static final String DB_URL = "jdbc:mysql://localhost:3306/MIS?useUnicode=true&characterEncoding=utf-8";
+	static final String DB_URL = "jdbc:mysql://localhost:3306/MIS?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull";
 
 	// 锟斤拷锟捷匡拷锟斤拷锟斤拷锟矫伙拷锟斤拷锟斤拷锟斤拷
 	static final String USER = "root";
