@@ -34,7 +34,8 @@ public class HistoryRecordDao {
 					+ "minage = ? and "
 					+ "maxage = ? and "
 					+ "examclass = ? and "
-					+ "testitem = ? and "
+					+ "labtype = ? and "
+					+ "labsubtype = ? and "
 					+ "labvalfrom = ? and "
 					+ "labvalto = ? ";
 			PreparedStatement preparedStatement = con.prepareStatement(sql);
@@ -42,9 +43,10 @@ public class HistoryRecordDao {
 			preparedStatement.setInt(2, historyQueryItem.getMinAge());
 			preparedStatement.setInt(3, historyQueryItem.getMaxAge());
 			preparedStatement.setString(4, historyQueryItem.getExamClass());
-			preparedStatement.setString(5, historyQueryItem.getTestItem());
-			preparedStatement.setString(6, historyQueryItem.getLabValFrom());
-			preparedStatement.setString(7, historyQueryItem.getLabValTo());
+			preparedStatement.setString(5, historyQueryItem.getLabType());
+			preparedStatement.setString(6, historyQueryItem.getLabSubType());
+			preparedStatement.setString(7, historyQueryItem.getLabValFrom());
+			preparedStatement.setString(8, historyQueryItem.getLabValTo());
 			ResultSet resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				result = resultSet.getString(1);
@@ -73,17 +75,18 @@ public class HistoryRecordDao {
 		try {
 			//found this return false.because it has exists
 			if(null!=this.historyRecordExistJudge(historyQueryItem)){return false;}
-			String sql = "insert into historyqueryitem(sex,minage,maxage,examclass,testitem,labvalfrom,labvalto,filename) values ("
-					+ "?,?,?,?,?,?,?,?)";
+			String sql = "insert into historyqueryitem(sex,minage,maxage,examclass,labtype,labsubtype,labvalfrom,labvalto,filename) values ("
+					+ "?,?,?,?,?,?,?,?,?)";
 			PreparedStatement preparedStatement = con.prepareStatement(sql);
 			preparedStatement.setString(1, historyQueryItem.getSex());
 			preparedStatement.setInt(2, historyQueryItem.getMinAge());
 			preparedStatement.setInt(3, historyQueryItem.getMaxAge());
 			preparedStatement.setString(4, historyQueryItem.getExamClass());
-			preparedStatement.setString(5, historyQueryItem.getTestItem());
-			preparedStatement.setString(6, historyQueryItem.getLabValFrom());
-			preparedStatement.setString(7, historyQueryItem.getLabValTo());
-			preparedStatement.setString(8, historyQueryItem.getFilename());
+			preparedStatement.setString(5, historyQueryItem.getLabType());
+			preparedStatement.setString(6, historyQueryItem.getLabSubType());
+			preparedStatement.setString(7, historyQueryItem.getLabValFrom());
+			preparedStatement.setString(8, historyQueryItem.getLabValTo());
+			preparedStatement.setString(9, historyQueryItem.getFilename());
 			int rs= preparedStatement.executeUpdate();  
 			//System.out.println(rs);
 			if(rs>0)result=true;
@@ -116,7 +119,8 @@ public class HistoryRecordDao {
 					+ "minage = ? and "
 					+ "maxage = ? and "
 					+ "examclass = ? and "
-					+ "testitem = ? and "
+					+ "labtype = ? and "
+					+ "labsubtype = ? and "
 					+ "labvalfrom = ? and "
 					+ "labvalto = ? ";
 			PreparedStatement preparedStatement = con.prepareStatement(sql);
@@ -125,9 +129,10 @@ public class HistoryRecordDao {
 			preparedStatement.setInt(3, historyQueryItem.getMinAge());
 			preparedStatement.setInt(4, historyQueryItem.getMaxAge());
 			preparedStatement.setString(5, historyQueryItem.getExamClass());
-			preparedStatement.setString(6, historyQueryItem.getTestItem());
-			preparedStatement.setString(7, historyQueryItem.getLabValFrom());
-			preparedStatement.setString(8, historyQueryItem.getLabValTo());
+			preparedStatement.setString(6, historyQueryItem.getLabType());
+			preparedStatement.setString(7, historyQueryItem.getLabSubType());
+			preparedStatement.setString(8, historyQueryItem.getLabValFrom());
+			preparedStatement.setString(9, historyQueryItem.getLabValTo());
 			int rs= preparedStatement.executeUpdate();  
 			//System.out.println(rs);
 			if(rs>0)result=true;
@@ -144,15 +149,14 @@ public class HistoryRecordDao {
 	//	tmp.historyRecordExistJudge(new HistoryQueryItem("男",1,4,"1","1","1","1"));
 		//return boolean
 		/*add*/
-		/*result=tmp.addHistoryRecord(new HistoryQueryItem("男",1,8,"testmark","testmark","1","1","old path"));
+		result=tmp.addHistoryRecord(new HistoryQueryItem("男",1,8,"testmark","testmark","subtest","1","1","old path",""));
 		System.out.println("(true)add an unExists one:"+result);
-		result=tmp.addHistoryRecord(new HistoryQueryItem("男",1,8,"testmark","testmark","1","1","old path"));
+		result=tmp.addHistoryRecord(new HistoryQueryItem("男",1,8,"testmark","testmark","subtest","1","1","old path",""));
 		System.out.println("(false)add an Exists one:"+result);
-		update
-		result = tmp.updateHistoryRecord(new HistoryQueryItem("男",1,8,"testmark","testmark","1","1","new path"));
+		result = tmp.updateHistoryRecord(new HistoryQueryItem("男",1,8,"testmark","testmark","subtest","1","1","new path",""));
 		System.out.println("(true)update an Exists one:"+result);
-		result = tmp.updateHistoryRecord(new HistoryQueryItem("男",-1,-8,"testmark","testmark","1","1","new path"));
-		System.out.println("(false)update an unExists one:"+result);*/
+		result = tmp.updateHistoryRecord(new HistoryQueryItem("男",-1,-8,"testmark","testmark","subtest","1","1","new path",""));
+		System.out.println("(false)update an unExists one:"+result);
 		/*return*/
 		//delete by hand
 	}
