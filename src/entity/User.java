@@ -8,6 +8,8 @@ package entity;
 
 import java.util.List;
 
+import org.json.JSONObject;
+
 import dao.ExamDao;
 import dao.HistoryRecordDao;
 import dao.PatientDao;
@@ -173,6 +175,21 @@ public class User {
 		boolean result = false;
 		result=new HistoryRecordDao().updateHistoryRecord(historyQueryItem);
 		return result;
+	}
+	
+	/**
+	 * 返回所有历史查询记录
+	 */
+	public HistoryQueryItem[] returnAllHistoryQueryItem() {
+		HistoryQueryItem[] historyQueryItems = null;
+		return historyQueryItems;
+	}
+	
+	/**
+	 * 存储历史查询记录操作
+	 */
+	public void storeHistoryQuery(HistoryQueryItem historyQueryItem, JSONObject jsonObject) {
+		
 	}
 	
 	public static void main(String[] args){

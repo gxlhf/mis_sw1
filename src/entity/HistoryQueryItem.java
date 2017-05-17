@@ -3,9 +3,11 @@
  * sex:性别
  * minAge、maxAge:年龄范围
  * examClass:检查指标
- * testItem:检验指标
- * labValFrom、labValTo：检验指标值范围
- * filename：文件名
+ * labType:检验大类
+ * labSubType:检验子类
+ * labValFrom、labValTo:检验指标值范围
+ * filename:文件名
+ * date:查询日期
  */
 package entity;
 
@@ -14,32 +16,39 @@ public class HistoryQueryItem {
 	int minAge;
 	int maxAge;
 	String examClass;
-	String testItem;
+	String labType;
+	String labSubType;
 	String labValFrom;
 	String labValTo;
 	String filename;
-	//Constructor : filename is not required
-	public HistoryQueryItem(String sex, int minAge, int maxAge, String examClass, String testItem, String labValFrom,
-			String labValTo) {
+	String date;
+	//Constructor : filename and date are not required
+	public HistoryQueryItem(String sex, int minAge, int maxAge, String examClass, String labType, String labSubType,
+			String labValFrom, String labValTo) {
 		this.sex = sex;
 		this.minAge = minAge;
 		this.maxAge = maxAge;
 		this.examClass = examClass;
-		this.testItem = testItem;
+		this.labType = labType;
+		this.labSubType = labSubType;
 		this.labValFrom = labValFrom;
 		this.labValTo = labValTo;
 	}
-	public HistoryQueryItem(String sex, int minAge, int maxAge, String examClass, String testItem, String labValFrom,
-			String labValTo, String filename) {
+	
+	public HistoryQueryItem(String sex, int minAge, int maxAge, String examClass, String labType, String labSubType,
+			String labValFrom, String labValTo, String filename, String date) {
 		this.sex = sex;
 		this.minAge = minAge;
 		this.maxAge = maxAge;
 		this.examClass = examClass;
-		this.testItem = testItem;
+		this.labType = labType;
+		this.labSubType = labSubType;
 		this.labValFrom = labValFrom;
 		this.labValTo = labValTo;
 		this.filename = filename;
+		this.date = date;
 	}
+	
 	public String getSex() {
 		return sex;
 	}
@@ -64,11 +73,17 @@ public class HistoryQueryItem {
 	public void setExamClass(String examClass) {
 		this.examClass = examClass;
 	}
-	public String getTestItem() {
-		return testItem;
+	public String getLabType() {
+		return labType;
 	}
-	public void setTestItem(String testItem) {
-		this.testItem = testItem;
+	public void setLabType(String labType) {
+		this.labType = labType;
+	}
+	public String getLabSubType() {
+		return labSubType;
+	}
+	public void setLabSubType(String labSubType) {
+		this.labSubType = labSubType;
 	}
 	public String getLabValFrom() {
 		return labValFrom;
@@ -88,6 +103,14 @@ public class HistoryQueryItem {
 	public void setFilename(String filename) {
 		this.filename = filename;
 	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	
+	
 	
 	
 }

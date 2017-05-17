@@ -144,15 +144,15 @@ public class HistoryRecordDao {
 	//	tmp.historyRecordExistJudge(new HistoryQueryItem("男",1,4,"1","1","1","1"));
 		//return boolean
 		/*add*/
-		result=tmp.addHistoryRecord(new HistoryQueryItem("男",1,8,"testmark","testmark","1","1","old path"));
+		/*result=tmp.addHistoryRecord(new HistoryQueryItem("男",1,8,"testmark","testmark","1","1","old path"));
 		System.out.println("(true)add an unExists one:"+result);
 		result=tmp.addHistoryRecord(new HistoryQueryItem("男",1,8,"testmark","testmark","1","1","old path"));
 		System.out.println("(false)add an Exists one:"+result);
-		/*update*/
+		update
 		result = tmp.updateHistoryRecord(new HistoryQueryItem("男",1,8,"testmark","testmark","1","1","new path"));
 		System.out.println("(true)update an Exists one:"+result);
 		result = tmp.updateHistoryRecord(new HistoryQueryItem("男",-1,-8,"testmark","testmark","1","1","new path"));
-		System.out.println("(false)update an unExists one:"+result);
+		System.out.println("(false)update an unExists one:"+result);*/
 		/*return*/
 		//delete by hand
 	}

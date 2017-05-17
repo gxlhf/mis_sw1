@@ -1,6 +1,22 @@
 package fio;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class HistoryQuery {
+	public static void writeFile(String filePath, String sets)  
+            throws IOException {  
+        FileWriter fw = new FileWriter(filePath);  
+        PrintWriter out = new PrintWriter(fw);  
+        out.write(sets);  
+        out.println();  
+        fw.close();  
+        out.close();  
+    } 
 	/**
 	 * 根据查询条件，添加历史查询文件，返回文件名
 	 */
@@ -16,5 +32,18 @@ public class HistoryQuery {
 	public boolean deleteHistoryFile(String fileName) {
 		boolean result = false;
 		return result;
+	}
+	public static void main(String[] args) throws JSONException, IOException{
+		JSONObject jsonObject = new JSONObject();  
+        jsonObject.put("1", "一");  
+        jsonObject.put("2", "二");  
+        jsonObject.put("3", "三");  
+        jsonObject.put("4", "四");  
+        jsonObject.put("5", "五");  
+        jsonObject.put("6", "六");  
+        jsonObject.put("7", "⑦");  
+        System.out.println(jsonObject);  
+  
+        writeFile("test.json", jsonObject.toString()); 
 	}
 }
