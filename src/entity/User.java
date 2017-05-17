@@ -148,25 +148,27 @@ public class User {
 	}
 	
 	/**
-	 * 从数据库中查询该查询条件记录是否已存在于数据库中
+	 * 从数据库中查询该查询条件记录是否已存在于数据库中，若存在返回文件名，若不存在返回null
 	 */
-	public boolean historyRecordExistJudge(String sex, int minAge, int maxAge, String examClass, String testItem, double valueStart, double valueEnd) {
+	public String historyRecordExistJudge(String sex, int minAge, int maxAge, String examClass, String testItem, double valueStart, double valueEnd) {
+		String result = null;
+		return result;
+	}
+	
+	/**
+	 * 向数据库中插入该条历史查询记录，成功返回true，失败返回false
+	 */
+	public boolean addHistoryRecord(HistoryQueryItem historyQueryItem) {
 		boolean result = false;
 		return result;
 	}
 	
 	/**
-	 * 向数据库中插入该条历史查询记录
+	 * 向数据库中更新该条历史查询记录，成功返回true，失败返回false
 	 */
-	public void addHistoryRecord(HistoryQueryItem historyQueryItem) {
-		
-	}
-	
-	/**
-	 * 向数据库中更新该条历史查询记录
-	 */
-	public void updateHistoryRecord(HistoryQueryItem historyQueryItem) {
-		
+	public boolean updateHistoryRecord(HistoryQueryItem historyQueryItem) {
+		boolean result = false;
+		return result;
 	}
 	
 	public static void main(String[] args){
