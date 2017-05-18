@@ -184,6 +184,7 @@ public class User {
 	 */
 	public HistoryQueryItem[] returnAllHistoryQueryItem() {
 		HistoryQueryItem[] historyQueryItems = null;
+		historyQueryItems=new HistoryRecordDao().returnAllHistoryQueryItem();
 		return historyQueryItems;
 	}
 	
