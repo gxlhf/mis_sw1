@@ -79,7 +79,7 @@ window.onload = function(){
         	vueObj.hideDetail(index);
         };
         var curData = vueObj.tableContent.data[index];
-        var queryParm = {"patient_id": patientID, "sequence": index};
+        var queryParm = {"patient_id": patientID, "sequence": vueObj.tableContent.data[index].index};
         if(curData.showingDetail && curData.detail.type == type)
           vueObj.hideDetail(index);
         else{
