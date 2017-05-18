@@ -10,6 +10,8 @@ import java.io.OutputStreamWriter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
+
 import entity.HistoryQueryItem;
 
 public class HistoryQuery {
@@ -39,6 +41,17 @@ public class HistoryQuery {
 //		    System.out.println("dir not exists, create it ...");
 		    file.mkdir();
 		}	
+	}
+	
+	/**
+	 * 判断json文件是否存在
+	 */
+	public boolean judgeFileExits(String fileName) {
+		File file = new File(directory + "/" + fileName);
+        if (file.exists())
+        	return true;
+        else
+        	return false;
 	}
 	
 	/**

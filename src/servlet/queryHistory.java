@@ -7,11 +7,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONArray;
 
+import entity.HistoryQueryItem;
 import entity.QueryHistory;
 import entity.User;
-import net.sf.json.JSONArray;
+import fio.HistoryQuery;
 
 /**
  * Servlet implementation class queryHistory
@@ -35,8 +38,44 @@ public class queryHistory extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=UTF-8");
 		User user=new User("", "", "");
-
-	
+		HistoryQueryItem[] historyQueryItems = user.returnAllHistoryQueryItem();
+		JSONObject jsonData=new JSONObject();
+		JSONArray jsonArray=new JSONArray();
+		for (HistoryQueryItem historyQueryItem : historyQueryItems) {
+			JSONObject jsonObject=new JSONObject();
+			if(new HistoryQuery().judgeFileExits(historyQueryItem.getFilename()))
+			{
+				try {
+					jsonObject.put("queryID", historyQueryItem.getFilename());
+					jsonObject.put("sex", historyQueryItem.getSex());
+					if(historyQueryItem.getMinAge() == -1)
+						jsonObject.put("ageFrom", "不限");
+					else
+						jsonObject.put("ageFrom", historyQueryItem.getMinAge());
+					if(historyQueryItem.getMaxAge() == 1000)
+						jsonObject.put("ageTo", "不限");
+					else
+						jsonObject.put("ageTo", historyQueryItem.getMaxAge());
+					jsonObject.put("examType", historyQueryItem.getExamClass());
+					jsonObject.put("labType", historyQueryItem.getLabType());
+					jsonObject.put("labSubType", historyQueryItem.getLabSubType());
+					jsonObject.put("labValFrom", historyQueryItem.getLabValFrom());
+					jsonObject.put("labValTo", historyQueryItem.getLabValTo());
+					jsonObject.put("queryTime", historyQueryItem.getDate());
+					jsonArray.put(jsonObject);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		try {
+			jsonData.put("data", jsonArray);
+			response.getWriter().println(jsonData);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
