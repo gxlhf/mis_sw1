@@ -43,6 +43,7 @@ public class TestDao {
     }
 	
 	public String[] quryTestResult() {
+        String[] s=null;
 		try{   
             pool = ConnectionPool.getInstance();
             con = pool.getConnection();
@@ -63,19 +64,17 @@ public class TestDao {
             	count++;
             	list.add(rs.getString(1));
             }
-            String[] s = new String[count];
+            s = new String[count];
             for(int i = 0; i< count; i++) {
             	s[i] = list.get(i);
             }
-            return s;
         }catch(SQLException se ){   
             System.out.println("test count error");   
             se.printStackTrace() ;   
         } finally {
 			pool.release(con);
         }
-
-        return null;
+        return s;
     }
 	
 	
@@ -84,6 +83,8 @@ public class TestDao {
 	 * 如参数血常规，返回所有血常规的具体检验项，如白细胞，血红蛋白等
 	 */
 	public String[] queryTestItem(String TestClass){
+
+        String[] s=null;
 		try{   
             pool = ConnectionPool.getInstance();
             con = pool.getConnection();
@@ -105,7 +106,7 @@ public class TestDao {
             	count++;
             	list.add(rs.getString(1));
             }
-            String[] s = new String[count];
+            s = new String[count];
             for(int i = 0; i< count; i++) {
             	s[i] = list.get(i);
             }
@@ -116,18 +117,14 @@ public class TestDao {
     			System.out.println(s[i]);
             }
             //test over
-            
-            return s;
         }catch(SQLException se ){   
             System.out.println("test count error");   
             se.printStackTrace() ;   
         } finally {
 				pool.release(con);
-				con=null;
-				System.out.println("TestDAO.queryTestItem 已经释放");
         }
 
-        return null;
+        return s;
 	}
 	
 	public static void main(String[] args) {

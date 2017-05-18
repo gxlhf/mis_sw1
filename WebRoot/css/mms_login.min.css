@@ -64,6 +64,9 @@ hr{
  */
 .card {
     background-color: #FFFFFF;
+filter:alpha(opacity=92);  /*支持 IE 浏览器*/
+-moz-opacity:0.92; /*支持 FireFox 浏览器*/
+opacity:0.92;  /*支持 Chrome, Opera, Safari 等浏览器*/
     /* just in case there no content*/
     padding: 1px 25px 30px;
     margin: 0 auto 25px;

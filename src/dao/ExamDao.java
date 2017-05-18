@@ -39,7 +39,7 @@ public class ExamDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			if (resultSet != null) {
+			/*if (resultSet != null) {
 				try {
 					resultSet.close();
 				} catch (SQLException e) {
@@ -53,7 +53,7 @@ public class ExamDao {
 					e.printStackTrace();
 				}
 			}
-			if (connection != null) {
+			if (connection != null) {*/
 				/*try {
 					connection.close();
 				} catch (SQLException e) {
@@ -61,7 +61,7 @@ public class ExamDao {
 				}*/
 				//修改为释放连接而非关闭连接
 				ConnectionPool.getInstance().release(connection);
-			}
+			/*}*/
 
 		}
 		return queryExamClassResult;
@@ -86,7 +86,7 @@ public class ExamDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			if (resultSet != null) {
+			/*if (resultSet != null) {
 				try {
 					resultSet.close();
 				} catch (SQLException e) {
@@ -100,7 +100,7 @@ public class ExamDao {
 					e.printStackTrace();
 				}
 			}
-			if (connection != null) {
+			if (connection != null) {*/
 				/*try {
 					connection.close();
 				} catch (SQLException e) {
@@ -108,7 +108,7 @@ public class ExamDao {
 				}*/
 				//修改为释放连接而非关闭连接
 				ConnectionPool.getInstance().release(connection);
-			}
+			/*}*/
 
 		}
 		return count;
@@ -154,7 +154,7 @@ public class ExamDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			if (resultSet != null) {
+			/*if (resultSet != null) {
 				try {
 					resultSet.close();
 				} catch (SQLException e) {
@@ -168,7 +168,7 @@ public class ExamDao {
 					e.printStackTrace();
 				}
 			}
-			if (connection != null) {
+			if (connection != null) {*/
 				/*try {
 					connection.close();
 				} catch (SQLException e) {
@@ -177,7 +177,7 @@ public class ExamDao {
 
 				//修改为释放连接而非关闭连接
 				ConnectionPool.getInstance().release(connection);
-			}
+			/*}*/
 		}
 		return inHospitalRecords;
 	}

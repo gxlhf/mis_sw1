@@ -75,7 +75,9 @@ public class HistoryRecordDao {
 		}
 		try {
 			//found this return false.because it has exists
-			if(null!=this.historyRecordExistJudge(historyQueryItem)){return false;}
+			if(null!=this.historyRecordExistJudge(historyQueryItem)){
+				result=false;
+			}else{
 			String sql = "insert into historyqueryitem(sex,minage,maxage,examclass,labtype,labsubtype,labvalfrom,labvalto,filename) values ("
 					+ "?,?,?,?,?,?,?,?,?)";
 			PreparedStatement preparedStatement = con.prepareStatement(sql);
@@ -91,6 +93,7 @@ public class HistoryRecordDao {
 			int rs= preparedStatement.executeUpdate();  
 			//System.out.println(rs);
 			if(rs>0)result=true;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -114,7 +117,10 @@ public class HistoryRecordDao {
 		}
 		try {
 			//Not found return false.  because nothing to update
-			if(null==this.historyRecordExistJudge(historyQueryItem))return false;
+			if(null==this.historyRecordExistJudge(historyQueryItem)){
+				result= false;
+				}
+			else{
 			String sql = "update historyqueryitem set filename = ? where "
 					+ "sex = ? and "
 					+ "minage = ? and "
@@ -137,6 +143,7 @@ public class HistoryRecordDao {
 			int rs= preparedStatement.executeUpdate();  
 			//System.out.println(rs);
 			if(rs>0)result=true;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

@@ -7,13 +7,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <link href="css/mms_login.min.css" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" type="text/css" href="css/buttonStyle.css">
+<link rel="shortcut icon" href="images/icon.png"></link>
+  <link href="css/mms_login.min.css" rel="stylesheet" type="text/css"></link>
+  <link rel="stylesheet" type="text/css" href="css/buttonStyle.css"></link>
     <script>try{Typekit.load({ async: true });}catch(e){}</script>
+    
+
+<script>
+var name = '<%=request.getAttribute("error")%>'; //将输入的内容赋给变量 name ，  
+        //这里需要注意的是，prompt有两个参数，前面是提示的话，后面是当对话框出来后，在对话框里的默认值  
+ if (!name.match("null"))//如果返回的有内容  
+    alert(name);
+</script>
+
 	<style type="text/css">
-body{background:#f8f8f8;}
+body{background:#f8f8f8;
+        background-image: url(images/background2.jpg);      
+        background-size:cover;   
+}
     #footer {
-        background: #f8f8f8;
         width: 100%;
         height: 50px;
         position: fixed;
@@ -39,7 +51,7 @@ body{background:#f8f8f8;}
         </div><!-- /card-container -->
     </div><!-- /container -->
 <div id="footer">
-	<p align="center">     Copyright - 2017湖南大学软件工程课程项目 - 软件1401</p>
+	<p align="center"  style="color:white;font-size:14px;">     Copyright - 2017湖南大学软件工程课程项目 - 软件1401</p>
 </div>
 	</body>
 </html>

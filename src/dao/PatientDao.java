@@ -1,4 +1,5 @@
 ﻿package dao;
+
 //test the sourceTree work status;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -56,14 +57,7 @@ public class PatientDao {
 	 * 根据性别，年龄段，检查指标查询患者信息，返回患者类列表 当性别和检验指标为不限的时候，默认为全选，查询全部结果
 	 */
 	public List<QueryResult> queryPatient(String sex, int minAge, int maxAge, String examClass) {
-
-		try {
-			pool = ConnectionPool.getInstance();
-			con = pool.getConnection();
-		} catch (Exception se) {
-			System.out.println("数据库连接失败！");
-			se.printStackTrace();
-		}
+		System.out.println(sex+"\n"+minAge+"\n"+maxAge);
 		List<QueryResult> result = new ArrayList<QueryResult>();
 		String last_id = "", patient_id = "";
 		String patient_name = "";
@@ -88,10 +82,10 @@ public class PatientDao {
 					+ "YEAR(exam_master.REQ_DATE_TIME)-YEAR(exam_master.DATE_OF_BIRTH) <= ?) a "
 					+ "LEFT JOIN patient_information ON a.PATIENT_ID = patient_information.PATIENT_ID ORDER BY a.PATIENT_ID,a.VISIT_ID";
 			PreparedStatement preparedStatement = con.prepareStatement(sql);
-			preparedStatement.setString(1, "%"+sex+"%");
-			preparedStatement.setString(2, "%"+examClass+"%");
+			preparedStatement.setString(1, "%" + sex + "%");
+			preparedStatement.setString(2, "%" + examClass + "%");
 			preparedStatement.setInt(3, minAge);
-			if(maxAge < 0) {
+			if (maxAge < 0) {
 				maxAge = Integer.MAX_VALUE;
 			}
 			preparedStatement.setInt(4, maxAge);
@@ -104,13 +98,14 @@ public class PatientDao {
 						continue;
 					} else { // 不同次的记录
 						patient_diag = resultSet.getString(4);
-						//System.out.println(patient_name + " " + visit + " " + last_visit);
+						// System.out.println(patient_name + " " + visit + " " +
+						// last_visit);
 						clinicDiagMap.put(visit, patient_diag);
 						++hospitalCount;
 						last_visit = visit;
 					}
 				} else { // 新的人的记录
-					if (hospitalCount!=0) {// 保存上一个人的记录
+					if (hospitalCount != 0) {// 保存上一个人的记录
 						result.add(new QueryResult(new Patient(last_id, patient_name, patient_sex, patient_birthday),
 								hospitalCount, clinicDiagMap));
 					}
@@ -136,14 +131,7 @@ public class PatientDao {
 
 	public List<QueryResult> queryPatient(String sex, int minAge, int maxAge, String testItem, double valueStart,
 			double valueEnd) {
-
-		try {
-			pool = ConnectionPool.getInstance();
-			con = pool.getConnection();
-		} catch (Exception se) {
-			System.out.println("数据库连接失败！");
-			se.printStackTrace();
-		}
+		System.out.println(sex+"\n"+minAge+"\n"+maxAge+"\n"+testItem+"\n"+valueStart+"\n"+valueEnd);
 		List<QueryResult> result = new ArrayList<QueryResult>();
 		String last_id = "", patient_id = "";
 		String patient_name = "";
@@ -169,7 +157,7 @@ public class PatientDao {
 			PreparedStatement preparedStatement = con.prepareStatement(sql);
 			preparedStatement.setString(1, "%" + sex + "%");
 			preparedStatement.setInt(2, minAge);
-			if(maxAge < 0) {
+			if (maxAge < 0) {
 				maxAge = Integer.MAX_VALUE;
 			}
 			preparedStatement.setInt(3, maxAge);
@@ -196,7 +184,7 @@ public class PatientDao {
 						last_visit = visit;
 					}
 				} else { // 新的人的记录
-					if (hospitalCount!=0) {// 保存上一个人的记录
+					if (hospitalCount != 0) {// 保存上一个人的记录
 						result.add(new QueryResult(new Patient(patient_id, patient_name, patient_sex, patient_birthday),
 								hospitalCount, clinicDiagMap));
 					}
@@ -273,26 +261,29 @@ public class PatientDao {
 			// find result
 			LinkedList<TestResult> tResultList = new LinkedList<TestResult>();
 			TestResult[] tR = null;
-			//boolean resultJ = true;
+			// boolean resultJ = true;
 			while (resultSetTest.next()) {
 				Test templet = new Test(resultSetTest.getString(1), resultSetTest.getString(2),
 						resultSetTest.getString(3), resultSetTest.getString(4), resultSetTest.getInt(6),
 						resultSetTest.getString(7), resultSetTest.getString(8), null, null);
-/*
-				if (resultJ) {
-					resultJ = false;
-					String sqlFindResult = "select PRINT_ORDER,REPORT_ITEM_NAME,RESULT,UNITS,ABNORMAL_INDICATOR,NORMAL_VALUE from  lab_result where test_no= ?";
-					PreparedStatement preparedStatementFindTestResult = con.prepareStatement(sqlFindResult);
-					preparedStatementFindTestResult.setString(1, templet.getTest_no());
-					ResultSet resultSetTestResult = preparedStatementFindTestResult.executeQuery();
-					while (resultSetTestResult.next()) {
-						tResultList.add(new TestResult(resultSetTestResult.getInt(1), resultSetTestResult.getString(2),
-								resultSetTestResult.getString(3), resultSetTestResult.getString(4),
-								resultSetTestResult.getString(5), resultSetTestResult.getString(6)));
-					}
-					tR = new TestResult[tResultList.size()];
-					tR = tResultList.toArray(tR);
-				}*/
+				/*
+				 * if (resultJ) { resultJ = false; String sqlFindResult =
+				 * "select PRINT_ORDER,REPORT_ITEM_NAME,RESULT,UNITS,ABNORMAL_INDICATOR,NORMAL_VALUE from  lab_result where test_no= ?"
+				 * ; PreparedStatement preparedStatementFindTestResult =
+				 * con.prepareStatement(sqlFindResult);
+				 * preparedStatementFindTestResult.setString(1,
+				 * templet.getTest_no()); ResultSet resultSetTestResult =
+				 * preparedStatementFindTestResult.executeQuery(); while
+				 * (resultSetTestResult.next()) { tResultList.add(new
+				 * TestResult(resultSetTestResult.getInt(1),
+				 * resultSetTestResult.getString(2),
+				 * resultSetTestResult.getString(3),
+				 * resultSetTestResult.getString(4),
+				 * resultSetTestResult.getString(5),
+				 * resultSetTestResult.getString(6))); } tR = new
+				 * TestResult[tResultList.size()]; tR = tResultList.toArray(tR);
+				 * }
+				 */
 				String sqlFindItem = "select item_name from lab_test_items where test_no= ?";
 				PreparedStatement preparedStatementFindTestItem = con.prepareStatement(sqlFindItem);
 				preparedStatementFindTestItem.setString(1, templet.getTest_no());
@@ -311,7 +302,7 @@ public class PatientDao {
 									rSetTestResult.getString(3), rSetTestResult.getString(4),
 									rSetTestResult.getString(5), rSetTestResult.getString(6)));
 						}
-						tR=tResultList.toArray(new TestResult[0]);
+						tR = tResultList.toArray(new TestResult[0]);
 					}
 					test.add(new Test(templet.getTest_no(), templet.getPatient_id(), templet.getVisit_id(),
 							templet.getExecute_date(), templet.getAge(), templet.getRelevant_clinic_diag(),
@@ -327,13 +318,14 @@ public class PatientDao {
 			hospitalSituation = new HospitalSituation(sequence, exams, tests, patient_id);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			pool.release(con);
 		}
 		return hospitalSituation;
 	}
 
 	public Integer[] getPatientNumChange(String datefrom, String dateto) {
+		Integer[] result=null;
 		try {
 			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
@@ -350,34 +342,39 @@ public class PatientDao {
 			LinkedList<Integer> lKInteger = new LinkedList<Integer>();
 			// dateFrom<=dateTo
 			if (dateFrom.getTime() > dateTo.getTime())
-				return null;
-			while (dateFrom.getTime() <= date.getTime() && dateTo.getTime() >= date.getTime()) {
-				String sql = "select count(*) from inhospitalrecord where intime<= ? and outtime >= ?";
-				PreparedStatement preparedStatement = con.prepareStatement(sql);
-				preparedStatement.setString(1, sdf.format(date));
-				preparedStatement.setString(2, sdf.format(date));
-				ResultSet resultSet = preparedStatement.executeQuery();
-				while (resultSet.next()) {
-					lKInteger.add(resultSet.getInt(1));
-					break;
-				}
-				cal.setTime(date);
-				cal.add(Calendar.DATE, 1);
-				date = cal.getTime();
+			{
+				result=null;
 			}
-			return lKInteger.toArray(new Integer[lKInteger.size()]);
+			else {
+				while (dateFrom.getTime() <= date.getTime() && dateTo.getTime() >= date.getTime()) {
+					String sql = "select count(*) from inhospitalrecord where intime<= ? and outtime >= ?";
+					PreparedStatement preparedStatement = con.prepareStatement(sql);
+					preparedStatement.setString(1, sdf.format(date));
+					preparedStatement.setString(2, sdf.format(date));
+					ResultSet resultSet = preparedStatement.executeQuery();
+					while (resultSet.next()) {
+						lKInteger.add(resultSet.getInt(1));
+						break;
+					}
+					cal.setTime(date);
+					cal.add(Calendar.DATE, 1);
+					date = cal.getTime();
+				}
+			}
+			result=lKInteger.toArray(new Integer[0]);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			pool.release(con);
 		}
-		return null;
+		return result;
 	}
 
 	/**
 	 * 根据患者编号，查询患者信息
 	 */
 	public Patient queryPatientInfo(String patient_id) {
+		Patient result=null;
 		try {
 			pool = ConnectionPool.getInstance();
 			con = pool.getConnection();
@@ -391,43 +388,47 @@ public class PatientDao {
 			preparedStatement.setString(1, patient_id);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				return new Patient(resultSet.getString(1),resultSet.getString(2),
-						resultSet.getString(3),resultSet.getString(4));
+				result= new Patient(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),
+						resultSet.getString(4));
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			pool.release(con);
-			pool=null;
 		}
-		return null;
+		return result;
 	}
 
 	public static void main(String[] args) {
-		/*System.out.println(new PatientDao().getHospitalSituation("302533", 1).getExam().length);
-		Integer[] tmp = new PatientDao().getPatientNumChange("2015-01-24", "2015-01-24");
-		for (Integer x : tmp) {
-			System.out.println(x);
-		}
-		Patient p= new PatientDao().queryPatientInfo("123141");
-		System.out.println(p.getPatient_id()+" "+p.getPatient_name()+" "+p.getSex()+" "+p.getBirthday());*/
-		/*List<QueryResult> list = new PatientDao().queryPatient("男", 10, 70, "DR/CR");
-		for(QueryResult q: list) {
-			System.out.println(q.getPatient().getPatient_name() + ":" + q.getHospitalCount());
-			Map<Integer, String> map = q.getClinicDiagMap();
-			for(Integer i: map.keySet()) {
-				System.out.println("\t" + i + " " + map.get(i));
-			}
-		}*/
-		//System.out.println(new PatientDao().getHospitalSituation("123141", 3).getTest()[1].getTest_result().length);
-		/*List<QueryResult> list = new PatientDao().queryPatient("", -1, 1000, "彩超");
-		for(QueryResult qr: list) {
-			System.out.println(qr.getPatient().getPatient_name());
-			for(Integer integer : qr.getClinicDiagMap().keySet()) {
-				System.out.println("\t" + qr.getClinicDiagMap().get(integer));
-			}
-		}*/
+		/*
+		 * System.out.println(new PatientDao().getHospitalSituation("302533",
+		 * 1).getExam().length); Integer[] tmp = new
+		 * PatientDao().getPatientNumChange("2015-01-24", "2015-01-24"); for
+		 * (Integer x : tmp) { System.out.println(x); } Patient p= new
+		 * PatientDao().queryPatientInfo("123141");
+		 * System.out.println(p.getPatient_id()+" "+p.getPatient_name()+" "
+		 * +p.getSex()+" "+p.getBirthday());
+		 */
+		/*
+		 * List<QueryResult> list = new PatientDao().queryPatient("男", 10, 70,
+		 * "DR/CR"); for(QueryResult q: list) {
+		 * System.out.println(q.getPatient().getPatient_name() + ":" +
+		 * q.getHospitalCount()); Map<Integer, String> map =
+		 * q.getClinicDiagMap(); for(Integer i: map.keySet()) {
+		 * System.out.println("\t" + i + " " + map.get(i)); } }
+		 */
+		// System.out.println(new PatientDao().getHospitalSituation("123141",
+		// 3).getTest()[1].getTest_result().length);
+		/*
+		 * List<QueryResult> list = new PatientDao().queryPatient("", -1, 1000,
+		 * "彩超"); for(QueryResult qr: list) {
+		 * System.out.println(qr.getPatient().getPatient_name()); for(Integer
+		 * integer : qr.getClinicDiagMap().keySet()) { System.out.println("\t" +
+		 * qr.getClinicDiagMap().get(integer)); } }
+		 */
+		for(int i=0;i<12;i++)
+		 new PatientDao().queryPatient("男",-1,1000,"血常规",0,1000);
 	}
 
 }

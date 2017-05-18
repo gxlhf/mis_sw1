@@ -47,7 +47,9 @@ public class ConnectionPool {
      * 返回连接到连接池中
      */
     public synchronized void release(Connection conn) {
+    	if(null==conn)System.out.println("release a null point");
         pool.add(conn);
+        System.out.println(pool.size()+"------release one :"+conn);
 
     }
 
@@ -82,8 +84,12 @@ public class ConnectionPool {
         if (pool.size() > 0) {
             Connection conn = pool.get(0);
             pool.remove(conn);
+
+            System.out.println("------get one :"+conn);
             return conn;
+            
         } else {
+            System.out.println("------get null");
             return null;
         }
     }
