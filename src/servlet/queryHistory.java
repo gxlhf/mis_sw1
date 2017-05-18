@@ -49,11 +49,11 @@ public class queryHistory extends HttpServlet {
 					jsonObject.put("queryID", historyQueryItem.getFilename());
 					jsonObject.put("sex", historyQueryItem.getSex());
 					if(historyQueryItem.getMinAge() == -1)
-						jsonObject.put("ageFrom", "不限");
+						jsonObject.put("ageFrom", "");
 					else
 						jsonObject.put("ageFrom", historyQueryItem.getMinAge());
 					if(historyQueryItem.getMaxAge() == 1000)
-						jsonObject.put("ageTo", "不限");
+						jsonObject.put("ageTo", "");
 					else
 						jsonObject.put("ageTo", historyQueryItem.getMaxAge());
 					jsonObject.put("examType", historyQueryItem.getExamClass());
