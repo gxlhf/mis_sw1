@@ -6,6 +6,17 @@
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+    <style type="text/css">
+    .card-block {
+      padding: 20px;
+    }
+    .loading {
+      background-image: url("images/loading.gif");
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    </style>
+
     <!-- 引入 echarts.js -->
     <script src="js/echarts.min.js"></script>
   </head>
@@ -51,7 +62,7 @@
               <div class="card-block">
                 <p>患者数量：</p>
                 <h3>
-                  <text>561</text>
+                  <text id="patientNum"></text>
                 </h3>
               </div>
             </div>
@@ -61,7 +72,7 @@
               <div class="card-block">
                 <p>检验项数量：</p>
                 <h3>
-                  <text>561</text>
+                  <text id="labNum"></text>
                 </h3>
               </div>
             </div>
@@ -71,7 +82,7 @@
               <div class="card-block">
                 <p>检查项数量：</p>
                 <h3>
-                  <text>561</text>
+                  <text id="examNum"></text>
                 </h3>
               </div>
             </div>
@@ -102,7 +113,7 @@
                         </label>
                       </div>
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-8" id="chartPlaceHolder">
 
 
 

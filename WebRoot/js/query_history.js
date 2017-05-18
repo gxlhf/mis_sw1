@@ -23,7 +23,7 @@ window.onload = function(){
     },
     created: function () {
       // this.tableContent = queryHistoryRecord;
-      ajax_get("json_test/queryHistory.json", this.tableContent);
+      ajax_get("queryHistory", this.tableContent);
     },
     methods: {
       jumpToResult: function (recordID) {

@@ -87,7 +87,7 @@
               <tr class="text-center">
                 <td>姓名</td>
                 <td>性别</td>
-                <td>临床诊断</td>
+                <!-- <td>临床诊断</td> -->
                 <td>住院号</td>
                 <td>住院次数</td>
                 <td>详情</td>
@@ -98,7 +98,7 @@
               <tr class="text-center" v-for="result in queryResult.result">
                 <td>{{ result.name }}</td>
                 <td>{{ result.sex }}</td>
-                <td>{{ result.diag }}</td>
+                <!-- <td>{{ result.diag }}</td> -->
                 <td>{{ result.patientID }}</td>
                 <td>{{ result.inHospitalCount }}</td>
                 <td><a @click="jumpToDetail(result.patientID)">患者详情</a></td>
