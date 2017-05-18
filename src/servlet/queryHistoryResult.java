@@ -32,6 +32,7 @@ public class queryHistoryResult extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
+		response.setContentType("text/html;charset=UTF-8");
 		String queryID = URLDecoder.decode(request.getParameter("queryID"), "UTF-8");
 		String content = new HistoryQuery().ReadFile(queryID);
 		response.getWriter().println(content);
