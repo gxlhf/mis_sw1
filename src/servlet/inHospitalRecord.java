@@ -22,10 +22,12 @@ import com.sun.xml.internal.fastinfoset.algorithm.IEEE754FloatingPointEncodingAl
 
 import dao.PatientDao;
 import dao.UserDao;
+import entity.Exam;
 import entity.HospitalSituation;
 import entity.InHospitalRecord;
 import entity.Patient;
 import entity.QueryResult;
+import entity.Test;
 import entity.User;
 import jdk.nashorn.internal.scripts.JS;
 
@@ -62,19 +64,27 @@ public class inHospitalRecord extends HttpServlet {
 			for(int i=0;i<inHospitalRecords.length;i++)
 			{
 				JSONObject jsonObject=new JSONObject();
-				jsonObject.put("index", i);
+				jsonObject.put("index", inHospitalRecords[i].getSequence());
 				jsonObject.put("inTime", inHospitalRecords[i].getInTime());
 				jsonObject.put("inAge", inHospitalRecords[i].getInAge());
 				jsonObject.put("diag", inHospitalRecords[i].getDiag());
 				HospitalSituation hospitalSituation=user.getHospitalSituation(inHospitalRecords[i].getPatientId(), inHospitalRecords[i].getSequence());
 				if(hospitalSituation!=null)
 				{
-					if(hospitalSituation.getExam().length!=0)
+					if(hospitalSituation.getExam().length!=0){
 						jsonObject.put("haveExam", true);
+						for(Exam s:hospitalSituation.getExam()){
+							System.out.println(s.getExam_class()+s.getExam_sub_class());
+						}
+					}
 					else
 						jsonObject.put("haveExam", false);
-					if(hospitalSituation.getTest().length!=0)
+					if(hospitalSituation.getTest().length!=0){
 						jsonObject.put("haveLab", true);
+						for(Test t:hospitalSituation.getTest()){
+							System.out.println(t.getItem_name()+t.getPatient_id());
+						}
+					}
 					else
 						jsonObject.put("haveLab", false);
 					data.put(jsonObject);
