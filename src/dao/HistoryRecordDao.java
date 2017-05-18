@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.LinkedList;
 
 import database.ConnectionPool;
 import entity.HistoryQueryItem;
@@ -143,21 +144,64 @@ public class HistoryRecordDao {
 		}
 		return result;
 	}
+	/**
+	 * 返回所有历史查询记录
+	 */
+	public HistoryQueryItem[] returnAllHistoryQueryItem() {
+		LinkedList<HistoryQueryItem> list=new LinkedList<HistoryQueryItem>();
+		try {
+			pool = ConnectionPool.getInstance();
+			con = pool.getConnection();
+		} catch (Exception se) {
+			System.out.println("数据库连接失败！");
+			se.printStackTrace();
+		}
+		try {
+			String sql = "select sex,minage,maxage,examclass,labtype,labsubtype,labvalfrom,"
+					+ "labvalto,filename,querytime from historyqueryitem";
+			PreparedStatement preparedStatement = con.prepareStatement(sql);
+			ResultSet resultSet=preparedStatement.executeQuery(sql);
+			while(resultSet.next()){
+				list.add(new HistoryQueryItem(resultSet.getString(1),
+						resultSet.getInt(2),
+						resultSet.getInt(3),
+						resultSet.getString(4),
+						resultSet.getString(5),
+						resultSet.getString(6),
+						resultSet.getString(7),
+						resultSet.getString(8),
+						resultSet.getString(9),
+						resultSet.getString(10)
+						));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.release(con);
+		}
+		return list.toArray(new HistoryQueryItem[0]);
+	}
+	
 	public static void main(String[] args){
 		HistoryRecordDao tmp=new HistoryRecordDao();
 		boolean result=false;
 	//	tmp.historyRecordExistJudge(new HistoryQueryItem("男",1,4,"1","1","1","1"));
 		//return boolean
 		/*add*/
-		result=tmp.addHistoryRecord(new HistoryQueryItem("男",1,8,"testmark","testmark","subtest","1","1","old path",""));
+		/*result=tmp.addHistoryRecord(new HistoryQueryItem("男",1,8,"testmark","testmark","subtest","1","1","old path",""));
 		System.out.println("(true)add an unExists one:"+result);
 		result=tmp.addHistoryRecord(new HistoryQueryItem("男",1,8,"testmark","testmark","subtest","1","1","old path",""));
 		System.out.println("(false)add an Exists one:"+result);
 		result = tmp.updateHistoryRecord(new HistoryQueryItem("男",1,8,"testmark","testmark","subtest","1","1","new path",""));
 		System.out.println("(true)update an Exists one:"+result);
 		result = tmp.updateHistoryRecord(new HistoryQueryItem("男",-1,-8,"testmark","testmark","subtest","1","1","new path",""));
-		System.out.println("(false)update an unExists one:"+result);
+		System.out.println("(false)update an unExists one:"+result);*/
 		/*return*/
 		//delete by hand
+		
+		/*returnall*/
+		HistoryQueryItem[] temp=tmp.returnAllHistoryQueryItem();
+		for(int i=0;i<temp.length;i++)
+			System.out.println(temp[i].toString());
 	}
 }

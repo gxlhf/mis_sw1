@@ -109,7 +109,20 @@ public class HistoryQueryItem {
 	public void setDate(String date) {
 		this.date = date;
 	}
-	
+	@Override
+	public String toString(){
+		return "\nsex:"+this.sex+
+				"\nminage:"+this.minAge+
+				"\nmaxage:"+this.maxAge+
+				"\nexamclass:"+this.examClass+
+				"\nlabType:"+this.labType+
+				"\nlabSubType"+this.labSubType+
+				"\nlabValFrom:"+this.labValFrom+
+				"\nlabValTo:"+this.labValTo+
+				"\nfilename:"+this.filename+
+				"\nquerytime:"+this.date+
+				"\n";
+	}
 	
 	
 	
