@@ -19,7 +19,6 @@ import org.json.JSONArray;
 import entity.HistoryQueryItem;
 import entity.QueryResult;
 import entity.User;
-import fio.HistoryQuery;
 
 
 /**
@@ -147,13 +146,13 @@ public class queryResult extends HttpServlet {
 			e.printStackTrace();
 		}
 		HistoryQueryItem historyQueryItem = new HistoryQueryItem(URLDecoder.decode(request.getParameter("sex"), "UTF-8"), ageFrom, ageTo, URLDecoder.decode(request.getParameter("examType"), "UTF-8"), URLDecoder.decode(request.getParameter("labType"), "UTF-8"), URLDecoder.decode(request.getParameter("labType"), "UTF-8"), labValFrom, labValTo);
-//		user.storeHistoryQuery(historyQueryItem, hQJsonObject);
+		user.storeHistoryQuery(historyQueryItem, hQJsonObject);
 		
 //		System.out.println(hQJsonObject);
+//		System.out.println(new HistoryQuery().ReadFile("-731701982.json"));
 		
-         
-		String path = new HistoryQuery().addHistoryFile(historyQueryItem, qAJsonObject);
-		System.out.println(path);
+		/*String path = new HistoryQuery().addHistoryFile(historyQueryItem, hQJsonObject);
+		System.out.println(path);*/
 	}
 
 	/**
