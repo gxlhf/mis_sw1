@@ -91,6 +91,9 @@ public class PatientDao {
 			preparedStatement.setString(1, "%"+sex+"%");
 			preparedStatement.setString(2, "%"+examClass+"%");
 			preparedStatement.setInt(3, minAge);
+			if(maxAge < 0) {
+				maxAge = Integer.MAX_VALUE;
+			}
 			preparedStatement.setInt(4, maxAge);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
@@ -107,7 +110,7 @@ public class PatientDao {
 						last_visit = visit;
 					}
 				} else { // 新的人的记录
-					if (!patient_id.equals("")) {// 保存上一个人的记录
+					if (hospitalCount!=0) {// 保存上一个人的记录
 						result.add(new QueryResult(new Patient(last_id, patient_name, patient_sex, patient_birthday),
 								hospitalCount, clinicDiagMap));
 					}
@@ -161,13 +164,16 @@ public class PatientDao {
 		try {
 			String sql = "SELECT a.PATIENT_ID,PATIENT_NAME,SEX,VISIT_ID,RELEVANT_CLINIC_DIAG,RESULT,patient_information.DATA_OF_BIRTH "
 					+ "FROM (SELECT lab_test_master.TEST_NO,PATIENT_ID,VISIT_ID,RELEVANT_CLINIC_DIAG,RESULT from "
-					+ "lab_result LEFT JOIN lab_test_master USING(TEST_NO) WHERE SEX LIKE'%?%' AND "
-					+ "AGE>=? AND AGE<=? AND REPORT_ITEM_NAME LIKE '%?%') a LEFT JOIN patient_information USING(PATIENT_ID)";
+					+ "lab_result LEFT JOIN lab_test_master USING(TEST_NO) WHERE SEX LIKE ? AND "
+					+ "AGE>=? AND AGE<=? AND REPORT_ITEM_NAME LIKE ?) a LEFT JOIN patient_information USING(PATIENT_ID)";
 			PreparedStatement preparedStatement = con.prepareStatement(sql);
-			preparedStatement.setString(1, sex);
+			preparedStatement.setString(1, "%" + sex + "%");
 			preparedStatement.setInt(2, minAge);
+			if(maxAge < 0) {
+				maxAge = Integer.MAX_VALUE;
+			}
 			preparedStatement.setInt(3, maxAge);
-			preparedStatement.setString(4, testItem);
+			preparedStatement.setString(4, "%" + testItem + "%");
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				try {
@@ -190,7 +196,7 @@ public class PatientDao {
 						last_visit = visit;
 					}
 				} else { // 新的人的记录
-					if (!patient_id.equals("") && hospitalCount!=0) {// 保存上一个人的记录
+					if (hospitalCount!=0) {// 保存上一个人的记录
 						result.add(new QueryResult(new Patient(patient_id, patient_name, patient_sex, patient_birthday),
 								hospitalCount, clinicDiagMap));
 					}
