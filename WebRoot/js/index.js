@@ -34,6 +34,7 @@ function date2string(date) {
 
 function selectOption(type){
   mychart = echarts.init(document.getElementById('presentation'));
+  $("#chartPlaceHolder").addClass("loading");
   var date = new Date();
   var queryParm = {datefrom:"", dateto: ""};
   var minusDate;
@@ -61,8 +62,15 @@ function selectOption(type){
   ajax_get("patientNumChange", option.series.data, queryParm, function () {
     mychart.clear();
     mychart.setOption(option);
+    $("#chartPlaceHolder").removeClass("loading");
   });
 };
 window.onload = function () {
   selectOption("week");
+  var count = {};
+  ajax_get("queryCount", count, {}, function () {
+    $("#patientNum").text(count.patientNum);
+    $("#labNum").text(count.labNum);
+    $("#examNum").text(count.examNum);    
+  });
 }

@@ -42,7 +42,7 @@ window.onload = function () {
     },
     created: function () {
       var qp = {"queryID": queryID};
-      ajax_get("json_test/queryHistoryResult.json", this, qp);
+      ajax_get("queryHistoryResult", this, qp);
     },
     methods: {      
       jumpToDetail: function (paID) {

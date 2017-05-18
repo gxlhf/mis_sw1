@@ -68,8 +68,7 @@
                 <td>{{item.examType}}</td>
                 <td>
                   {{item.labType}}
-                  <span v-if="showingLabArrow(index)"> → </span>
-                  {{item.labSubType}}
+                  <span v-if="showingLabArrow(index)"> → {{item.labSubType}}</span>                  
                 </td>
                 <td>
                   {{item.labValFrom}}
@@ -77,7 +76,7 @@
                   {{item.labValTo}}
                 </td>
                 <td>{{item.queryTime}}</td>
-                <td><a @click="jumpToResult(item.patientID)">详情</td>
+                <td><a @click="jumpToResult(item.queryID)">详情</td>
               </tr>
             </tbody>
           </table>
