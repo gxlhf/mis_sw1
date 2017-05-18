@@ -267,12 +267,12 @@ public class PatientDao {
 			// find result
 			LinkedList<TestResult> tResultList = new LinkedList<TestResult>();
 			TestResult[] tR = null;
-			boolean resultJ = true;
+			//boolean resultJ = true;
 			while (resultSetTest.next()) {
 				Test templet = new Test(resultSetTest.getString(1), resultSetTest.getString(2),
 						resultSetTest.getString(3), resultSetTest.getString(4), resultSetTest.getInt(6),
 						resultSetTest.getString(7), resultSetTest.getString(8), null, null);
-
+/*
 				if (resultJ) {
 					resultJ = false;
 					String sqlFindResult = "select PRINT_ORDER,REPORT_ITEM_NAME,RESULT,UNITS,ABNORMAL_INDICATOR,NORMAL_VALUE from  lab_result where test_no= ?";
@@ -286,15 +286,30 @@ public class PatientDao {
 					}
 					tR = new TestResult[tResultList.size()];
 					tR = tResultList.toArray(tR);
-				}
+				}*/
 				String sqlFindItem = "select item_name from lab_test_items where test_no= ?";
 				PreparedStatement preparedStatementFindTestItem = con.prepareStatement(sqlFindItem);
 				preparedStatementFindTestItem.setString(1, templet.getTest_no());
 				ResultSet resultSetTestItem = preparedStatementFindTestItem.executeQuery();
 				while (resultSetTestItem.next()) {
+					{
+						templet.setItem_name(resultSetTestItem.getString(1));
+						tResultList.clear();
+						String sqlFindTestResult = "select PRINT_ORDER,REPORT_ITEM_NAME,RESULT,UNITS,ABNORMAL_INDICATOR,NORMAL_VALUE from  lab_result where test_no = ? and REPORT_ITEM_name in (select reportitemname from itemtoresult where itemname = ? )";
+						PreparedStatement presFindTestResult = con.prepareStatement(sqlFindTestResult);
+						presFindTestResult.setString(1, templet.getTest_no());
+						presFindTestResult.setString(2, templet.getItem_name());
+						ResultSet rSetTestResult = presFindTestResult.executeQuery();
+						while (rSetTestResult.next()) {
+							tResultList.add(new TestResult(rSetTestResult.getInt(1), rSetTestResult.getString(2),
+									rSetTestResult.getString(3), rSetTestResult.getString(4),
+									rSetTestResult.getString(5), rSetTestResult.getString(6)));
+						}
+						tR=tResultList.toArray(new TestResult[0]);
+					}
 					test.add(new Test(templet.getTest_no(), templet.getPatient_id(), templet.getVisit_id(),
 							templet.getExecute_date(), templet.getAge(), templet.getRelevant_clinic_diag(),
-							templet.getSpecimen(), resultSetTestItem.getString(1), tR));
+							templet.getSpecimen(), templet.getItem_name(), tR));
 				}
 			}
 			Exam[] exams = null;
@@ -399,14 +414,14 @@ public class PatientDao {
 				System.out.println("\t" + i + " " + map.get(i));
 			}
 		}*/
-		//System.out.println(new PatientDao().getHospitalSituation("123141", 3).getTest().length);
-		List<QueryResult> list = new PatientDao().queryPatient("", -1, 1000, "彩超");
+		//System.out.println(new PatientDao().getHospitalSituation("123141", 3).getTest()[1].getTest_result().length);
+		/*List<QueryResult> list = new PatientDao().queryPatient("", -1, 1000, "彩超");
 		for(QueryResult qr: list) {
 			System.out.println(qr.getPatient().getPatient_name());
 			for(Integer integer : qr.getClinicDiagMap().keySet()) {
 				System.out.println("\t" + qr.getClinicDiagMap().get(integer));
 			}
-		}
+		}*/
 	}
 
 }
