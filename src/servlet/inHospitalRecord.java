@@ -69,11 +69,11 @@ public class inHospitalRecord extends HttpServlet {
 				HospitalSituation hospitalSituation=user.getHospitalSituation(inHospitalRecords[i].getPatientId(), inHospitalRecords[i].getSequence());
 				if(hospitalSituation!=null)
 				{
-					if(hospitalSituation.getExam()!=null)
+					if(hospitalSituation.getExam().length!=0)
 						jsonObject.put("haveExam", true);
 					else
 						jsonObject.put("haveExam", false);
-					if(hospitalSituation.getTest()!=null)
+					if(hospitalSituation.getTest().length!=0)
 						jsonObject.put("haveLab", true);
 					else
 						jsonObject.put("haveLab", false);
