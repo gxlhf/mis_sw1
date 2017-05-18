@@ -10,8 +10,6 @@ import java.io.OutputStreamWriter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
-
 import entity.HistoryQueryItem;
 
 public class HistoryQuery {
