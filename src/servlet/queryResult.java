@@ -109,7 +109,7 @@ public class queryResult extends HttpServlet {
 				}
 				jsonData.put("result", jsonArray);
 				
-				response.getWriter().println(jsonData);
+//				response.getWriter().println(jsonData);
 
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -120,7 +120,7 @@ public class queryResult extends HttpServlet {
 		{
 			try {
 				jsonData.put("result", jsonArray);
-				response.getWriter().println(jsonData);
+//				response.getWriter().println(jsonData);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -154,6 +154,7 @@ public class queryResult extends HttpServlet {
 		
 		/*String path = new HistoryQuery().addHistoryFile(historyQueryItem, hQJsonObject);
 		System.out.println(path);*/
+		response.getWriter().println(jsonData);
 	}
 
 	/**

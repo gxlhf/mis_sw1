@@ -14,7 +14,7 @@ import entity.HistoryQueryItem;
 
 public class HistoryQuery {
 	String classPath = this.getClass().getClassLoader().getResource("").getPath();
-	String path = classPath.substring(1, classPath.indexOf("WEB-INF"));
+	String path = classPath.substring(0, classPath.indexOf("WEB-INF"));
 	String directory = path + "HistoryFiles";
 	public HistoryQuery() throws IOException {
 //		System.out.println(path);
