@@ -150,7 +150,7 @@ public class PatientDao {
 			se.printStackTrace();
 		}
 		try {
-			String sql = "SELECT a.PATIENT_ID,PATIENT_NAME,SEX,VISIT_ID,RELEVANT_CLINIC_DIAG,RESULT,patient_information.DATA_OF_BIRTH "
+			String sql = "SELECT a.PATIENT_ID,PATIENT_NAME,SEX,VISIT_ID,RELEVANT_CLINIC_DIAG,RESULT,patient_information.DATE_OF_BIRTH "
 					+ "FROM (SELECT lab_test_master.TEST_NO,PATIENT_ID,VISIT_ID,RELEVANT_CLINIC_DIAG,RESULT from "
 					+ "lab_result LEFT JOIN lab_test_master USING(TEST_NO) WHERE SEX LIKE ? AND "
 					+ "AGE>=? AND AGE<=? AND REPORT_ITEM_NAME LIKE ?) a LEFT JOIN patient_information USING(PATIENT_ID)";
