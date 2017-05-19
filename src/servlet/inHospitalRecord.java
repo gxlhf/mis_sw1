@@ -2,34 +2,21 @@ package servlet;
 
 import java.io.IOException;
 import java.net.URLDecoder;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.poi.xwpf.usermodel.UpdateEmbeddedDoc;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.sun.xml.internal.fastinfoset.algorithm.IEEE754FloatingPointEncodingAlgorithm;
-
-import dao.PatientDao;
-import dao.UserDao;
 import entity.Exam;
 import entity.HospitalSituation;
 import entity.InHospitalRecord;
-import entity.Patient;
-import entity.QueryResult;
 import entity.Test;
 import entity.User;
-import jdk.nashorn.internal.scripts.JS;
 
 /**
  * Servlet implementation class inHospitalRecord

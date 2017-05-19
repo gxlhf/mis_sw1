@@ -12,7 +12,6 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 
 import entity.HistoryQueryItem;
-import entity.QueryHistory;
 import entity.User;
 import fio.HistoryQuery;
 
