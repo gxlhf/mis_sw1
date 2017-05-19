@@ -111,6 +111,8 @@ public class HistoryQuery {
 		boolean result = false;
 		File file = new File(directory + "/" + fileName);  
 	    // 路径为文件且不为空则进行删除  
+		if(!file.exists())
+			return true;
 	    if (file.isFile() && file.exists()) {  
 	        file.delete();  
 	        result = true;  

@@ -133,6 +133,7 @@ public class queryResult extends HttpServlet {
 			qAJsonObject.put("sex", URLDecoder.decode(request.getParameter("sex"), "UTF-8"));
 			qAJsonObject.put("ageFrom", URLDecoder.decode(request.getParameter("ageFrom"), "UTF-8"));
 			qAJsonObject.put("ageTo", URLDecoder.decode(request.getParameter("ageTo"), "UTF-8"));
+			qAJsonObject.put("examType", URLDecoder.decode(request.getParameter("examType"), "UTF-8"));
 			qAJsonObject.put("labType", URLDecoder.decode(request.getParameter("labType"), "UTF-8"));
 			qAJsonObject.put("labSubType", URLDecoder.decode(request.getParameter("labSubType"), "UTF-8"));
 			qAJsonObject.put("labValFrom", URLDecoder.decode(request.getParameter("labValFrom"), "UTF-8"));
@@ -145,7 +146,7 @@ public class queryResult extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		HistoryQueryItem historyQueryItem = new HistoryQueryItem(URLDecoder.decode(request.getParameter("sex"), "UTF-8"), ageFrom, ageTo, URLDecoder.decode(request.getParameter("examType"), "UTF-8"), URLDecoder.decode(request.getParameter("labType"), "UTF-8"), URLDecoder.decode(request.getParameter("labType"), "UTF-8"), labValFrom, labValTo);
+		HistoryQueryItem historyQueryItem = new HistoryQueryItem(URLDecoder.decode(request.getParameter("sex"), "UTF-8"), ageFrom, ageTo, URLDecoder.decode(request.getParameter("examType"), "UTF-8"), URLDecoder.decode(request.getParameter("labType"), "UTF-8"), URLDecoder.decode(request.getParameter("labSubType"), "UTF-8"), labValFrom, labValTo);
 		user.storeHistoryQuery(historyQueryItem, hQJsonObject);
 		
 //		System.out.println(hQJsonObject);

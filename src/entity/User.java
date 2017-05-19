@@ -207,7 +207,7 @@ public class User {
 			{
 				path = historyQuery.addHistoryFile(historyQueryItem, jsonObject);
 				historyQueryItem.setFilename(path);
-				addHistoryRecord(historyQueryItem);
+				updateHistoryRecord(historyQueryItem);
 			}
 		}
 	}

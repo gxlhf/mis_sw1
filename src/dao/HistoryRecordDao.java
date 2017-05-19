@@ -165,7 +165,7 @@ public class HistoryRecordDao {
 		}
 		try {
 			String sql = "select sex,minage,maxage,examclass,labtype,labsubtype,labvalfrom,"
-					+ "labvalto,filename,querytime from historyqueryitem";
+					+ "labvalto,filename,querytime from historyqueryitem order by querytime desc";
 			PreparedStatement preparedStatement = con.prepareStatement(sql);
 			ResultSet resultSet=preparedStatement.executeQuery(sql);
 			while(resultSet.next()){
