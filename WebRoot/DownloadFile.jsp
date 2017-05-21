@@ -42,7 +42,18 @@ a:active {
 	text-decoration: none;
 }
         </style>
-    </head>
+        <style type="text/css">
+    .navbar-brand {
+      padding-left: 40px;
+      padding-right: 20px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+    .navbar-brand>img {
+      height: 40px;
+    }
+    </style>
+  </head>
     <body>
      <%
      String str="123";
@@ -63,7 +74,7 @@ a:active {
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><span>LOGO</span></a>
+                <a class="navbar-brand" href="index.html"><img src="images/icon.png"></a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-ex-collapse">
                 <ul class="nav navbar-nav navbar-left">
