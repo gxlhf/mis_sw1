@@ -36,7 +36,7 @@
       </div>
       <div class="collapse navbar-collapse" id="navbar-ex-collapse">
         <ul class="nav navbar-nav navbar-left">
-          <li class="dropdown active">
+          <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">多维查询</a>
             <ul class="dropdown-menu">
               <li><a href="multi_query.html">查询</a></li>
