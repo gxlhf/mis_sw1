@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -40,6 +41,7 @@ public class labRecord extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=UTF-8");
+		ArrayList<Integer>list=new ArrayList<Integer>();
 		User user=new User("", "", "");
 		String id=URLDecoder.decode(request.getParameter("patient_id"), "UTF-8");
 		String Sequence=URLDecoder.decode(request.getParameter("sequence"), "UTF-8");
@@ -62,6 +64,7 @@ public class labRecord extends HttpServlet {
 				lab.put("labNo", test.getTest_no());
 				lab.put("labName", test.getItem_name());
 				JSONArray result=new JSONArray();
+				list.add(test.getTest_result().length);
 				for(int j=0;j<test.getTest_result().length;j++){
 					JSONObject res=new JSONObject();
 					TestResult testResult=test.getTest_result()[j];
@@ -77,6 +80,10 @@ public class labRecord extends HttpServlet {
 				data.put(lab);
 			}
 			jsonData.put("data", data);
+			System.out.println("检验项目："+data.getJSONObject(0).getString("labNo")+" "+data.getJSONObject(0).get("labName")+" "+((JSONArray)(data.getJSONObject(0).getJSONArray("result"))).getJSONObject(0).getString("name"));
+			request.getSession().setAttribute("labData", data);
+			request.getSession().setAttribute("sumnum", hospitalSituation.getTest().length);
+			request.getSession().setAttribute("arrlist", list);
 			response.getWriter().println(jsonData.toString());
 			
 		} catch (JSONException e) {

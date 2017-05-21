@@ -79,13 +79,14 @@ public class inHospitalRecord extends HttpServlet {
 				
 			}
 			jsonData.put("data", data);
+		//	System.out.println(((JSONArray)jsonData.get("data")).getJSONObject(0).getString("index"));
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		}
 		response.getWriter().println(jsonData.toString());
-
+        request.getSession().setAttribute("inHospitalData",jsonData);
 			
 		}
 		 

@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
 	<link rel="shortcut icon" href="images/icon.png"></link>
@@ -11,6 +12,7 @@
     <link rel="stylesheet" href="css/main.css">
   </head>
   <body>
+  <%!int num=0; %>
     <div class="navbar navbar-default navbar-static-top">
       <div class="container">
         <div class="navbar-header">
@@ -86,6 +88,7 @@
               </thead>
               <tbody>
                 <template v-if="!tableContent.loading" v-for="(item, index) in tableContent.data">
+                  
                   <tr>
                     <td>{{index + 1}}</td>
                     <td>{{item.inTime}}</td>
@@ -94,6 +97,8 @@
                     <td>
                       <a v-if="item.haveExam" @click="toggleDetail('exam', index)" class="btn btn-primary btn-xs" :class="{active: (item.detail.type == 'exam'&&item.showingDetail)}">检查详情</a>
                       <a v-if="item.haveLab" @click="toggleDetail('lab', index)" class="btn btn-success btn-xs" :class="{active: (item.detail.type == 'lab'&&item.showingDetail)}">检验详情</a>
+                      <a class="btn btn-info btn-xs" href="/MIS/dataOutput?id=<%=num%>">检查导出</a>
+                      <a class="btn btn-info btn-xs" href="/MIS/dataOutput1?id=<%=num%>">检验导出</a>
                     </td>
                   </tr>
                   <tr>
@@ -168,7 +173,9 @@
                     </td>
                   </tr>
                   <tr></tr>
+                  <%num++; %>
                 </template>
+                <%num=0; %>
                 <tr v-if="tableContent.loading">
                   <td colspan="5" :class="{'loading': tableContent.loading}"></td>
                 </tr>

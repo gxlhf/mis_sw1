@@ -69,12 +69,11 @@ a:active {
                 <ul class="nav navbar-nav navbar-left">
                    
                     <li>
-                        <a href="index.html">数据显示</a>
-                    </li>
+		             <a href="index.html">多维查询</a>		             
+                   </li>
                     <li>
-                        <a href="#">统计处分析</a>
+                     <a href="analysis.jsp">统计分析</a>
                     </li>
-                    
                      <li class="dropdown active">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">知识库</a>
                         <ul class="dropdown-menu">

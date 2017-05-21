@@ -64,7 +64,10 @@ public class examRecord extends HttpServlet {
 				exa.put("diag", exam.getImpression());
 				data.put(exa);
 			}
+			request.getSession().setAttribute("examData", data);
 			jsonData.put("data", data);
+		//	System.out.println("检验项："+data.getJSONObject(0).getString("examNo"));
+			
 			response.getWriter().println(jsonData.toString());
 			
 		} catch (JSONException e) {
