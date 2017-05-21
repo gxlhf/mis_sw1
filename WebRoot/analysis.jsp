@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
   <meta charset="utf-8">
@@ -74,7 +75,7 @@
                   {{item.labValTo}}
                 </td>
                 <td>{{item.queryTime}}</td>
-                <td><a @click="jumpToResult(item.queryID)">详情</a></td>
+                <td><a @click="jumpToResult(item.queryID)">详情</td>
               </tr>
             </tbody>
           </table>
@@ -83,6 +84,6 @@
     </div>
   </div>
   <script src="js/vue.js"></script>
-  <script src="js/query_history.js"></script>
+  <script src="js/analysis.js"></script>
 </body>
 </html>

@@ -2,6 +2,7 @@
 <<<<<<<=HEAD
 >>>>>>>=ae748a5db60ae65873bd34d6859f2a8e1414f9c1
 eclipse.preferences.version=1
+encoding//WebRoot/analysis.jsp=UTF-8
 encoding//WebRoot/index.jsp=UTF-8
 encoding//WebRoot/json_test=UTF-8
 encoding//WebRoot/json_test/examList.json=UTF-8
@@ -15,9 +16,6 @@ encoding//WebRoot/json_test/queryHistoryResult.json=UTF-8
 encoding//WebRoot/json_test/queryResult.json=UTF-8
 encoding//WebRoot/json_test/subLabList.json=UTF-8
 encoding//src/dao/UserDao.java=UTF-8
-encoding//src/database/ConnectionPool.java=UTF-8
-encoding//src/database/DBConnection.java=UTF-8
-encoding//src/database/DBPoolTest.java=UTF-8
 encoding//src/dbpool.properties=UTF-8
 encoding//src/entity/User.java=UTF-8
 encoding//src/servlet/UserLogin.java=UTF-8

@@ -35,7 +35,10 @@ public class queryHistoryResult extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		String queryID = URLDecoder.decode(request.getParameter("queryID"), "UTF-8");
 		String content = new HistoryQuery().ReadFile(queryID);
-		response.getWriter().println(content);
+		request.getSession().setAttribute("anaysisdata",content);    //设置session
+		response.getWriter().println(content);		
+		System.out.println("queryhistoryresult："+content);         //打印content内容
+		
 	}
 
 	/**

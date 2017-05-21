@@ -25,19 +25,15 @@
             </div>
             <div class="collapse navbar-collapse" id="navbar-ex-collapse">
                 <ul class="nav navbar-nav navbar-left">
-                    <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">多维查询</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="quire.html">查询</a></li>
-                            <li><a href="quire_history.html">历史查询</a></li>
-                        </ul>
-                    </li>
+                    
                     <li>
-                        <a href="#">统计分析</a>
+                        <a href="index.html">多维查询</a>
                     </li>
+                    
                     <li>
-                        <a href="#">影像文本分析</a>
-                    </li>
+                       <a href="analysis.jsp">统计分析</a>
+                   </li>
+                    
                     <li>
                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">知识库</a>
                         <ul class="dropdown-menu">

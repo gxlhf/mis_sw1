@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
 	<link rel="shortcut icon" href="images/icon.png"></link>
@@ -79,6 +80,12 @@
             </tbody>
           </table>
         </div>
+        <!-- 添加按钮正态分析以及数据导出 -->
+        <div>
+            <a href="/MIS/normalAnalysis" target="_blank"><input type="button"  value="正态分析" style="width:100px;background:#C7EACD" onmouseover="this.style.background='#77DDFF'" onmouseout="this.style.background='#C7EACD'" title="进行正态分析"></a>
+            <a href="/MIS/dataProcess"><input type="button"  value="数据导出"  style="width:100px;background:#C7EACD;float:right" onmouseover="this.style.background='#77DDFF'" onmouseout="this.style.background='#C7EACD'" title="导出数据"></a>
+        </div>
+        <!-- 添加完毕 -->
         <div class="table-responsive">
           <table class="table table-bordered table-hover table-striped">
             <thead>
@@ -108,6 +115,6 @@
       </div>
     </div>
   </div>
-  <script src="js/query_history_result.js"></script>
+  <script src="js/analysis_history_result.js"></script>
 </body>
 </html>
