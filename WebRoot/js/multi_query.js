@@ -111,7 +111,8 @@ window.onload = function () {
           });
       },
       jumpToDetail: function (paID) {
-        window.location.href = "patient_detail.html?patient_id=" + paID;
+        // window.location.href = "patient_detail.html?patient_id=" + paID;
+        return "patient_detail.html?patient_id=" + paID;
       }
     }
   });
