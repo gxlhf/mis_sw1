@@ -41,7 +41,7 @@
     }
     </style>
   </head>
-  <body onload="selectOption('week')">
+  <body>
     <div class="navbar navbar-default navbar-static-top">
       <div class="container">
         <div class="navbar-header">
@@ -117,26 +117,33 @@
                   <div class="row">
                     <div class="col-md-4 center-block">
                       <div class="radio">
-                        <label onclick="selectOption('week')">
-                          <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">周变化
+                        <label onclick="selectRangeOption('week')">
+                          <input type="radio" name="rangeOptions" checked>周变化
                         </label>
                       </div>
                       <div class="radio">
-                        <label onclick="selectOption('month')">
-                          <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">月变化
+                        <label onclick="selectRangeOption('month')">
+                          <input type="radio" name="rangeOptions">月变化
                         </label>
                       </div>
                       <div class="radio">
-                        <label onclick="selectOption('year')">
-                          <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">年变化
+                        <label onclick="selectRangeOption('year')">
+                          <input type="radio" name="rangeOptions">年变化
+                        </label>
+                      </div>
+                      <div style="height: 20px;"></div>
+                      <div class="radio">
+                        <label onclick="selectChartOption('line')">
+                          <input type="radio" name="chartOptions" checked>折线图
+                        </label>
+                      </div>
+                      <div class="radio">
+                        <label onclick="selectChartOption('bar')">
+                          <input type="radio" name="chartOptions">柱状图
                         </label>
                       </div>
                     </div>
-                    <div class="col-md-8" id="chartPlaceHolder">
-
-
-
-                    
+                    <div class="col-md-8" id="chartPlaceHolder">                    
                       <!-- <img src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" class="img-responsive"> -->
 
                       <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
