@@ -94,6 +94,11 @@ window.onload = function(){
               break;
           }
         }
+      },
+      breakLine: function (content) {
+        if(content != undefined){
+          return content.replace(/\n/g, "<br>");
+        }
       }
     }
   });
