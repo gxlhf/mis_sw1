@@ -32,8 +32,7 @@ function date2string(date) {
   return y + "-" + m + "-" + d;
 };
 
-function selectOption(type){
-  mychart = echarts.init(document.getElementById('presentation'));
+function selectRangeOption(type){
   $("#chartPlaceHolder").addClass("loading");
   var date = new Date();
   var queryParm = {datefrom:"", dateto: ""};
@@ -52,6 +51,8 @@ function selectOption(type){
       break;
   }
 
+  option.series.data = option.series.data.slice(0, minusDate);
+
   date.setDateAfter(-minusDate + 1);
   queryParm.datefrom = date2string(date);
   option.xAxis.data = [];
@@ -60,13 +61,20 @@ function selectOption(type){
   }
 
   ajax_get("patientNumChange", option.series.data, queryParm, function () {
-    mychart.clear();
+    // mychart.clear();
     mychart.setOption(option);
     $("#chartPlaceHolder").removeClass("loading");
   });
 };
+
+function selectChartOption(type) {
+  option.series.type = type;
+  mychart.setOption(option);
+}
+
 window.onload = function () {
-  selectOption("week");
+  mychart = echarts.init(document.getElementById('presentation'));
+  selectRangeOption ("week");
   var count = {};
   ajax_get("queryCount", count, {}, function () {
     $("#patientNum").text(count.patientNum);

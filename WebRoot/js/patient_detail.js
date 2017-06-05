@@ -73,10 +73,10 @@ window.onload = function(){
       toggleDetail: function(type, index){
         var vueObj = this;
         var sucCbk = function(){
-        	vueObj.hideLoading(index);
+          vueObj.hideLoading(index);
         };
         var errCbk = function(){
-        	vueObj.hideDetail(index);
+          vueObj.hideDetail(index);
         };
         var curData = vueObj.tableContent.data[index];
         var queryParm = {"patient_id": patientID, "sequence": vueObj.tableContent.data[index].index};
@@ -93,6 +93,11 @@ window.onload = function(){
               ajax_get("labRecord", curData.detail, queryParm, sucCbk, errCbk);
               break;
           }
+        }
+      },
+      breakLine: function (content) {
+        if(content != undefined){
+          return content.replace(/\n/g, "<br>");
         }
       }
     }

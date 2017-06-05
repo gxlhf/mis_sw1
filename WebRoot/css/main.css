@@ -6,18 +6,18 @@
 .patient-detail:hover{background: #fff;}
 .patient-detail:active{background: #fff;}
 .patient-detail .form-group:first-child div{
-	padding-top: 7px;
-	padding-bottom: 7px;
+  padding-top: 7px;
+  padding-bottom: 7px;
 }
 .patient-detail .form-group:first-child div p{
-	margin-right: 50px;
-	display: inline;
+  margin-right: 50px;
+  display: inline;
 }
 .patient-detail .form-group:first-child div label{
-	font-weight: bold;
-	margin-bottom: 0px !important;
-	display: inline;
-	margin-right: 30px;
+  font-weight: bold;
+  margin-bottom: 0px !important;
+  display: inline;
+  margin-right: 30px;
 }
 .patient-detail .form-horizontal:not(:last-child):after{
   content: "";
@@ -26,7 +26,7 @@
   width: 90%;
   margin: auto;
   margin-bottom: 15px;
-	border-bottom: 1px solid #d4d4d4;
+  border-bottom: 1px solid #d4d4d4;
 }
 .patient-detail .lab-result{
   overflow: hidden;
@@ -36,12 +36,12 @@
   display: block;
   margin: auto;
 }
-#tb-inHospitalRecord tr:last-child td:last-child{
+/* #tb-inHospitalRecord tr:last-child td:last-child{
   background-color: white;
 }
 #tb-inHospitalRecord tr:last-child td:last-child :hover{
   background-color: white;
-}
+} */
 td.loading{
   background-image: url("../images/loading.gif") !important;
   background-repeat: no-repeat !important;

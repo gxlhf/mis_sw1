@@ -43,7 +43,7 @@ function ajax_get(url, dataToSet, dataToSend, successCbk, errorCbk) {
       }   
       console.log("ajaxErr");
       console.log(XMLHttpRequest, textStatus, errorThrown);
-      // alert("获取数据出错");
+      alert("获取数据出错");
     }
   })
 }
