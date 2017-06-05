@@ -73,10 +73,10 @@ window.onload = function(){
       toggleDetail: function(type, index){
         var vueObj = this;
         var sucCbk = function(){
-        	vueObj.hideLoading(index);
+          vueObj.hideLoading(index);
         };
         var errCbk = function(){
-        	vueObj.hideDetail(index);
+          vueObj.hideDetail(index);
         };
         var curData = vueObj.tableContent.data[index];
         var queryParm = {"patient_id": patientID, "sequence": vueObj.tableContent.data[index].index};
