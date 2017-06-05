@@ -10,7 +10,18 @@
         <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="css/dropzone.css">
-    </head>
+        <style type="text/css">
+    .navbar-brand {
+      padding-left: 40px;
+      padding-right: 20px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+    .navbar-brand>img {
+      height: 40px;
+    }
+    </style>
+  </head>
     <body>
     <div class="navbar navbar-default navbar-static-top">
         <div class="container">
@@ -21,7 +32,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><span>LOGO</span></a>
+                <a class="navbar-brand" href="index.html"><img src="images/icon.png"></a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-ex-collapse">
                 <ul class="nav navbar-nav navbar-left">

@@ -31,7 +31,7 @@ window.onload = function(){
       },
       showingAgeTilde: function (index) {
         var da = this.tableContent.data[index];
-        return da.ageFrom.length > 0 || da.ageTo.length > 0;
+        return typeof da.ageFrom == "number" || typeof da.ageTo == "number";
       },
       showingLabArrow: function (index) {
         var da = this.tableContent.data[index];

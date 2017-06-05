@@ -36,12 +36,12 @@
   display: block;
   margin: auto;
 }
-#tb-inHospitalRecord tr:last-child td:last-child{
+/* #tb-inHospitalRecord tr:last-child td:last-child{
   background-color: white;
 }
 #tb-inHospitalRecord tr:last-child td:last-child :hover{
   background-color: white;
-}
+} */
 td.loading{
   background-image: url("../images/loading.gif") !important;
   background-repeat: no-repeat !important;

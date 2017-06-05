@@ -1,1 +1,1 @@
-browser-sync start --server --files "css/*.css, *.html, */*.html, js/*.js"
+browser-sync start --proxy "www.hflee.cn/MIS" --files "css/*.css, *.html, js/*.js"

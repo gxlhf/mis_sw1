@@ -5,12 +5,23 @@
 	<link rel="shortcut icon" href="images/icon.png"></link>
   <meta charset="utf-8">
   <title>历史查询结果</title>
-  <script src="js/vue.js"></script>
+  <script src="js/vue.min.js"></script>
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <script src="js/jquery-3.1.1.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
 
-</head>
+    <style type="text/css">
+    .navbar-brand {
+      padding-left: 40px;
+      padding-right: 20px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+    .navbar-brand>img {
+      height: 40px;
+    }
+    </style>
+  </head>
 <body>
   <div class="navbar navbar-default navbar-static-top">
     <div class="container">
@@ -21,18 +32,18 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#"><span>LOGO</span></a>
+        <a class="navbar-brand" href="index.html"><img src="images/icon.png"></a>
       </div>
       <div class="collapse navbar-collapse" id="navbar-ex-collapse">
         <ul class="nav navbar-nav navbar-left">
-          <li class="dropdown active">
+          <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">多维查询</a>
             <ul class="dropdown-menu">
               <li><a href="multi_query.html">查询</a></li>
               <li><a href="query_history.html">历史查询</a></li>
             </ul>
           </li>
-          <li>
+          <li class="active">
               <a href="analysis.jsp">统计分析</a>
             </li>
           <li>
