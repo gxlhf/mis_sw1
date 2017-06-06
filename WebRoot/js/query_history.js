@@ -27,7 +27,7 @@ window.onload = function(){
     },
     methods: {
       jumpToResult: function (recordID) {
-        window.location.href = "query_history_result.html?queryID=" + recordID;
+        return "query_history_result.html?queryID=" + recordID;
       },
       showingAgeTilde: function (index) {
         var da = this.tableContent.data[index];
